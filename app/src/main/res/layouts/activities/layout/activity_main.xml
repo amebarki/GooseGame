@@ -1,30 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.activity.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.project.goosegame.view.activity.MainActivity">
+
     <data>
+
         <variable
-            name="mainvm"
-            type="com.project.goosegame.viewModel.MainViewModel"/>
+            name="mainViewModel"
+            type="com.project.goosegame.viewModel.MainViewModel" />
     </data>
 
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    <android.support.constraint.ConstraintLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-    <TextView
-        android:id="@+id/main_textView_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:text="@{mainvm.title}"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="42dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
 
+            <Button
+                android:id="@+id/buttonLaunchGame"
+                android:layout_width="@dimen/main_button_play"
+                android:layout_height="@dimen/main_button_play"
+                android:text="@string/play"
+                android:textSize="35dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@drawable/roundedbutton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/buttonSettings"
+                android:layout_width="@dimen/main_button_width"
+                android:layout_height="@dimen/main_button_height"
+                android:layout_margin="10dp"
+                android:background="@color/colorTransparent"
+                app:srcCompat="@drawable/ic_settings_white_48dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageButton
+                android:id="@+id/buttonLoadBD"
+                android:layout_width="@dimen/main_button_width"
+                android:layout_height="@dimen/main_button_height"
+                android:layout_margin="10dp"
+                android:background="@color/colorTransparent"
+                app:srcCompat="@drawable/ic_get_app_white_48dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/buttonSettings" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/imageSplashScreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+            <ImageView
+                android:layout_width="@dimen/splash_image"
+                android:layout_height="@dimen/splash_image"
+                android:background="@color/colorPrimaryDark"
+                android:src="@drawable/pion1"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
 </layout>
