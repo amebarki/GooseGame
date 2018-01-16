@@ -10,4 +10,6 @@
 
     /* Strings for file explorer*/
     <string name="file_explorer_text_empty">No files here.</string>
+    <string name="file_explorer_text">No files here.</string>
+
 </resources>

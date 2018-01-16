@@ -8,11 +8,11 @@
             name="mainvm"
             type="com.project.goosegame.viewModel.MainViewModel"/>
     </data>
+
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
 
     <TextView
         android:id="@+id/main_textView_title"
@@ -24,7 +24,6 @@
         android:text="@{mainvm.title}"
         tools:layout_editor_absoluteX="163dp"
         tools:layout_editor_absoluteY="42dp" />
-
 
 </android.support.constraint.ConstraintLayout>
 
