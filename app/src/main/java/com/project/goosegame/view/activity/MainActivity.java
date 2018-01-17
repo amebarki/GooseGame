@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ActionMenuView;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import com.project.goosegame.R;
 import com.project.goosegame.databinding.ActivityMainBinding;
 import com.project.goosegame.viewModel.MainViewModel;
+
 import java.io.File;
 
 import com.project.goosegame.R;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new MainViewModel(getApplicationContext());
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setMainViewModel(mainViewModel);
 
         constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
@@ -71,18 +73,9 @@ public class MainActivity extends AppCompatActivity {
         buttonLoadBD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GameOfGoose" + File.separator);
-                if (!filePath.exists()) {
-                    filePath.mkdir();
-                }
-
-                // Just example, you should parse file name for extension
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
-                startActivityForResult(intent, INTENT_FILE_CODE);
+                startActivityForResult(mainViewModel.openFileExplorer(), INTENT_FILE_CODE);
             }
         });
-
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -100,14 +93,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == INTENT_FILE_CODE) {
-            if (resultCode == RESULT_OK) {
-//                String filePath = null;
-//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-//                    filePath = FileUtils.getPath(this, data.getData());
-//                }
-//                File file = new File(filePath);
-//                CSVReader.parseCSV(file, this);
-            }
+            mainViewModel.parseFile(resultCode, data);
+
         }
     }
 }
