@@ -1,6 +1,8 @@
-package com.project.goosegame.model;
+package com.project.goosegame.utils;
 
 import android.util.Log;
+
+import com.project.goosegame.model.Question;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,12 +40,10 @@ public class CSVFileParser {
             // avoid the first line wich is the name of the columns
             String csvLine=reader.readLine();
             while ((csvLine = reader.readLine()) != null) {
+
                 String[] row = csvLine.split(";");
-                String[] falseAnswer = new String[3];
-                falseAnswer[0]=row[5];
-                falseAnswer[1]=row[6];
-                falseAnswer[2]=row[7];
-                Question question = new Question(Integer.parseInt(row[0]),row[1],Integer.parseInt(row[2]),row[3],row[4],falseAnswer,Integer.parseInt(row[8]));
+                Question question = new Question(Integer.parseInt(row[0]),row[1],Integer.parseInt(row[2]),row[3],row[4],
+                        row[5],row[6],row[7],Integer.parseInt(row[8]));
                 questionsList.add(question);
             }
         }

@@ -9,8 +9,10 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
-import com.project.goosegame.model.CSVFileParser;
+import com.project.goosegame.bdd.database.AppQuestionDatabase;
+import com.project.goosegame.utils.CSVFileParser;
 import com.project.goosegame.model.Question;
+import com.project.goosegame.utils.DatabaseInitializer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class MainViewModel extends BaseObservable {
     private Context context;
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
+
     public MainViewModel(Context context) {
         questionsList = new ArrayList<>();
         this.context = context;
@@ -44,7 +47,7 @@ public class MainViewModel extends BaseObservable {
         return  intent;
     }
 
-    public boolean parseFile(int resultCode,Intent data)
+    public boolean loadFile(int resultCode,Intent data)
     {
         if(resultCode == RESULT_OK)
         {
@@ -60,11 +63,13 @@ public class MainViewModel extends BaseObservable {
             if(fileExtension.compareTo("csv")==0)
             {
                 File f = new File(pathFolder.getAbsolutePath(),file.getName());
+                Log.d("TAGO",f.getAbsolutePath());
                 csvFileParser = new CSVFileParser(f);
                 questionsList.addAll(csvFileParser.read());
                 for (int i = 0; i < questionsList.size(); i++) {
                     Log.d("TAGO",questionsList.get(i).toString());
                 }
+                DatabaseInitializer.populateAsync(AppQuestionDatabase.getAppQuestionDatabase(context),1);
                 return true;
             }
         }
