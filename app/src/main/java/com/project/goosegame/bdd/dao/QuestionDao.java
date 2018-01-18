@@ -38,4 +38,5 @@ public interface QuestionDao {
     @Query("SELECT min(id_question), * FROM questions GROUP BY intitule_question ORDER BY id_question")
     List<Question> getDistinctAll();
 
+
 }

@@ -39,6 +39,14 @@ public class QuestionsDBManager {
         return false;
     }
 
+    public Boolean deleteQuestion(Question question)
+    {
+        int result = db.questionDao().deleteQuestion(question);
+        if(result !=0)
+            return true;
+        return false;
+    }
+
     public Boolean deleteListQuestions(List<Question> questions) {
         int resutlt = db.questionDao().deleteQuestions(questions);
         if (resutlt !=0)

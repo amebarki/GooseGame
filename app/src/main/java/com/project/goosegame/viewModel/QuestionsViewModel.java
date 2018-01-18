@@ -17,6 +17,7 @@ import com.project.goosegame.utils.async.AsyncResponse;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -30,15 +31,17 @@ public class QuestionsViewModel extends BaseObservable {
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
     public AsyncResponse response = null;
+    private QuestionsDBManager questionManager = null;
 
-
-    public QuestionsViewModel(Context context){
+    public QuestionsViewModel(Context context) {
         questionsList = new ArrayList<>();
         this.context = context;
+        questionManager = QuestionsDBManager.getInstance();
+        questionManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
     }
 
 
-    public Intent openFileExplorer(){
+    public Intent openFileExplorer() {
         File filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GameOfGoose" + File.separator);
         if (!filePath.exists()) {
             filePath.mkdir();
@@ -66,23 +69,66 @@ public class QuestionsViewModel extends BaseObservable {
                 csvFileParser = new CSVFileParser(f);
                 questionsList.addAll(csvFileParser.read());
                 // import list question from CSV to the database
-                QuestionsDBManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
-                new AsyncTask<Void, Void,Boolean>() {
+                new AsyncTask<Void, Void, Boolean>() {
                     @Override
                     protected Boolean doInBackground(Void... voids) {
-                        return QuestionsDBManager.getInstance().removeDuplicateQuestions(questionsList);
+                        return questionManager.removeDuplicateQuestions(questionsList);
                     }
+
                     @Override
                     protected void onPostExecute(Boolean result) {
                         super.onPostExecute(result);
-                        response.processFinish(result);
+                        response.processAddQuestionsFromCSV(result);
                     }
                 }.execute();
             }
         }
     }
 
+    public void displayQuestions() {
+        new AsyncTask<Void, Void,List<Question>>() {
+            @Override
+            protected List<Question> doInBackground(Void... voids) {
+                questionsList.clear();
+                questionsList.addAll(questionManager.getListQuestions());
+                return questionsList;
+            }
 
+            @Override
+            protected void onPostExecute(List<Question> result) {
+                super.onPostExecute(result);
+                response.processDisplayQuestions(result);
+            }
+        }.execute();
+    }
 
+    public void deleteQuestion(final Question question) {
+        new AsyncTask<Void, Void,Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                return questionManager.deleteQuestion(question);
+            }
 
+            @Override
+            protected void onPostExecute(Boolean result) {
+                super.onPostExecute(result);
+                response.processDeleteQuestion(result);
+            }
+        }.execute();
+    }
+
+    public void deleteQuestions() {
+        new AsyncTask<Void, Void,Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                return questionManager.deleteListQuestions(questionsList);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                super.onPostExecute(result);
+                response.processDeleteQuestions(result);
+            }
+        }.execute();
+    }
 }

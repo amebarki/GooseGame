@@ -5,9 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.project.goosegame.R;
+import com.project.goosegame.model.Question;
+import com.project.goosegame.utils.async.AsyncResponse;
 import com.project.goosegame.viewModel.QuestionsViewModel;
 
-public class QuestionActivity extends AppCompatActivity {
+import java.util.List;
+
+public class QuestionActivity extends AppCompatActivity implements AsyncResponse {
 
     private static final int INTENT_FILE_CODE = 10;
     private QuestionsViewModel questionsViewModel;
@@ -35,5 +39,29 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
 
+    // return boolean true, questions were added to the database, false error occurs while parsing
+    @Override
+    public void processAddQuestionsFromCSV(Boolean result) {
 
+    }
+
+    // return list of questions to display, see if we need adapter in the view model or in the activity
+    @Override
+    public void processDisplayQuestions(List<Question> questions) {
+
+    }
+
+
+    // return boolean true if rows were deleted, false if not
+    @Override
+    public void processDeleteQuestions(Boolean result) {
+
+    }
+
+    // return true if row was deleted, false if not
+    @Override
+    public void processDeleteQuestion(Boolean result) {
+
+
+    }
 }

@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface AsyncResponse {
 
-    void processFinish(Boolean result);
-    void processFinish(List<Question> questions);
-    void processFinishString(List<String> questions);
+    void processAddQuestionsFromCSV(Boolean result);
+    void processDisplayQuestions(List<Question> questions);
+    void processDeleteQuestions(Boolean result);
+    void processDeleteQuestion(Boolean result);
 }
