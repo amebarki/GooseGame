@@ -13,9 +13,9 @@ import java.util.List;
  * Created by Adam on 17/01/2018.
  */
 
-public class DatabaseInitializer {
+public class DatabaseManager {
 
-    private static final String TAG = DatabaseInitializer.class.getName();
+    private static final String TAG = DatabaseManager.class.getName();
 
 
     public static void populateAsync(@NonNull final AppQuestionDatabase db,int choice) {
@@ -26,8 +26,7 @@ public class DatabaseInitializer {
     private static Question addQuestion(final AppQuestionDatabase db, Question question) {
         db.questionDao().insertQuestion(question);
         List<Question> list = db.questionDao().getAll();
-        Log.d(DatabaseInitializer.TAG, "Rows Count: " + list.size());
-
+        Log.d(DatabaseManager.TAG, "Rows Count: " + list.size());
         return question;
     }
     private void test(){}

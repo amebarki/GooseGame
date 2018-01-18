@@ -2,6 +2,7 @@ package com.project.goosegame.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Arrays;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 @Entity(tableName = "questions")
 public class Question {
     @ColumnInfo(name = "id_question")
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     private int idQuestion;
     @ColumnInfo(name = "type_question")
     private String type;
@@ -31,9 +32,7 @@ public class Question {
     @ColumnInfo(name = "is_image")
     private int isImage;
 
-    public Question(int idQuestion,String type, int level, String title, String correctAnswer, String falseAnswerOne,String falseAnswerTwo,String falseAnswerThree,int isImage) {
-
-        this.idQuestion = idQuestion;
+    public Question(String type, int level, String title, String correctAnswer, String falseAnswerOne,String falseAnswerTwo,String falseAnswerThree,int isImage) {
         this.title = title;
         this.type = type;
         this.level = level;

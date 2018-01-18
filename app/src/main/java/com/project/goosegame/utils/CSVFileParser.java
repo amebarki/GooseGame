@@ -42,7 +42,7 @@ public class CSVFileParser {
             while ((csvLine = reader.readLine()) != null) {
 
                 String[] row = csvLine.split(";");
-                Question question = new Question(Integer.parseInt(row[0]),row[1],Integer.parseInt(row[2]),row[3],row[4],
+                Question question = new Question(row[1],Integer.parseInt(row[2]),row[3],row[4],
                         row[5],row[6],row[7],Integer.parseInt(row[8]));
                 questionsList.add(question);
             }
