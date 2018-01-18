@@ -25,6 +25,7 @@ private ParametersViewModel parametersViewModel;
         parametersViewModel.getQuestionTypes();
         parametersViewModel.response = this;
 
+
     }
 
     @Override
