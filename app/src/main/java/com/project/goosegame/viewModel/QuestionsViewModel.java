@@ -13,7 +13,7 @@ import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.QuestionsDBManager;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.CSVFileParser;
-import com.project.goosegame.utils.async.AsyncResponse;
+import com.project.goosegame.utils.async.AsyncQuestions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class QuestionsViewModel extends BaseObservable {
     private Context context;
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
-    public AsyncResponse response = null;
+    public AsyncQuestions response = null;
     private QuestionsDBManager questionManager = null;
 
     public QuestionsViewModel(Context context) {

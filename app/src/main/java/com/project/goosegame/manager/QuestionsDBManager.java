@@ -79,4 +79,9 @@ public class QuestionsDBManager {
 
     }
 
+    public List<String> getQuestionTypes()
+    {
+        return db.questionDao().getQuestionTypes();
+    }
+
 }

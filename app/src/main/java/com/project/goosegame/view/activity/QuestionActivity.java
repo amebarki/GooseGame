@@ -6,12 +6,12 @@ import android.os.Bundle;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.async.AsyncResponse;
+import com.project.goosegame.utils.async.AsyncQuestions;
 import com.project.goosegame.viewModel.QuestionsViewModel;
 
 import java.util.List;
 
-public class QuestionActivity extends AppCompatActivity implements AsyncResponse {
+public class QuestionActivity extends AppCompatActivity implements AsyncQuestions {
 
     private static final int INTENT_FILE_CODE = 10;
     private QuestionsViewModel questionsViewModel;
@@ -21,6 +21,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         questionsViewModel = new QuestionsViewModel(getApplicationContext());
+        questionsViewModel.response = this; // TODO: 18/01/2018 modify with getter or setter 
         // TODO: 18/01/2018 binding viewModel
     }
 
@@ -30,6 +31,10 @@ public class QuestionActivity extends AppCompatActivity implements AsyncResponse
      startActivityForResult(mainViewModel.openFileExplorer(), INTENT_FILE_CODE);
       */
 
+
+    // TODO: 18/01/2018 Button or interaction to call function of the QuestionViewModel 
+    // TODO: 18/01/2018 the result of this calling will be return in the function behind onActivityResult 
+    
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
