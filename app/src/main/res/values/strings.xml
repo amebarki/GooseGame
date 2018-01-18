@@ -1,8 +1,4 @@
 <resources>
-    <string name="app_name">GooseGame</string>
-    /*  Strings for Menu Activity */
-    <string name="menu_button_play">Play Game</string>
-    <string name="menu_button_options">Options</string>
+    <string name="app_name">Jeu de l'oie</string>
 
-    <string name="play">Jouer</string>
 </resources>

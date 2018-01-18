@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
         constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
 
-        buttonLaunchGame = findViewById(R.id.buttonLaunchGame);
+        buttonLaunchGame = findViewById(R.id.buttonPlay);
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO Change activity
-                Intent i = new Intent(MainActivity.this, MainActivity.class);
+                Intent i = new Intent(MainActivity.this, ParametersActivity.class);
                 startActivity(i);
             }
         });
