@@ -25,10 +25,11 @@ private List<String> gameTypeList;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parameters);
-
         parametersViewModel = new ParametersViewModel(getApplicationContext());
         parametersViewModel.initQuestionTypeList();
+        parametersViewModel.response = this;
     }
+
 
     @Override
     public void processDisplayQuestionTypeList(List<String> types) {

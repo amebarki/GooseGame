@@ -3,17 +3,21 @@ package com.project.goosegame.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.project.goosegame.R;
+import com.project.goosegame.bdd.database.AppQuestionDatabase;
+import com.project.goosegame.manager.QuestionsDBManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +78,18 @@ public class MainActivity extends AppCompatActivity{
                 constraintLayoutSplashScreen.setVisibility(View.GONE);
             }
         }, 2000);
+
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                QuestionsDBManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(getApplicationContext()));
+                return QuestionsDBManager.getInstance().createQuestions();
+            }
+            @Override
+            protected void onPostExecute(Boolean result) {
+                super.onPostExecute(result);
+            }
+        }.execute();
 
     }
 

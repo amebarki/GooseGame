@@ -23,8 +23,8 @@ public class ParametersViewModel extends BaseObservable {
     public ParametersViewModel(Context context) {
         this.context = context;
         questionsManager = QuestionsDBManager.getInstance();
-        questionsManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context))
-        ;
+        questionsManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
+
     }
 
 
