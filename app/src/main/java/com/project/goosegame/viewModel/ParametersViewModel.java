@@ -8,7 +8,6 @@ import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.QuestionsDBManager;
 import com.project.goosegame.utils.async.AsyncParameters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,24 +23,24 @@ public class ParametersViewModel extends BaseObservable {
     public ParametersViewModel(Context context) {
         this.context = context;
         questionsManager = QuestionsDBManager.getInstance();
-        questionsManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context))
-        ;
+        questionsManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
+
     }
 
 
 
-    public void getQuestionTypes()
+    public void initQuestionTypeList()
     {
         new AsyncTask<Void, Void,List<String>>() {
             @Override
             protected List<String> doInBackground(Void... voids) {
-                return questionsManager.getQuestionTypes();
+                return questionsManager.initQuestionTypeList();
             }
 
             @Override
             protected void onPostExecute(List<String> types) {
                 super.onPostExecute(types);
-                response.processDisplayQuestionTypes(types);
+                response.processDisplayQuestionTypeList(types);
             }
         }.execute();
     }

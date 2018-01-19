@@ -3,10 +3,12 @@ package com.project.goosegame.manager;
 import android.arch.persistence.room.Room;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.model.Question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,17 +41,16 @@ public class QuestionsDBManager {
         return false;
     }
 
-    public Boolean deleteQuestion(Question question)
-    {
+    public Boolean deleteQuestion(Question question) {
         int result = db.questionDao().deleteQuestion(question);
-        if(result !=0)
+        if (result != 0)
             return true;
         return false;
     }
 
     public Boolean deleteListQuestions(List<Question> questions) {
         int resutlt = db.questionDao().deleteQuestions(questions);
-        if (resutlt !=0)
+        if (resutlt != 0)
             return true;
         return false;
     }
@@ -58,19 +59,18 @@ public class QuestionsDBManager {
         return db.questionDao().getAll();
     }
 
-   public List<Question> getDistinctQuestions(){
+    public List<Question> getDistinctQuestions() {
         return db.questionDao().getDistinctAll();
-   }
+    }
 
-   // recup everything from the database and distinct row
-    public boolean removeDuplicateQuestions(List<Question> questions)
-    {
+    // recup everything from the database and distinct row
+    public boolean removeDuplicateQuestions(List<Question> questions) {
         // insert new List of questions correct -> extract all questions distinct
-        if (this.addListQuestions(questions)){
+        if (this.addListQuestions(questions)) {
             List<Question> listDistinct = this.getDistinctQuestions();
             // delete all rows from table  successful, insert new list distinct
-            if(this.deleteListQuestions(getListQuestions())){
-                if(this.addListQuestions(listDistinct)){
+            if (this.deleteListQuestions(getListQuestions())) {
+                if (this.addListQuestions(listDistinct)) {
                     return true;
                 }
             }
@@ -79,9 +79,28 @@ public class QuestionsDBManager {
 
     }
 
-    public List<String> getQuestionTypes()
-    {
+    public List<String> initQuestionTypeList() {
         return db.questionDao().getQuestionTypes();
     }
 
+
+    public boolean createQuestions() {
+        ArrayList<Question> baseQuestions = new ArrayList<>();
+        Question q1 = new Question("grammaire", 1, "titi", "tic", "tac", "tuc", "toc", 0);
+        Question q2 = new Question("conjugaison", 2, "roro", "roc", "rac", "ruc", "ric", 0);
+        Question q3 = new Question("synonyme", 3, "baba", "bac", "buc", "boc", "bic", 0);
+        Question q4 = new Question("vocabulaire", 4, "lulu", "luc", "lac", "lic", "loc", 0);
+        baseQuestions.add(q1);
+        baseQuestions.add(q2);
+        baseQuestions.add(q3);
+        baseQuestions.add(q4);
+        List<Question> empty = db.questionDao().getAll();
+        if (empty.size() == 0) {
+            List<Long> result = db.questionDao().insertListQuestions(baseQuestions);
+            if (result != null)
+                return true;
+        }
+        // no insertion because database not empty
+        return false;
+    }
 }

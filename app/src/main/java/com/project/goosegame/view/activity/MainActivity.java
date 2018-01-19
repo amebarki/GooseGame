@@ -3,26 +3,28 @@ package com.project.goosegame.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.project.goosegame.R;
+import com.project.goosegame.bdd.database.AppQuestionDatabase;
+import com.project.goosegame.manager.QuestionsDBManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by Adam on 15/01/2018.
  */
-
 
 public class MainActivity extends AppCompatActivity{
 
@@ -38,16 +40,16 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         checkPermissions();
 
         constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
 
-        buttonLaunchGame = findViewById(R.id.buttonLaunchGame);
+        buttonLaunchGame = findViewById(R.id.buttonPlay);
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Change activity
-                Intent i = new Intent(MainActivity.this, MainActivity.class);
+                Intent i = new Intent(MainActivity.this, ParametersActivity.class);
                 startActivity(i);
             }
         });
@@ -77,15 +79,19 @@ public class MainActivity extends AppCompatActivity{
             }
         }, 2000);
 
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                QuestionsDBManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(getApplicationContext()));
+                return QuestionsDBManager.getInstance().createQuestions();
+            }
+            @Override
+            protected void onPostExecute(Boolean result) {
+                super.onPostExecute(result);
+            }
+        }.execute();
+
     }
-
-  /*  @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == INTENT_FILE_CODE) {
-            mainViewModel.loadFile(resultCode, data);
-        }
-    }*/
-
 
     private boolean checkPermissions() {
         int result;

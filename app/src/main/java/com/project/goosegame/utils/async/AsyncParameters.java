@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AsyncParameters {
 
-    void processDisplayQuestionTypes(List<String> types);
+    void processDisplayQuestionTypeList(List<String> types);
 }
