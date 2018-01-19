@@ -1,4 +1,29 @@
 <resources>
     <string name="app_name">Jeu de l'oie</string>
 
+    /*  Strings for MainActivity */
+    <string name="main_button_play">Jouer</string>
+
+    /* Strings for ParametersActivity */
+    <string name="param_lib_player_number">Nombre de joueurs</string>
+    <string name="param_radio_button_player_number_1">1</string>
+    <string name="param_radio_button_player_number_2">2</string>
+    <string name="param_radio_button_player_number_3">3</string>
+    <string name="param_radio_button_player_number_4">4</string>
+
+    <string name="param_lib_difficulty">Difficulté</string>
+    <string name="param_radio_button_difficulty_1">CP</string>
+    <string name="param_radio_button_difficulty_2">CE1</string>
+    <string name="param_radio_button_difficulty_3">CE2</string>
+    <string name="param_radio_button_difficulty_4">CM1</string>
+    <string name="param_radio_button_difficulty_5">CM2</string>
+
+    <string name="param_lib_game_time">Durée de la partie (Minutes)</string>
+    <string name="param_radio_button_game_time_1">10</string>
+    <string name="param_radio_button_game_time_2">20</string>
+    <string name="param_radio_button_game_time_3">30</string>
+
+    <string name="param_lib_game_type">Type de partie</string>
+
+    <string name="param_button_launch_game">Lancer la partie</string>
 </resources>
