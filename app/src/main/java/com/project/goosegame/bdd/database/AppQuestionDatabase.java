@@ -14,7 +14,7 @@ import com.project.goosegame.bdd.dao.QuestionDao;
 /**
  * Created by Adam on 17/01/2018.
  */
-@Database(entities = {Question.class}, version = 1)
+@Database(entities = {Question.class}, version = 2)
 public abstract class AppQuestionDatabase extends RoomDatabase {
     private static AppQuestionDatabase instance;
 
