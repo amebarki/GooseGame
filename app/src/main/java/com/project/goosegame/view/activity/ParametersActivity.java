@@ -43,4 +43,7 @@ private List<String> gameTypeList;
             gameTypePicker.setDisplayedValues(gameTypeList.toArray(new String[0]));
         }
     }
+
+    // TODO: 19/01/2018 Create Button to launch the playersActivity and call the function to initGooseGame of parametersViewModel 
+    
 }
