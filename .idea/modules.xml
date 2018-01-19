@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GooseGame.iml" filepath="$PROJECT_DIR$/GooseGame.iml" />
+      <module fileurl="file://D:\Android-Projet\GooseProject\GooseGame.iml" filepath="D:\Android-Projet\GooseProject\GooseGame.iml" />
       <module fileurl="file://$PROJECT_DIR$/GooseProject.iml" filepath="$PROJECT_DIR$/GooseProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

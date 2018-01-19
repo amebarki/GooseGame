@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.project.goosegame.view.activity.ParametersActivity"
+    android:background="@color/colorPrimary" >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/global_margin">
+
+        <TextView
+            android:id="@+id/param_lib_player_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/param_lib_player_number"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/param_text_category"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="30dp"/>
+
+        <RadioGroup
+            android:id="@+id/param_radio_player_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/param_lib_player_number"
+            app:layout_constraintEnd_toStartOf="@id/param_lib_player_number"
+            app:layout_constraintTop_toBottomOf="@id/param_lib_player_number">
+
+            <RadioButton
+                android:id="@+id/param_radio_button_player_number_1"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:checked="true"
+                android:text="@string/param_radio_button_player_number_1"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp"/>
+
+            <RadioButton
+                android:id="@+id/param_radio_button_player_number_2"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_player_number_2"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+            <RadioButton
+                android:id="@+id/param_radio_button_player_number_3"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_player_number_3"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+            <RadioButton
+                android:id="@+id/param_radio_button_player_number_4"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_player_number_4"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/param_lib_difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/param_lib_difficulty"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/param_text_category"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/param_radio_player_number"
+            app:layout_constraintStart_toStartOf="@id/param_lib_player_number"
+            app:layout_constraintEnd_toEndOf="@id/param_lib_player_number"
+            android:layout_marginTop="40dp" />
+
+        <RadioGroup
+            android:id="@+id/param_radio_difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/param_lib_difficulty"
+            app:layout_constraintEnd_toStartOf="@id/param_lib_difficulty"
+            app:layout_constraintTop_toBottomOf="@id/param_lib_difficulty">
+
+            <RadioButton
+                android:id="@+id/param_radio_button_difficulty_1"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:checked="true"
+                android:text="@string/param_radio_button_difficulty_1"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp"/>
+
+            <RadioButton
+                android:id="@+id/param_radio_button_difficulty_2"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_difficulty_2"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+            <RadioButton
+                android:id="@+id/param_radio_button_difficulty_3"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_difficulty_3"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+            <RadioButton
+                android:id="@+id/param_radio_button_difficulty_4"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_difficulty_4"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+            <RadioButton
+                android:id="@+id/param_radio_button_difficulty_5"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_difficulty_5"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/param_lib_game_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/param_lib_game_time"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/param_text_category"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/param_radio_difficulty"
+            app:layout_constraintStart_toStartOf="@id/param_lib_player_number"
+            app:layout_constraintEnd_toEndOf="@id/param_lib_player_number"
+            android:layout_marginTop="40dp" />
+
+        <RadioGroup
+            android:id="@+id/param_radio_game_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/param_lib_game_time"
+            app:layout_constraintEnd_toStartOf="@id/param_lib_game_time"
+            app:layout_constraintTop_toBottomOf="@id/param_lib_game_time">
+
+            <RadioButton
+                android:id="@+id/param_radio_button_game_time_1"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:checked="true"
+                android:text="@string/param_radio_button_game_time_1"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp"/>
+
+            <RadioButton
+                android:id="@+id/param_radio_button_game_time_2"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_game_time_2"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+            <RadioButton
+                android:id="@+id/param_radio_button_game_time_3"
+                android:layout_width="@dimen/param_radio_button"
+                android:layout_height="@dimen/param_radio_button"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_custom_radio_button"
+                android:button="@null"
+                android:text="@string/param_radio_button_game_time_3"
+                android:textSize="@dimen/param_text_radio_button"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@drawable/color_custom_radio_button"
+                android:layout_margin="10dp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/param_lib_game_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/param_lib_game_type"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/param_text_category"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="100dp"
+            android:layout_marginTop="30dp"/>
+
+        <NumberPicker
+            android:id="@+id/param_picker_game_type"
+            style="@style/MyNumberPickerTheme"
+            android:layout_width="@dimen/param_button_launch_game"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:solidColor="@color/colorPrimary"
+            app:layout_constraintEnd_toStartOf="@id/param_lib_game_type"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toEndOf="@id/param_lib_game_type"
+            app:layout_constraintTop_toBottomOf="@id/param_lib_game_type" />
+
+        <Button
+            android:id="@+id/param_button_launch_game"
+            android:layout_width="@dimen/param_button_launch_game"
+            android:layout_height="@dimen/param_button_launch_game"
+            android:text="@string/param_button_launch_game"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorSecondary"
+            android:background="@drawable/rounded_radio_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="80dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>
