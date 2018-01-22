@@ -59,6 +59,7 @@ private GameViewModel gameViewModel;
     public void processShowResultQuestion(String result, boolean isCorrect) {
         // TODO: 22/01/2018 display the result of the verification of the question
         // TODO: 22/01/2018 create OnClick listener button to validate the move send isCorrect boolean has parameters
+        gameViewModel.validateMove(isCorrect);
     }
 
     @Override

@@ -189,28 +189,72 @@ public class GameViewModel extends BaseObservable {
             }
         }.start();
 
-        // move to next case after the player answer right
-        new CountDownTimer(2000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                moveToNextCase(finalNbCaseToMove);
-            }
-        }.start();
-
-        //
-
-
     }
 
     public void moveToNextCase(int caseToMove) {
+        int durationAnimation = 2000;
+        float xTranslation = 0.0f;
+        float yTranslation = 0.0f;
+        int numberOfCasesToPass = 0;
+        int numberCase = gameManager.getGooseModel().getNumberCase();
+        if (gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase() + caseToMove >= numberCase) {
+            numberOfCasesToPass = numberCase - gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase() - 1;
+        }
+        switch (gameManager.getGooseModel().getCurrentPlayer()) {
+            case 0:
 
+                response.processAnimatePiece(numberOfCasesToPass,0);
+                break;
+            case 1:
+                response.processAnimatePiece(numberOfCasesToPass,1);
+                break;
+            case 2:
+                response.processAnimatePiece(numberOfCasesToPass,2);
+                break;
+            case 3:
+                response.processAnimatePiece(numberOfCasesToPass,3);
+                break;
+            default:
+                break;
+
+        }
+
+        for (int i = 0; i < nb; i++) {
+
+            if (currentPlayer == 0) {
+                sets.getListPlayer().get(0).setCurrentCase(sets.getListPlayer().get(0).getCurrentCase() + 1);
+                pion1.bringToFront();
+                pion1.animate().translationX(listCase.get(sets.getListPlayer().get(0).getCurrentCase()).getX() - 20).setDuration(2000);
+                pion1.animate().translationY(listCase.get(sets.getListPlayer().get(0).getCurrentCase()).getY()).setDuration(2000);
+            }
+
+            if (currentPlayer == 1) {
+                sets.getListPlayer().get(1).setCurrentCase(sets.getListPlayer().get(1).getCurrentCase() + 1);
+                pion2.bringToFront();
+                pion2.animate().translationX(listCase.get(sets.getListPlayer().get(1).getCurrentCase()).getX() + 40).setDuration(2000);
+                pion2.animate().translationY(listCase.get(sets.getListPlayer().get(1).getCurrentCase()).getY() - 40).setDuration(2000);
+            }
+
+            if (currentPlayer == 2) {
+                sets.getListPlayer().get(2).setCurrentCase(sets.getListPlayer().get(2).getCurrentCase() + 1);
+                pion3.bringToFront();
+                pion3.animate().translationX(listCase.get(sets.getListPlayer().get(2).getCurrentCase()).getX() + 100).setDuration(2000);
+                pion3.animate().translationY(listCase.get(sets.getListPlayer().get(2).getCurrentCase()).getY() - 40).setDuration(2000);
+            }
+
+            if (currentPlayer == 3) {
+                sets.getListPlayer().get(3).setCurrentCase(sets.getListPlayer().get(3).getCurrentCase() + 1);
+                pion4.bringToFront();
+                pion4.animate().translationX(listCase.get(sets.getListPlayer().get(3).getCurrentCase()).getX() + 160).setDuration(2000);
+                pion4.animate().translationY(listCase.get(sets.getListPlayer().get(3).getCurrentCase()).getY() - 40).setDuration(2000);
+            }
+        }
+        sets.getListPlayer().get(currentPlayer).setCaseMoved(nb);
     }
 
     public void moveToPreviousCase(int caseToMove) {
+
+
     }
 
     // get the number of case to move if player answer correctly to the question
@@ -232,8 +276,8 @@ public class GameViewModel extends BaseObservable {
                 tvTrouver4Type.setText("Trouver le contraire de ");
                 tvTrouver4Question.setVisibility(View.VISIBLE);
                 tvTrouver4Question.setText(q.getIntituleQuestion());*/
-                       gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(caseToMove);
-                    response.processShowQuestion(q,positionResponse);
+                    gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(caseToMove);
+                    response.processShowQuestion(q, positionResponse);
                 } else if (typeCase == 5) {
                     //layoutBonusMalus.setVisibility(View.VISIBLE);
                     int nbCaseRandom = 0;
@@ -275,7 +319,7 @@ public class GameViewModel extends BaseObservable {
 
                     // AlertDialog
                 } else {
-                    response.processShowDialog( "Pas de questions !! ","Chargerr base de questions");
+                    response.processShowDialog("Pas de questions !! ", "Chargerr base de questions");
                 }
             }
         }.start();
@@ -303,28 +347,27 @@ public class GameViewModel extends BaseObservable {
             gameManager.getGooseModel().setCurrentPlayer(0);
         } else {
             //currentPlayer = currentPlayer + 1;
-            gameManager.getGooseModel().setCurrentPlayer(currentPlayer+1);
+            gameManager.getGooseModel().setCurrentPlayer(currentPlayer + 1);
+
         }
         //nouveauTour();
         newTurn();
     }
 
-    public void verifyAnswer(String answer,Question q)
-    {
+    public void verifyAnswer(String answer, Question q) {
         //layoutResultat.setVisibility(View.VISIBLE);
         final boolean isCorrect = (answer.toLowerCase().equals(q.getCorrectAnswer().toLowerCase()));
-        if(isCorrect) {
+        if (isCorrect) {
             //tvResultat.setText("Bravo tu as bien répondu !!");
             //sets.getListPlayer().get(currentPlayer).setScore(sets.getListPlayer().get(currentPlayer).getScore()+1);
-            gameManager.getGooseModel().getCurrentPlayerObject().setScore(gameManager.getGooseModel().getCurrentPlayerObject().getScore()+1);
-            response.processShowResultQuestion("Bravo tu as bien répondu !!",isCorrect);
+            gameManager.getGooseModel().getCurrentPlayerObject().setScore(gameManager.getGooseModel().getCurrentPlayerObject().getScore() + 1);
+            response.processShowResultQuestion("Bravo tu as bien répondu !!", isCorrect);
 
         } else {
             //tvResultat.setText("Dommage tu as répondu faux, retourne sur la case où tu étais...");
-            response.processShowResultQuestion("Dommage, mauvaise réponse, pas de déplacement.",isCorrect);
+            response.processShowResultQuestion("Dommage, mauvaise réponse, pas de déplacement.", isCorrect);
 
         }
-
        /* bResultatContinuer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -340,14 +383,20 @@ public class GameViewModel extends BaseObservable {
         });*/
     }
 
-    public void validateMove(boolean isCorrect)
-    {
-        if(isCorrect)
-        {
-            moveToPreviousCase(gameManager.getGooseModel().getCurrentPlayerObject().getNbCaseToMove());
-            endOfTurn();
-        }else
-        {
+    public void validateMove(boolean isCorrect) {
+        if (isCorrect) {
+            new CountDownTimer(2000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
+
+                @Override
+                public void onFinish() {
+                    moveToNextCase(gameManager.getGooseModel().getCurrentPlayerObject().getNbCaseToMove());
+                    endOfTurn();
+                }
+            }.start();
+        } else {
             endOfTurn();
         }
     }

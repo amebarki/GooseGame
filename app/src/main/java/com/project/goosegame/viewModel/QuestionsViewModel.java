@@ -132,3 +132,4 @@ public class QuestionsViewModel extends BaseObservable {
         }.execute();
     }
 }
+// TODO: 22/01/2018 rajouter les questions de bases après la suppression 

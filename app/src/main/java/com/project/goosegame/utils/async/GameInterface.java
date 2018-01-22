@@ -22,7 +22,6 @@ public interface GameInterface {
 
     void processLaunchBonusMalus(int visibility,String resultTitle,String result);
 
-
     void processDisplayDicePlayer(int visibility, String namePlayer);
 
     void processDisplayResultDice(int visibility, String resultDice);
@@ -30,5 +29,7 @@ public interface GameInterface {
     void processDisplayEnd(int visibility, String endText,boolean isOver);
 
     void processShowDialog(String title,String text);
+
+    void processAnimatePiece(int numberOfCaseToPass,int currentPlayer);
 
 }
