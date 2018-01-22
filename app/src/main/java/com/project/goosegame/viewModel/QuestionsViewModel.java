@@ -85,6 +85,23 @@ public class QuestionsViewModel extends BaseObservable {
         }
     }
 
+    public void importBaseQuestions() {
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+
+                return questionManager.createQuestions();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                super.onPostExecute(aBoolean);
+
+                response.processCallBaseQuestions(aBoolean);
+            }
+        }.execute();
+    }
+
     public void displayQuestions() {
         new AsyncTask<Void, Void,List<Question>>() {
             @Override

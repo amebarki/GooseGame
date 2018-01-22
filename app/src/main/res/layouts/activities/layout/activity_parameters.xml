@@ -271,30 +271,28 @@
         <NumberPicker
             android:id="@+id/param_picker_game_type"
             style="@style/MyNumberPickerTheme"
-            android:layout_width="@dimen/param_button_launch_game"
+            android:layout_width="@dimen/param_button_continue"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:solidColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/param_lib_game_type"
-            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toEndOf="@id/param_lib_game_type"
             app:layout_constraintTop_toBottomOf="@id/param_lib_game_type" />
 
         <Button
-            android:id="@+id/param_button_launch_game"
-            android:layout_width="@dimen/param_button_launch_game"
-            android:layout_height="@dimen/param_button_launch_game"
-            android:text="@string/param_button_launch_game"
+            android:id="@+id/param_button_continue"
+            android:layout_width="@dimen/param_button_continue"
+            android:layout_height="@dimen/param_button_continue"
+            android:text="@string/param_button_continue"
             android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/colorSecondary"
-            android:background="@drawable/rounded_radio_button"
+            android:background="@drawable/rectangle_button_color_select"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="80dp"/>
 
     </android.support.constraint.ConstraintLayout>
-
 
 </android.support.constraint.ConstraintLayout>

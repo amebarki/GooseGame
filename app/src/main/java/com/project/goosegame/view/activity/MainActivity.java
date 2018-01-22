@@ -10,10 +10,11 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity{
 
         constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
 
-        buttonLaunchGame = findViewById(R.id.buttonPlay);
+        buttonLaunchGame = findViewById(R.id.main_button_play);
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        buttonSettings = findViewById(R.id.buttonSettings);
+        buttonSettings = findViewById(R.id.main_button_settings);
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,11 +65,12 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        buttonLoadBD = findViewById(R.id.buttonLoadBD);
+        buttonLoadBD = findViewById(R.id.main_button_question);
         buttonLoadBD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // startActivityForResult(mainViewModel.openFileExplorer(), INTENT_FILE_CODE);
+                Intent i = new Intent(MainActivity.this, QuestionActivity.class);
+                startActivity(i);
             }
         });
 
@@ -119,5 +121,4 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
     }
-
 }

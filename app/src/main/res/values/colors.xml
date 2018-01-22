@@ -4,4 +4,6 @@
     <color name="colorSecondary">#ff7000</color>
     <color name="colorSelect">#ffffff</color>
     <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorFalse">#AA0000</color>
+    <color name="colorTrue">#00AA00</color>
 </resources>
