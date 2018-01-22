@@ -1,10 +1,5 @@
 package com.project.goosegame.manager;
 
-import android.arch.persistence.room.Room;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.model.Question;
 
@@ -15,15 +10,15 @@ import java.util.List;
  * Created by Adam on 18/01/2018.
  */
 
-public class QuestionsDBManager {
+public class QuestionManager {
 
-    private static QuestionsDBManager instance = null;
+    private static QuestionManager instance = null;
     private AppQuestionDatabase db;
     public static final String TAG = "DATABASE";
 
-    public static QuestionsDBManager getInstance() {
+    public static QuestionManager getInstance() {
         if (instance == null) {
-            instance = new QuestionsDBManager();
+            instance = new QuestionManager();
         }
         return instance;
     }
@@ -83,7 +78,6 @@ public class QuestionsDBManager {
         return db.questionDao().getQuestionTypes();
     }
 
-
     public boolean createQuestions() {
         ArrayList<Question> baseQuestions = new ArrayList<>();
         Question q1 = new Question("grammaire", 1, "titi", "tic", "tac", "tuc", "toc", 0);
@@ -103,4 +97,13 @@ public class QuestionsDBManager {
         // no insertion because database not empty
         return false;
     }
+
+
+    public List<Question> initGameQuestions(String typeQuestion, int difficulty)
+    {
+        return db.questionDao().getGameQuestions(typeQuestion,difficulty);
+    }
+
+
+
 }

@@ -13,16 +13,33 @@ public class Case {
   private  int height;
   private  int width;
 
-    public Case(int id, boolean isBonus, int type, float x, float y) {
+    public Case(int id, boolean isBonus, int type) {
         this.id = id;
         this.isBonus = isBonus;
         this.type = type;
-        this.x = x;
-        this.y = y;
+        this.x=0;
+        this.y=0;
+        this.height= 300;
+        this.width = 200;
+    }
+    public Case(int id, boolean isBonus, int type,float x,float y) {
+        this.id = id;
+        this.isBonus = isBonus;
+        this.type = type;
+        this.x=x;
+        this.y=y;
         this.height= 300;
         this.width = 200;
     }
 
+    /** Type :
+     *  0 ->
+     *  1 ->
+     *  2 ->
+     *  3 ->
+     *  4 ->
+     *  5 ->
+     */
 
     public int getId() {
         return id;
@@ -79,4 +96,29 @@ public class Case {
     public void setWidth(int width) {
         this.width = width;
     }
-}
+
+    public void calculatePosition(float xMargin, float yMargin,float previousX,float previousY, int windowWidth){
+        //calcul position
+        boolean toRight = true;
+            x = previousX;
+            y = previousY;
+
+            if (toRight) {
+                if (x + 300 + xMargin + 300 < windowWidth) {
+                    x = x + 300 + xMargin;
+                } else {
+                    y = y + 200 + yMargin;
+                    toRight = false;
+                }
+            } else {
+                if (x - xMargin - 300 > 0) {
+                    x = x - xMargin - 300;
+                } else {
+                    y = y + 200 + yMargin;
+                    toRight = true;
+                }
+            }
+        }
+
+    }
+

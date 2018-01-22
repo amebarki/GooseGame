@@ -13,11 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
-import com.project.goosegame.manager.QuestionsDBManager;
+import com.project.goosegame.manager.QuestionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +81,8 @@ public class MainActivity extends AppCompatActivity{
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... voids) {
-                QuestionsDBManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(getApplicationContext()));
-                return QuestionsDBManager.getInstance().createQuestions();
+                QuestionManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(getApplicationContext()));
+                return QuestionManager.getInstance().createQuestions();
             }
             @Override
             protected void onPostExecute(Boolean result) {

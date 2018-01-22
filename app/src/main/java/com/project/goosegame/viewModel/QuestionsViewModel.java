@@ -10,7 +10,7 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
-import com.project.goosegame.manager.QuestionsDBManager;
+import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.CSVFileParser;
 import com.project.goosegame.utils.async.AsyncQuestions;
@@ -31,12 +31,12 @@ public class QuestionsViewModel extends BaseObservable {
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
     public AsyncQuestions response = null;
-    private QuestionsDBManager questionManager = null;
+    private QuestionManager questionManager = null;
 
     public QuestionsViewModel(Context context) {
         questionsList = new ArrayList<>();
         this.context = context;
-        questionManager = QuestionsDBManager.getInstance();
+        questionManager = QuestionManager.getInstance();
         questionManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
     }
 

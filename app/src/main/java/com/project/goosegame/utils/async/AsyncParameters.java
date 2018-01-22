@@ -9,4 +9,7 @@ import java.util.List;
 public interface AsyncParameters {
 
     void processDisplayQuestionTypeList(List<String> types);
+    void processParametersFinish(Boolean result);
+    void processPlayersFinish(Boolean result);
+    void processNumberPlayers(int numberPlayers);
 }
