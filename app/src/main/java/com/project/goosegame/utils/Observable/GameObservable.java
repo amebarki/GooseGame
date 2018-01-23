@@ -1,4 +1,4 @@
-package com.project.goosegame.utils.async;
+package com.project.goosegame.utils.Observable;
 
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
@@ -10,10 +10,10 @@ import java.util.List;
  * Created by Adam on 19/01/2018.
  */
 
-public interface GameInterface {
+public interface GameObservable {
 
-    void processPlayersList(List<Player> playersList);
-    
+    void processPlayersListAndBoardGame(List<Player> playersList,List<Case> boardGame);
+
     void processGameQuestions(List<Question> gameQuestionsList);
 
     void processGooseCases(List<Case> boardGame);

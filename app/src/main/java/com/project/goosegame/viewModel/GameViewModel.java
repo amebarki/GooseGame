@@ -1,17 +1,15 @@
 package com.project.goosegame.viewModel;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.databinding.BaseObservable;
 import android.os.CountDownTimer;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.async.GameInterface;
+import com.project.goosegame.utils.Observable.GameObservable;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class GameViewModel extends BaseObservable {
     private QuestionManager questionManager = null;
     private List<Question> gameQuestionsList = null;
 
-    public GameInterface response = null;
+    public GameObservable response = null;
 
 
     public GameViewModel(Context context) {
@@ -36,6 +34,13 @@ public class GameViewModel extends BaseObservable {
         this.questionManager = QuestionManager.getInstance();
         questionManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(this.context));
 
+    }
+
+
+    public void getPlayersAndBoardGame()
+    {
+        response.processPlayersListAndBoardGame(gameManager.getGooseModel().getPlayerList(),
+                gameManager.getGooseModel().getBoardGame());
     }
 
     public void initGameQuestions() {

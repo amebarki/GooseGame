@@ -9,7 +9,7 @@ import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.GooseModel;
 import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.async.AsyncParameters;
+import com.project.goosegame.utils.Observable.AsyncParameters;
 
 import java.util.List;
 

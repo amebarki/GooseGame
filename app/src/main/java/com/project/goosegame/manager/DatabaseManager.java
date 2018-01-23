@@ -1,4 +1,4 @@
-package com.project.goosegame.utils;
+package com.project.goosegame.manager;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;

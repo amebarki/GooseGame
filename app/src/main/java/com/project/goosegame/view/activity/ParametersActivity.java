@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.NumberPicker;
 
 import com.project.goosegame.R;
-import com.project.goosegame.utils.async.AsyncParameters;
+import com.project.goosegame.utils.Observable.AsyncParameters;
 import com.project.goosegame.viewModel.ParametersViewModel;
 
 import java.util.List;

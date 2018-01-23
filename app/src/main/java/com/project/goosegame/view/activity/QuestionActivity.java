@@ -1,19 +1,14 @@
 package com.project.goosegame.view.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.async.AsyncQuestions;
+import com.project.goosegame.utils.Observable.AsyncQuestions;
 import com.project.goosegame.viewModel.QuestionsViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity implements AsyncQuestions {

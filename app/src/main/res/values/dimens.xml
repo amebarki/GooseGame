@@ -17,4 +17,17 @@
     <dimen name="param_radio_button">50dp</dimen>
     <dimen name="param_text_radio_button">20sp</dimen>
     <dimen name="param_text_category">20sp</dimen>
+
+
+    /* Dimension for Color picker */
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="gap">10dp</dimen>
+    <dimen name="radius">3dp</dimen>
+    <dimen name="gap_small">5dp</dimen>
+    <dimen name="gap_large">20dp</dimen>
+    <dimen name="text">20sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="textSize">80sp</dimen>
+
 </resources>

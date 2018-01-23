@@ -1,4 +1,4 @@
-package com.project.goosegame.utils.async;
+package com.project.goosegame.utils.Observable;
 
 import com.project.goosegame.model.Question;
 

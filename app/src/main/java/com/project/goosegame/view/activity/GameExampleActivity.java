@@ -5,11 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
 import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.async.GameInterface;
+import com.project.goosegame.utils.Observable.GameObservable;
 import com.project.goosegame.viewModel.GameViewModel;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
  * Created by Adam on 22/01/2018.
  */
 
-public class GameExampleActivity extends AppCompatActivity implements GameInterface {
+public class GameExampleActivity extends AppCompatActivity implements GameObservable {
 
 private GameViewModel gameViewModel;
 private List<Question> questionsList;
@@ -46,10 +45,10 @@ private List<Player> playerList;
 
 
     @Override
-    public void processPlayersList(List<Player> playersList) {
-            this.playerList.addAll(playersList);
+    public void processPlayersListAndBoardGame(List<Player> playersList, List<Case> boardGame) {
+        this.playerList.addAll(playersList);
+        this.boardGame.addAll(boardGame);
     }
-
 
     @Override
     public void processGameQuestions(List<Question> gameQuestionsList) {
