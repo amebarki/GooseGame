@@ -40,7 +40,7 @@
     <string name="question_toast_import_success">Les questions ont bien été importées</string>
     <string name="question_toast_import_error">Un problème est survenu lors de l'importation</string>
     <string name="question_toast_delete_all_success">Les questions ont bien été supprimées</string>
-    <string name="question_toast_delete_all_error">Un problème est survenu lors de la suppression</string>
+    <string name="question_toast_delete_error">Un problème est survenu lors de la suppression</string>
     <string name="question_toast_delete_success">La question a bien été supprimée</string>
 
 </resources>
