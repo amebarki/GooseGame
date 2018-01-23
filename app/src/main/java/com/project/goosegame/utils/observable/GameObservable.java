@@ -12,8 +12,6 @@ import java.util.List;
 
 public interface GameObservable {
 
-    void processPlayersListAndBoardGame(List<Player> playersList,List<Case> boardGame);
-
     void processGameQuestions(List<Question> gameQuestionsList);
 
     void processGooseCases(List<Case> boardGame);

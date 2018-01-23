@@ -37,12 +37,6 @@ public class GameViewModel extends BaseObservable {
     }
 
 
-    public void getPlayersAndBoardGame()
-    {
-        response.processPlayersListAndBoardGame(gameManager.getGooseModel().getPlayerList(),
-                gameManager.getGooseModel().getBoardGame());
-    }
-
     public void initGameQuestions() {
         // TODO: 19/01/2018 manage error message
         gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),

@@ -45,19 +45,14 @@ private List<Player> playerList;
 
 
     @Override
-    public void processPlayersListAndBoardGame(List<Player> playersList, List<Case> boardGame) {
-        this.playerList.addAll(playersList);
-        this.boardGame.addAll(boardGame);
-    }
-
-    @Override
     public void processGameQuestions(List<Question> gameQuestionsList) {
         // TODO: 22/01/2018 recup the list of question to store for the game
     }
 
     @Override
     public void processGooseCases(List<Case> boardGame) {
-        // TODO: 22/01/2018 recup the boardgame null or full of cases, need to verify 
+        // TODO: 22/01/2018 recup the boardgame null or full of cases, need to verify
+
     }
 
     @Override

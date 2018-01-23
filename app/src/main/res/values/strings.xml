@@ -43,4 +43,8 @@
     <string name="question_toast_delete_all_error">Un problème est survenu lors de la suppression</string>
     <string name="question_toast_delete_success">La question a bien été supprimée</string>
 
+
+    <string name="title_activity_niveaux">Niveaux</string>
+
+
 </resources>

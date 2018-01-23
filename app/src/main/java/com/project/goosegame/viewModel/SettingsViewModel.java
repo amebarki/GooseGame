@@ -4,6 +4,8 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.graphics.Color;
 
+import com.project.goosegame.manager.SettingsManager;
+
 /**
  * Created by Adam on 23/01/2018.
  */
@@ -13,16 +15,15 @@ public class SettingsViewModel extends BaseObservable {
     // font size
 
     private Context context;
-    private int FontSize;
-    private Color primary;
-    private Color secundary;
-    private Color select;
+    private SettingsManager settingsManager = null;
 
-    public SettingsViewModel(Context context){
+    public SettingsViewModel(Context context) {
         this.context = context;
+        settingsManager = SettingsManager.getInstance();
     }
 
-
-
+    public SettingsManager getSettingsManager() {
+        return settingsManager;
+    }
 }
 
