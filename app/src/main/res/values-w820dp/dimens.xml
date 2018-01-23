@@ -4,6 +4,7 @@
     <dimen name="global_horizontal_margin">64dp</dimen>
     <dimen name="global_vertical_margin">64dp</dimen>
     <dimen name="global_margin">50dp</dimen>
+    <dimen name="global_recycler_item_margin">30dp</dimen>
 
     /* Dimensions for MainActivity */
     <dimen name="main_splash_image">200dp</dimen>
@@ -12,8 +13,21 @@
     <dimen name="main_button_width">50dp</dimen>
 
     /* Dimensions for ParametersActivity */
-    <dimen name="param_button_launch_game">300dp</dimen>
+    <dimen name="param_button_continue">300dp</dimen>
+    <dimen name="param_text_continue">40sp</dimen>
     <dimen name="param_radio_button">100dp</dimen>
-    <dimen name="param_text_radio_button">35sp</dimen>
+    <dimen name="param_text_radio_button">30sp</dimen>
     <dimen name="param_text_category">40sp</dimen>
+
+    /* Dimensions for PlayersActivity */
+    <dimen name="players_button_launch_game_width">500dp</dimen>
+    <dimen name="players_button_launch_game_height">150dp</dimen>
+    <dimen name="players_text_launch_game">40sp</dimen>
+    <dimen name="players_text_name">35sp</dimen>
+
+    /* Dimensions for QuestionsActivity */
+    <dimen name="question_recycler_item_lib">36sp</dimen>
+    <dimen name="question_recycler_item_lib_max_width">800dp</dimen>
+    <dimen name="question_recycler_item_button_supp_width">36dp</dimen>
+    <dimen name="question_recycler_item_button_supp_height">36dp</dimen>
 </resources>

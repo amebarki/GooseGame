@@ -11,6 +11,7 @@ import java.util.List;
 public interface AsyncQuestions {
 
     void processAddQuestionsFromCSV(Boolean result);
+    void processCallBaseQuestions(Boolean result);
     void processDisplayQuestions(List<Question> questions);
     void processDeleteQuestions(Boolean result);
     void processDeleteQuestion(Boolean result);

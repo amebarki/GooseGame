@@ -3,5 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorSecondary">#ff7000</color>
     <color name="colorSelect">#ffffff</color>
-    <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorTransparent">#00ffffff</color>
+    <color name="colorFalse">#aa0000</color>
+    <color name="colorTrue">#00aa00</color>
+    <color name="colorRed">#ff0000</color>
 </resources>
