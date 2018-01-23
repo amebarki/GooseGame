@@ -30,6 +30,6 @@ public interface GameInterface {
 
     void processShowDialog(String title,String text);
 
-    void processAnimatePiece(int numberOfCaseToPass,int currentPlayer);
+    void processAnimatePiece(int numberOfCaseToPass,int currentPlayer,int currentCase,float xTranslation,float yTranslation,int duration,boolean forward);
 
 }

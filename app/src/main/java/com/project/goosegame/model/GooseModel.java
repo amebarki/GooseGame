@@ -160,7 +160,8 @@ public class GooseModel {
                 c.setBonus(true);
             }
             else{
-                this.selectTypeCase(c);
+                c.setType(0);
+                //this.selectTypeCase(c);
             }
             this.boardGame.add(c);
         }

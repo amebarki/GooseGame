@@ -94,5 +94,21 @@ private GameViewModel gameViewModel;
             // Display no questions alerteDialog
     }
 
-
+    @Override
+    public void processAnimatePiece(int numberOfCaseToPass, int currentPlayer, int currentCase, float xTranslation, float yTranslation, int duration, boolean forward) {
+        // TODO: 23/01/2018 create boucle for with numberOfCaseToPass has the limit if forward == true
+        // TODO: 23/01/2018 in this boucle, move the currentPlayer pion from his currentCase one by one
+        // TODO: 23/01/2018 see example of the old code :
+        /**
+         *  pion is the image of the graphic part
+         *  pion4.bringToFront();
+         *  pion4.animate().translationX(listCase.get(sets.getListPlayer().get(3).getCurrentCase()).getX() + 160).setDuration(2000);
+         *  pion4.animate().translationY(listCase.get(sets.getListPlayer().get(3).getCurrentCase()).getY() - 40).setDuration(2000);
+         */
+        // TODO: 23/01/2018 the new code will be like this :
+        /**
+         * "thePion".animate().translationX(xTranslation).setDuration(duration);
+         */
+        // TODO: 23/01/2018 if forward == false the limit of the boucle will be 0 
+    }
 }
