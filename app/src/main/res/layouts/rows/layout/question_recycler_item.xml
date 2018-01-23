@@ -8,23 +8,26 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/global_recycler_item_margin">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/question_recycler_item_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="edezfze"
-            android:textSize="@dimen/question_recycler_item_lib"
+            android:layout_margin="@dimen/global_recycler_item_margin"
+            android:text="Question très longue pour voir si ca fonctionne bien ou si ca fonctionne pas vraiment bien ?"
             android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/question_recycler_item_lib"
             android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
-        
-        <ImageButton
+
+        <Button
+            android:id="@+id/question_recycler_item_button_delete"
             android:layout_width="@dimen/question_recycler_item_button_supp_width"
-            android:layout_height="@dimen/question_recycler_item_button_supp_width"
+            android:layout_height="@dimen/question_recycler_item_button_supp_height"
+            android:background="@drawable/ic_clear_black_24dp"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"/>
 
@@ -37,10 +40,9 @@
             android:textColor="@color/colorTrue"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_question"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/global_recycler_item_margin"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin" />
 
         <TextView
             android:id="@+id/question_recycler_item_answer_false1"
@@ -49,13 +51,11 @@
             android:text="edezfze"
             android:textSize="@dimen/question_recycler_item_lib"
             android:textColor="@color/colorFalse"
-            card_view:layout_constraintStart_toEndOf="@id/question_recycler_item_answer_true"
-            card_view:layout_constraintEnd_toStartOf="@+id/question_recycler_item_answer_false2"
-            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_question"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/global_recycler_item_margin"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"/>
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_answer_true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin"/>
 
         <TextView
             android:id="@+id/question_recycler_item_answer_false2"
@@ -64,13 +64,11 @@
             android:text="edezfze"
             android:textSize="@dimen/question_recycler_item_lib"
             android:textColor="@color/colorFalse"
-            card_view:layout_constraintStart_toEndOf="@id/question_recycler_item_answer_false1"
-            card_view:layout_constraintEnd_toStartOf="@+id/question_recycler_item_answer_false3"
-            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_question"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/global_recycler_item_margin"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp" />
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_answer_false1"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin"/>
 
         <TextView
             android:id="@+id/question_recycler_item_answer_false3"
@@ -79,12 +77,11 @@
             android:text="edezfze"
             android:textSize="@dimen/question_recycler_item_lib"
             android:textColor="@color/colorFalse"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_question"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/global_recycler_item_margin"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="10dp" />
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_answer_false2"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin"/>
 
     </android.support.constraint.ConstraintLayout>
 

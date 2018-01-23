@@ -28,6 +28,7 @@
 
     /* Dimensions for QuestionsActivity */
     <dimen name="question_recycler_item_lib">18sp</dimen>
-    <dimen name="question_recycler_item_button_supp_width">30dp</dimen>
-    <dimen name="question_recycler_item_button_supp_height">30dp</dimen>
+    <dimen name="question_recycler_item_lib_max_width">450dp</dimen>
+    <dimen name="question_recycler_item_button_supp_width">36dp</dimen>
+    <dimen name="question_recycler_item_button_supp_height">36dp</dimen>
 </resources>

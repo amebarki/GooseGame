@@ -48,19 +48,10 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         questionsViewModel = new QuestionsViewModel(getApplicationContext());
-        questionsViewModel.response = this; // TODO: 18/01/2018 modify with getter or setter
-        // TODO: 18/01/2018 binding viewModel
+        questionsViewModel.response = this;
+
         questionsViewModel.displayQuestions();
-
     }
-
-    /*
-     TODO: 18/01/2018 Button to call the function :
-     startActivityForResult(mainViewModel.openFileExplorer(), INTENT_FILE_CODE);
-      */
-
-    // TODO: 18/01/2018 Button or interaction to call function of the QuestionViewModel 
-    // TODO: 18/01/2018 the result of this calling will be return in the function behind onActivityResult 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -81,7 +72,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
                 public void onItemClick(View v, int position) {
 
                 }
-            });
+            }, questionsViewModel);
 
             questionRecyclerView.setAdapter(questionRecyclerAdapter);
         }
@@ -141,8 +132,6 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     questionsViewModel.deleteQuestions();
-                    questionsViewModel.importBaseQuestions();
-                    questionsViewModel.displayQuestions();
                 }
             });
 
@@ -189,13 +178,25 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     // return boolean true if rows were deleted, false if not
     @Override
     public void processDeleteQuestions(Boolean result) {
-
+        if(result) {
+            Toast.makeText(this, getString(R.string.question_toast_delete_all_success), Toast.LENGTH_SHORT).show();
+            questionsViewModel.importBaseQuestions();
+            questionsViewModel.displayQuestions();
+        } else {
+            Toast.makeText(this, getString(R.string.question_toast_delete_all_error), Toast.LENGTH_SHORT).show();
+        }
     }
 
     // return true if row was deleted, false if not
     @Override
     public void processDeleteQuestion(Boolean result) {
-
+        if(result) {
+            Toast.makeText(this, getString(R.string.question_toast_delete_success), Toast.LENGTH_SHORT).show();
+            questionsViewModel.importBaseQuestions();
+            questionsViewModel.displayQuestions();
+        } else {
+            Toast.makeText(this, getString(R.string.question_toast_delete_all_error), Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

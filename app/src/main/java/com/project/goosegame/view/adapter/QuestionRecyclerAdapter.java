@@ -4,11 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.CustomItemClickListener;
+import com.project.goosegame.viewModel.QuestionsViewModel;
 
 import java.util.List;
 
@@ -16,10 +18,12 @@ public class QuestionRecyclerAdapter extends RecyclerView.Adapter<QuestionRecycl
 
     private List<Question> questionList;
     private CustomItemClickListener listener;
+    private QuestionsViewModel questionsViewModel;
 
-    public QuestionRecyclerAdapter(List<Question> questionList, CustomItemClickListener listener) {
+    public QuestionRecyclerAdapter(List<Question> questionList, CustomItemClickListener listener, QuestionsViewModel questionsViewModel) {
         this.questionList = questionList;
         this.listener = listener;
+        this.questionsViewModel = questionsViewModel;
     }
 
     @Override
@@ -40,12 +44,18 @@ public class QuestionRecyclerAdapter extends RecyclerView.Adapter<QuestionRecycl
     }
 
     @Override
-    public void onBindViewHolder(QuestionHolder holder, int position) {
+    public void onBindViewHolder(QuestionHolder holder, final int position) {
         holder.questionTextView.setText(questionList.get(position).getTitle());
         holder.answerTrueTextView.setText(questionList.get(position).getCorrectAnswer());
         holder.answerFalse1TextView.setText(questionList.get(position).getFalseAnswerOne());
         holder.answerFalse2TextView.setText(questionList.get(position).getFalseAnswerTwo());
         holder.answerFalse3TextView.setText(questionList.get(position).getFalseAnswerThree());
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionsViewModel.deleteQuestion(questionList.get(position));
+            }
+        });
     }
 
     @Override
@@ -59,6 +69,7 @@ public class QuestionRecyclerAdapter extends RecyclerView.Adapter<QuestionRecycl
         public TextView answerFalse1TextView;
         public TextView answerFalse2TextView;
         public TextView answerFalse3TextView;
+        public Button deleteButton;
 
         public QuestionHolder(View itemView) {
             super(itemView);
@@ -67,6 +78,7 @@ public class QuestionRecyclerAdapter extends RecyclerView.Adapter<QuestionRecycl
             answerFalse1TextView = itemView.findViewById(R.id.question_recycler_item_answer_false1);
             answerFalse2TextView = itemView.findViewById(R.id.question_recycler_item_answer_false2);
             answerFalse3TextView = itemView.findViewById(R.id.question_recycler_item_answer_false3);
+            deleteButton = itemView.findViewById(R.id.question_recycler_item_button_delete);
         }
     }
 }
