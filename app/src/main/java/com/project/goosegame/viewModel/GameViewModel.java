@@ -9,7 +9,7 @@ import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.Observable.GameObservable;
+import com.project.goosegame.utils.observable.GameObservable;
 
 import java.util.List;
 

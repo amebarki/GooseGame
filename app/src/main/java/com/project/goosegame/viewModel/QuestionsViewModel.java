@@ -13,7 +13,7 @@ import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.parser.CSVFileParser;
-import com.project.goosegame.utils.Observable.AsyncQuestions;
+import com.project.goosegame.utils.observable.AsyncQuestions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,6 +83,23 @@ public class QuestionsViewModel extends BaseObservable {
                 }.execute();
             }
         }
+    }
+
+    public void importBaseQuestions() {
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+
+                return questionManager.createQuestions();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                super.onPostExecute(aBoolean);
+
+                response.processCallBaseQuestions(aBoolean);
+            }
+        }.execute();
     }
 
     public void displayQuestions() {

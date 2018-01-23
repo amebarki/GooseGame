@@ -9,7 +9,7 @@ import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.GooseModel;
 import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.Observable.AsyncParameters;
+import com.project.goosegame.utils.observable.AsyncParameters;
 
 import java.util.List;
 
@@ -30,6 +30,11 @@ public class ParametersViewModel extends BaseObservable {
         questionsManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
         gameManager = GameManager.getInstance();
 
+    }
+
+    public void numberOfPlayers(){
+
+        response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
     }
 
     public void initGooseGame(int numberPlayer, int difficulty, int numberDice, int durationGame, String typeGame) {

@@ -1,4 +1,4 @@
-package com.project.goosegame.utils.Observable;
+package com.project.goosegame.utils.observable;
 
 import com.project.goosegame.model.Question;
 
@@ -11,6 +11,7 @@ import java.util.List;
 public interface AsyncQuestions {
 
     void processAddQuestionsFromCSV(Boolean result);
+    void processCallBaseQuestions(Boolean result);
     void processDisplayQuestions(List<Question> questions);
     void processDeleteQuestions(Boolean result);
     void processDeleteQuestion(Boolean result);

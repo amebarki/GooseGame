@@ -92,8 +92,8 @@ public class ColorSelect extends View {
         }
 
         if (attrs != null) {
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.GradientView);
-            for (int i = 0, n = typedArray.getIndexCount(); i < n; i++) {
+           // TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.GradientView);
+           /* for (int i = 0, n = typedArray.getIndexCount(); i < n; i++) {
                 int index = typedArray.getIndex(i);
                 switch (index) {
                     case R.styleable.GradientView_radius:
@@ -107,7 +107,7 @@ public class ColorSelect extends View {
                         break;
                 }
             }
-            typedArray.recycle();
+            typedArray.recycle();*/
         }
     }
 

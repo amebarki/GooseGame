@@ -15,20 +15,20 @@
             android:background="@color/colorPrimary">
 
             <Button
-                android:id="@+id/buttonPlay"
+                android:id="@+id/main_button_play"
                 android:layout_width="@dimen/main_button_play"
                 android:layout_height="@dimen/main_button_play"
                 android:text="@string/main_button_play"
                 android:textSize="35dp"
                 android:textColor="@color/colorPrimary"
-                android:background="@drawable/play_button"
+                android:background="@drawable/main_play_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/buttonSettings"
+                android:id="@+id/main_button_settings"
                 android:layout_width="@dimen/main_button_width"
                 android:layout_height="@dimen/main_button_height"
                 android:layout_margin="10dp"
@@ -38,14 +38,14 @@
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageButton
-                android:id="@+id/buttonLoadBD"
+                android:id="@+id/main_button_question"
                 android:layout_width="@dimen/main_button_width"
                 android:layout_height="@dimen/main_button_height"
                 android:layout_margin="10dp"
                 android:background="@color/colorTransparent"
                 app:srcCompat="@drawable/ic_get_app_white_48dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/buttonSettings" />
+                app:layout_constraintEnd_toStartOf="@id/main_button_settings" />
 
 
         </android.support.constraint.ConstraintLayout>

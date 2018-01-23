@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp" >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/question_recycler_item_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/global_recycler_item_margin"
+            android:text="Question très longue pour voir si ca fonctionne bien ou si ca fonctionne pas vraiment bien ?"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/question_recycler_item_lib"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/question_recycler_item_button_delete"
+            android:layout_width="@dimen/question_recycler_item_button_supp_width"
+            android:layout_height="@dimen/question_recycler_item_button_supp_height"
+            android:background="@drawable/ic_clear_black_24dp"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/question_recycler_item_answer_true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edezfze"
+            android:textSize="@dimen/question_recycler_item_lib"
+            android:textColor="@color/colorTrue"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_question"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin" />
+
+        <TextView
+            android:id="@+id/question_recycler_item_answer_false1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edezfze"
+            android:textSize="@dimen/question_recycler_item_lib"
+            android:textColor="@color/colorFalse"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_answer_true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin"/>
+
+        <TextView
+            android:id="@+id/question_recycler_item_answer_false2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edezfze"
+            android:textSize="@dimen/question_recycler_item_lib"
+            android:textColor="@color/colorFalse"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_answer_false1"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin"/>
+
+        <TextView
+            android:id="@+id/question_recycler_item_answer_false3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edezfze"
+            android:textSize="@dimen/question_recycler_item_lib"
+            android:textColor="@color/colorFalse"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/question_recycler_item_answer_false2"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/global_recycler_item_margin"
+            android:layout_marginEnd="@dimen/global_recycler_item_margin"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

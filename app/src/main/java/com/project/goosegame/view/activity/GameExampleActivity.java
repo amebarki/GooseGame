@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
 import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.Observable.GameObservable;
+import com.project.goosegame.utils.observable.GameObservable;
 import com.project.goosegame.viewModel.GameViewModel;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.project.goosegame.utils.Observable;
+package com.project.goosegame.utils.observable;
 
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
