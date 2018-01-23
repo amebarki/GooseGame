@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Jeu de l'oie</string>
+    <string name="app_name">Jeu de l\'oie</string>
 
     /*  Strings for MainActivity */
     <string name="main_button_play">Jouer</string>
@@ -25,5 +25,22 @@
 
     <string name="param_lib_game_type">Type de partie</string>
 
-    <string name="param_button_launch_game">Lancer la partie</string>
+    <string name="param_button_continue">Continuer</string>
+
+    /* Strings for PlayersActivity */
+    <string name="players_button_launch_game">Lancer la partie</string>
+    <string name="player_1">Joueur 1</string>
+    <string name="player_2">Joueur 2</string>
+    <string name="player_3">Joueur 3</string>
+    <string name="player_4">Joueur 4</string>
+
+    /* Strings for QuestionActivity */
+    <string name="question_menu_delete_all">Tout supprimer</string>
+    <string name="question_menu_import">Importer</string>
+    <string name="question_toast_import_success">Les questions ont bien été importées</string>
+    <string name="question_toast_import_error">Un problème est survenu lors de l'importation</string>
+    <string name="question_toast_delete_all_success">Les questions ont bien été supprimées</string>
+    <string name="question_toast_delete_all_error">Un problème est survenu lors de la suppression</string>
+    <string name="question_toast_delete_success">La question a bien été supprimée</string>
+
 </resources>

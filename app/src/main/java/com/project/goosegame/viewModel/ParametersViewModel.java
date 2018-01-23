@@ -32,6 +32,11 @@ public class ParametersViewModel extends BaseObservable {
 
     }
 
+    public void numberOfPlayers(){
+
+        response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
+    }
+
     public void initGooseGame(int numberPlayer, int difficulty, int numberDice, int durationGame, String typeGame) {
         GooseModel gooseModel = new GooseModel(numberPlayer, difficulty, numberDice, durationGame, typeGame);
         gameManager.setGooseModel(gooseModel);

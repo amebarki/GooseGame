@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="30dp"/>
 
         <RadioGroup
@@ -263,38 +263,37 @@
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/param_text_category"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="100dp"
+            app:layout_constraintTop_toBottomOf="@id/param_radio_game_time"
             android:layout_marginTop="30dp"/>
 
         <NumberPicker
             android:id="@+id/param_picker_game_type"
             style="@style/MyNumberPickerTheme"
-            android:layout_width="@dimen/param_button_launch_game"
+            android:layout_width="@dimen/param_button_continue"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:solidColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/param_lib_game_type"
-            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toEndOf="@id/param_lib_game_type"
             app:layout_constraintTop_toBottomOf="@id/param_lib_game_type" />
 
         <Button
-            android:id="@+id/param_button_launch_game"
-            android:layout_width="@dimen/param_button_launch_game"
-            android:layout_height="@dimen/param_button_launch_game"
-            android:text="@string/param_button_launch_game"
+            android:id="@+id/param_button_continue"
+            android:layout_width="@dimen/param_button_continue"
+            android:layout_height="@dimen/param_button_continue"
+            android:text="@string/param_button_continue"
             android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/colorSecondary"
-            android:background="@drawable/rounded_radio_button"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/rectangle_button_color_select"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/param_picker_game_type"
             android:layout_margin="80dp"/>
 
     </android.support.constraint.ConstraintLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
