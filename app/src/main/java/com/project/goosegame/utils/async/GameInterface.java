@@ -2,6 +2,7 @@ package com.project.goosegame.utils.async;
 
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
+import com.project.goosegame.model.pojo.Player;
 
 import java.util.List;
 
@@ -10,6 +11,9 @@ import java.util.List;
  */
 
 public interface GameInterface {
+
+    void processPlayersList(List<Player> playersList);
+
     void processGameQuestions(List<Question> gameQuestionsList);
 
     void processGooseCases(List<Case> boardGame);

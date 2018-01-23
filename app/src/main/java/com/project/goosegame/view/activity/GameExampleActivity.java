@@ -3,22 +3,31 @@ package com.project.goosegame.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
+import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
+import com.project.goosegame.model.pojo.Player;
 import com.project.goosegame.utils.async.GameInterface;
 import com.project.goosegame.viewModel.GameViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Adam on 22/01/2018.
  */
 
-public class GameActivity extends AppCompatActivity implements GameInterface {
+public class GameExampleActivity extends AppCompatActivity implements GameInterface {
 
 private GameViewModel gameViewModel;
-
+private List<Question> questionsList;
+private int windowWidth;
+private int windowHeight;
+private ArrayList<ImageView> pionsPlayer;
+private List<Case> boardGame;
+private List<Player> playerList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +39,15 @@ private GameViewModel gameViewModel;
         gameViewModel.createCases(windowheight,windowwidth);
         gameViewModel.startTimer();
         gameViewModel.newTurn(); // start the first turn with player 0
+        pionsPlayer = new ArrayList<>();
+
+
+    }
+
+
+    @Override
+    public void processPlayersList(List<Player> playersList) {
+
     }
 
     @Override
@@ -109,6 +127,6 @@ private GameViewModel gameViewModel;
         /**
          * "thePion".animate().translationX(xTranslation).setDuration(duration);
          */
-        // TODO: 23/01/2018 if forward == false the limit of the boucle will be 0 
+        // TODO: 23/01/2018 if forward == false the limit of the boucle will be 0
     }
 }

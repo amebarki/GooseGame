@@ -44,6 +44,21 @@ private List<String> gameTypeList;
         }
     }
 
+    @Override
+    public void processParametersFinish(Boolean result) {
+
+    }
+
+    @Override
+    public void processPlayersFinish(Boolean result) {
+
+    }
+
+    @Override
+    public void processNumberPlayers(int numberPlayers) {
+
+    }
+
     // TODO: 19/01/2018 Create Button to launch the playersActivity and call the function to initGooseGame of parametersViewModel 
     
 }
