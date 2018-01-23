@@ -17,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.goosegame.R;
-import com.project.goosegame.manager.ColorManager;
 import com.project.goosegame.utils.GradientView;
+import com.project.goosegame.viewModel.SettingsViewModel;
 
 public class ColorPickerActivity extends AppCompatActivity {
 
@@ -29,6 +29,7 @@ public class ColorPickerActivity extends AppCompatActivity {
     private int retourCoul;
     SharedPreferences.Editor editor;
 
+    private SettingsViewModel settingsViewModel = null;
 
 
     @Override
@@ -36,12 +37,9 @@ public class ColorPickerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         View view = View.inflate(this, R.layout.activity_color_picker, null);
         setContentView(view);
-
         final Intent intent = getIntent();
-
-
         editor = getSharedPreferences("couleurs", MODE_PRIVATE).edit();
-
+        settingsViewModel = new SettingsViewModel(getApplicationContext());
 
 
         valider = (Button) findViewById(R.id.validColor);

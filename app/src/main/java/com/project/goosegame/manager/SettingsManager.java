@@ -10,11 +10,11 @@ import android.graphics.Color;
 public class SettingsManager {
 
     private static SettingsManager instance = null;
-
     private int FontSize;
-    private Color primary;
-    private Color secundary;
-    private Color select;
+    private int primary;
+    private int secundary;
+    private int select;
+
 
     public static SettingsManager getInstance() {
         if (instance == null) {
@@ -32,27 +32,28 @@ public class SettingsManager {
         FontSize = fontSize;
     }
 
-    public Color getPrimary() {
+
+    public int getPrimary() {
         return primary;
     }
 
-    public void setPrimary(Color primary) {
+    public void setPrimary(int primary) {
         this.primary = primary;
     }
 
-    public Color getSecundary() {
+    public int getSecundary() {
         return secundary;
     }
 
-    public void setSecundary(Color secundary) {
+    public void setSecundary(int secundary) {
         this.secundary = secundary;
     }
 
-    public Color getSelect() {
+    public int getSelect() {
         return select;
     }
 
-    public void setSelect(Color select) {
+    public void setSelect(int select) {
         this.select = select;
     }
 }

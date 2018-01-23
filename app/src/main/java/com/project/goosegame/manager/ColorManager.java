@@ -8,18 +8,41 @@ import android.graphics.Color;
  */
 public class ColorManager {
 
-    private static ColorManager colorInstance = new ColorManager();
+    private static ColorManager instance = null;
 
-
-    static public int texteBouton;
-    static public int fondBouton;
-    static public int texteGeneral;
-    static public int fondGeneral;
-    static public int choixCase;
+    private int primary;
+    private int secundary;
+    private int select;
 
 
     public static ColorManager getInstance() {
-        return colorInstance;
+        if (instance == null) {
+            instance = new ColorManager();
+        }
+        return instance;
     }
 
+    public int getPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(int primary) {
+        this.primary = primary;
+    }
+
+    public int getSecundary() {
+        return secundary;
+    }
+
+    public void setSecundary(int secundary) {
+        this.secundary = secundary;
+    }
+
+    public int getSelect() {
+        return select;
+    }
+
+    public void setSelect(int select) {
+        this.select = select;
+    }
 }

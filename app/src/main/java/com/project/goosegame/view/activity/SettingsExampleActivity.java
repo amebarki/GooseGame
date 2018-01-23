@@ -17,21 +17,44 @@ import com.project.goosegame.viewModel.SettingsViewModel;
 public class SettingsExampleActivity extends AppCompatActivity {
 
     private SettingsViewModel settingsViewModel;
-    private Button button;
+    private Button buttonPrimary;
+    private Button buttonSecundary;
+    private Button buttonSelect;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         settingsViewModel = new SettingsViewModel(getApplicationContext());
-        button = (Button) findViewById(R.id.button);
+        buttonPrimary = (Button) findViewById(R.id.button);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonPrimary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                settingsViewModel.getPrimaryColor();
+            }
+        });
+
+        buttonSecundary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsExampleActivity.this, ColorPickerActivity.class);
+                intent.putExtra("type","texteButton");
                 startActivityForResult(intent, 1);
+                settingsViewModel.getSecundaryColor();
             }
         });
+        buttonSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsExampleActivity.this, ColorPickerActivity.class);
+                intent.putExtra("type","texteButton");
+                startActivityForResult(intent, 1);
+                settingsViewModel.getSelectColor();
+            }
+        });
+
+
     }
 
 
