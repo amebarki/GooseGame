@@ -38,11 +38,6 @@ public class GameViewModel extends BaseObservable {
 
     }
 
-    public void numberOfPlayers(){
-
-        response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
-    }
-
     public void initGameQuestions() {
         // TODO: 19/01/2018 manage error message
         gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),

@@ -13,7 +13,7 @@ import java.util.List;
 public interface GameInterface {
 
     void processPlayersList(List<Player> playersList);
-
+    
     void processGameQuestions(List<Question> gameQuestionsList);
 
     void processGooseCases(List<Case> boardGame);

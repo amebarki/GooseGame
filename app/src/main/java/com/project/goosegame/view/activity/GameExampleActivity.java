@@ -47,8 +47,9 @@ private List<Player> playerList;
 
     @Override
     public void processPlayersList(List<Player> playersList) {
-
+            this.playerList.addAll(playersList);
     }
+
 
     @Override
     public void processGameQuestions(List<Question> gameQuestionsList) {
