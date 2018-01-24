@@ -1,18 +1,19 @@
 package com.project.goosegame.viewModel;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.databinding.BaseObservable;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.async.GameInterface;
+import com.project.goosegame.utils.observable.GameObservable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +27,9 @@ public class GameViewModel extends BaseObservable {
     private GameManager gameManager = null;
     private QuestionManager questionManager = null;
     private List<Question> gameQuestionsList = null;
+    private GameObservable response = null;
 
-    public GameInterface response = null;
+    private int nbCaseToMove;
 
 
     public GameViewModel(Context context) {
@@ -38,12 +40,34 @@ public class GameViewModel extends BaseObservable {
 
     }
 
+    public void setGameObeservable(GameObservable gameObservable) {
+        this.response = gameObservable;
+    }
+
+    public void getGooseModel() {
+        response.processGooseModel(gameManager.getGooseModel());
+    }
+
+
     public void initGameQuestions() {
+        new AsyncTask<Void, Void, List<Question>>() {
+            @Override
+            protected List<Question> doInBackground(Void... voids) {
+                gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),
+                                gameManager.getGooseModel().getDifficulty()));
+                return gameQuestionsList;
+            }
+
+            @Override
+            protected void onPostExecute(List<Question> questionList) {
+                super.onPostExecute(questionList);
+
+                if (gameQuestionsList != null && !gameQuestionsList.isEmpty())
+                    response.processGameQuestions(gameQuestionsList);
+            }
+        };
+
         // TODO: 19/01/2018 manage error message
-        gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),
-                gameManager.getGooseModel().getDifficulty()));
-        if (gameQuestionsList != null && !gameQuestionsList.isEmpty())
-            response.processGameQuestions(gameQuestionsList);
     }
 
     // TODO: 19/01/2018 activity recup window dimension and pass to this function to calculate the dimension of cases
@@ -88,13 +112,11 @@ public class GameViewModel extends BaseObservable {
         new CountDownTimer(gameManager.getGooseModel().getDurationGame() * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //tvGameTime.setText("Temps restant   " + (millisUntilFinished / (1000*60)) % 60 + " : " + (millisUntilFinished / 1000) % 60);
-                response.processDisplayTime("Temps restant   " + (millisUntilFinished / (1000 * 60)) % 60 + " : " + (millisUntilFinished / 1000) % 60);
+                response.processDisplayTime(context.getString(R.string.game_time_left) + (millisUntilFinished / (1000 * 60)) % 60 + " : " + (millisUntilFinished / 1000) % 60);
                 gameManager.getGooseModel().setDurationGame(gameManager.getGooseModel().getDurationGame() - 1);
             }
 
             public void onFinish() {
-                //tvGameTime.setText("Time up !");
                 response.processDisplayTime("Time up !");
                 gameManager.getGooseModel().setDurationGame(0);
             }
@@ -112,39 +134,23 @@ public class GameViewModel extends BaseObservable {
 
                 @Override
                 public void onFinish() {
-                    // response View.Visible
                     int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
                     response.processDisplayDicePlayer(View.VISIBLE, gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName());
-                    // button throw dice
                 }
             }.start();
         } else {
-            // turn finish for the currentPlayer if duration game is end
-            new CountDownTimer(4000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                }
-
-                @Override
-                public void onFinish() {
-                    // LayoutFin View.Visible + string
-                    response.processDisplayEnd(View.VISIBLE, "Temp écoulé !", true);
-                    // create button to finish
-                }
-            }.start();
+            response.processDisplayEnd(View.VISIBLE, "Temp écoulé !");
         }
     }
 
     // call by the buttonLaunchDice
     public void ThrowDice() {
-        int nbCaseToMove = 0;
+        nbCaseToMove = 0;
         do {
             nbCaseToMove = (int) ((Math.random() * 6 * gameManager.getGooseModel().getNumberDice()));
         } while (nbCaseToMove == 0);
 
-        final int finalNbCaseToMove = nbCaseToMove;
-
-        // display how case player will advance
+        // display how many case player will advance
         new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -152,10 +158,15 @@ public class GameViewModel extends BaseObservable {
 
             @Override
             public void onFinish() {
-                response.processDisplayResultDice(View.GONE, "Vous avancez de " + Integer.toString(finalNbCaseToMove) + " case(s)");
+                //response.processDisplayResultDice(View.GONE, "Vous avancez de " + Integer.toString(finalNbCaseToMove) + " case(s)");
+                response.processDisplayResultDice(View.GONE,context.getString(R.string.game_advance_case,nbCaseToMove));
+
             }
         }.start();
 
+    }
+
+    public void verifyShowQuestion() {
         // Show the random question or if player reach endboard, party is finish
         new CountDownTimer(4000, 1000) {
             @Override
@@ -164,30 +175,25 @@ public class GameViewModel extends BaseObservable {
 
             @Override
             public void onFinish() {
-                // TODO: 22/01/2018 see if it is the correct way to determine the end maybe add thenbCaseToMove in the condition
                 int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
-                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + finalNbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
-                    //layoutFin.setVisibility(View.VISIBLE);
-                    //tvFin.setText(sets.getListPlayer().get(currentPlayer).getName() + " a gagné la partie !!");
+                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
                     response.processDisplayEnd(View.VISIBLE,
-                            gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + " a gagné la partie !!",
-                            true);
-
-/*                    bFinNew.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            finish();
-                        }
-                    });
-*/
+                            gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + context.getString(R.string.game_player_win));
                 } else {
-                    //validMove();
-                    //display question if not the end
-                    showQuestion(finalNbCaseToMove);
+                    showQuestion(nbCaseToMove);
+                    // TODO: 22/01/2018 see if it is the correct way to determine the end maybe add the nbCaseToMove in the condition
+                    currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
+                    if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
+                        //layoutFin.setVisibility(View.VISIBLE);
+                        //tvFin.setText(sets.getListPlayer().get(currentPlayer).getName() + " a gagné la partie !!");
+                        response.processDisplayEnd(View.VISIBLE,
+                                gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + " a gagné la partie !!");
+                    } else {
+                        showQuestion(nbCaseToMove);
+                    }
                 }
             }
         }.start();
-
     }
 
     public void moveToNextCase(int caseToMove) {
@@ -231,6 +237,7 @@ public class GameViewModel extends BaseObservable {
                 break;
             default:
                 // TODO: 23/01/2018 create response erreur
+
                 break;
 
         }
@@ -274,6 +281,7 @@ public class GameViewModel extends BaseObservable {
                 response.processAnimatePiece(numberOfCasesToStepBack,currentPlayer,currentCase,xTranslation,yTranslation,durationAnimation,false);
                 break;
             default:
+                // TODO: 24/01/2018 create erreur message
                 break;
         }
     }
@@ -289,119 +297,113 @@ public class GameViewModel extends BaseObservable {
             public void onFinish() {
                 int currentCasePlayer = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
                 int typeCase = gameManager.getGooseModel().getBoardGame().get(currentCasePlayer+caseToMove).getType();
-                if (typeCase >= 0 && typeCase <= 4) {
+
+                if (typeCase > 0) {
                     int indexQuestion = (int) (Math.random() * (gameQuestionsList.size() - 1));
-                    Question q = gameQuestionsList.get(indexQuestion);
+                    Question question = gameQuestionsList.get(indexQuestion);
                     int positionResponse = (int) (Math.random() * 3);
-                       /*layoutTrouver4.setVisibility(View.VISIBLE);
-                tvTrouver4Type.setText("Trouver le contraire de ");
-                tvTrouver4Question.setVisibility(View.VISIBLE);
-                tvTrouver4Question.setText(q.getIntituleQuestion());*/
+                    int nbAnswer = 4;
+
+                    List<String> answerList = new ArrayList<String>();
+
+                    switch (positionResponse) {
+                        case 0:
+                            answerList.add(question.getCorrectAnswer());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getFalseAnswerTwo());
+                            answerList.add(question.getFalseAnswerThree());
+                            break;
+
+                        case 1:
+                            answerList.add(question.getFalseAnswerTwo());
+                            answerList.add(question.getCorrectAnswer());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getFalseAnswerThree());
+                            break;
+
+                        case 2:
+                            answerList.add(question.getFalseAnswerThree());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getCorrectAnswer());
+                            answerList.add(question.getFalseAnswerTwo());
+                            break;
+
+                        case 3:
+                            answerList.add(question.getFalseAnswerThree());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getFalseAnswerTwo());
+                            answerList.add(question.getCorrectAnswer());
+                            break;
+
+                        default:
+
+                            break;
+                    }
+
+                    nbAnswer = question.getNbAnswer();
                     gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(caseToMove);
-                    response.processShowQuestion(q, positionResponse);
-                } else if (typeCase == 5) {
-                    //layoutBonusMalus.setVisibility(View.VISIBLE);
+
+                    response.processShowQuestion(question, nbAnswer, answerList);
+                } else if (typeCase == 0) {
                     int nbCaseRandom = 0;
                     do {
                         nbCaseRandom = (int) ((Math.random() * 6) - 3);
                     } while (nbCaseRandom == 0);
 
                     if (nbCaseRandom < 0) {
-                        //tvBonusMalus.setText("Malus");
-                        //tvBonusMalusResult.setText("Reculer de " + Integer.toString(nbCaseRandom * (-1)) + " case(s)");
                         gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
                         response.processLaunchBonusMalus(View.VISIBLE,
-                                "Malus",
-                                "Reculer de " + Integer.toString(nbCaseRandom * (-1)) + " case(s)");
+                                context.getString(R.string.game_malus_title),
+                                context.getString(R.string.game_malus_message));
                     } else {
-                        //tvBonusMalus.setText("Bonus");
-                        //tvBonusMalusResult.setText("Avancer de " + Integer.toString(nbCaseRandom) + " case(s)");
                         gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
                         response.processLaunchBonusMalus(View.VISIBLE,
-                                "Bonus",
-                                "Avancer de " + Integer.toString(nbCaseRandom) + " case(s)");
+                                context.getString(R.string.game_bonus_title),
+                                context.getString(R.string.game_bonus_message));
 
                     }
-                    //final int finalNbCaseRandom = nbCaseRandom;
-                    /*
-                    bBonusMalusContinuer.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            layoutBonusMalus.setVisibility(View.GONE);
-                            if (finalNbCaseRandom > 0) {
-                                moveToNext(finalNbCaseRandom);
-                            } else {
-                                moveToPrevious(finalNbCaseRandom);
-                            }
-                            tourFini();
-                        }
-                    });*/
-
-
-                    // AlertDialog
                 } else {
-                    response.processShowDialog("Pas de questions !! ", "Chargerr base de questions");
+                    response.processShowDialog(context.getString(R.string.game_erreur_questions_title),
+                            context.getString(R.string.game_erreur_questions_message));
                 }
             }
         }.start();
     }
 
 
-    public void startBonusMalus(int nbCaseToMove) {
-        //layoutBonusMalus.setVisibility(View.GONE);
+    public void startBonusMalus() {
+
+        int nbCaseToMove = gameManager.getGooseModel().getCurrentPlayerObject().getNbCaseToMove();
         if (nbCaseToMove > 0) {
             moveToNextCase(nbCaseToMove);
         } else {
             moveToPreviousCase(nbCaseToMove);
         }
-
-        //tourFini();
         endOfTurn();
-
     }
 
 
     public void endOfTurn() {
         int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
         if (currentPlayer == gameManager.getGooseModel().getNumberPlayer() - 1) {
-            //currentPlayer = 0;
             gameManager.getGooseModel().setCurrentPlayer(0);
         } else {
-            //currentPlayer = currentPlayer + 1;
             gameManager.getGooseModel().setCurrentPlayer(currentPlayer + 1);
 
         }
-        //nouveauTour();
         newTurn();
     }
 
     public void verifyAnswer(String answer, Question q) {
-        //layoutResultat.setVisibility(View.VISIBLE);
         final boolean isCorrect = (answer.toLowerCase().equals(q.getCorrectAnswer().toLowerCase()));
         if (isCorrect) {
-            //tvResultat.setText("Bravo tu as bien répondu !!");
-            //sets.getListPlayer().get(currentPlayer).setScore(sets.getListPlayer().get(currentPlayer).getScore()+1);
             gameManager.getGooseModel().getCurrentPlayerObject().setScore(gameManager.getGooseModel().getCurrentPlayerObject().getScore() + 1);
-            response.processShowResultQuestion("Bravo tu as bien répondu !!", isCorrect);
+            response.processShowResultQuestion(context.getString(R.string.game_question_good_answer_message), isCorrect);
 
         } else {
-            //tvResultat.setText("Dommage tu as répondu faux, retourne sur la case où tu étais...");
-            response.processShowResultQuestion("Dommage, mauvaise réponse, pas de déplacement.", isCorrect);
+            response.processShowResultQuestion(context.getString(R.string.game_question_bad_answer_message), isCorrect);
 
         }
-       /* bResultatContinuer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isCorrect) {
-                    tourFini();
-
-                } else {
-                    moveToPrevious((sets.getListPlayer().get(currentPlayer).getCaseMoved() * (-1)));
-                    tourFini();
-                }
-                layoutResultat.setVisibility(View.GONE);
-            }
-        });*/
     }
 
     public void validateMove(boolean isCorrect) {
@@ -421,5 +423,4 @@ public class GameViewModel extends BaseObservable {
             endOfTurn();
         }
     }
-
 }

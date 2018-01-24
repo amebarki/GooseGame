@@ -1,4 +1,4 @@
-package com.project.goosegame.utils;
+package com.project.goosegame.utils.listener;
 
 import android.view.View;
 

@@ -1,4 +1,6 @@
-package com.project.goosegame.utils.async;
+package com.project.goosegame.utils.observable;
+
+import android.content.Context;
 
 import com.project.goosegame.model.Question;
 
@@ -15,4 +17,5 @@ public interface AsyncQuestions {
     void processDisplayQuestions(List<Question> questions);
     void processDeleteQuestions(Boolean result);
     void processDeleteQuestion(Boolean result);
+    void processErrorParsing(String message);
 }

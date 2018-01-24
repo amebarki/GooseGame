@@ -1,5 +1,6 @@
 package com.project.goosegame.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.NumberPicker;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.async.AsyncParameters;
+import com.project.goosegame.utils.observable.AsyncParameters;
 import com.project.goosegame.viewModel.ParametersViewModel;
 
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class PlayersActivity extends AppCompatActivity implements AsyncParameter
         setContentView(R.layout.activity_players);
 
         parametersViewModel = new ParametersViewModel(getApplicationContext());
-        parametersViewModel.response = this;
+        parametersViewModel.setAsyncParameters(this);
         parametersViewModel.getNumberPlayers();
 
         initImageButton();
@@ -233,12 +234,12 @@ public class PlayersActivity extends AppCompatActivity implements AsyncParameter
             @Override
             public void onClick(View v) {
 
-                //addPlayersToSettings();
+                addPlayersToSettings();
 
                 //TODO Ajouter Game Activity
-                //Intent i = new Intent(PlayersActivity.this, BoardActivity.class);
+                Intent i = new Intent(PlayersActivity.this, GameActivity.class);
 
-                //startActivity(i);
+                startActivity(i);
             }
         });
     }

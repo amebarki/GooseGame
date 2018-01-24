@@ -1,19 +1,13 @@
 package com.project.goosegame.view.activity;
 
-import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +15,12 @@ import android.widget.Toast;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.CustomItemClickListener;
-import com.project.goosegame.utils.HidingScrollListener;
-import com.project.goosegame.utils.async.AsyncQuestions;
+import com.project.goosegame.utils.observable.AsyncQuestions;
+import com.project.goosegame.utils.listener.CustomItemClickListener;
+import com.project.goosegame.utils.listener.HidingScrollListener;
 import com.project.goosegame.view.adapter.QuestionRecyclerAdapter;
 import com.project.goosegame.viewModel.QuestionsViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity implements AsyncQuestions {
@@ -48,8 +41,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         questionsViewModel = new QuestionsViewModel(getApplicationContext());
-        questionsViewModel.response = this;
-
+        questionsViewModel.setAsyncQuestions(this);
         questionsViewModel.displayQuestions();
     }
 
@@ -67,12 +59,12 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
         if (questionList.size() > 0) {
-            QuestionRecyclerAdapter questionRecyclerAdapter = new QuestionRecyclerAdapter(questionList, new CustomItemClickListener() {
+            QuestionRecyclerAdapter questionRecyclerAdapter = new QuestionRecyclerAdapter(questionList, questionsViewModel, this, new CustomItemClickListener() {
                 @Override
                 public void onItemClick(View v, int position) {
 
                 }
-            }, questionsViewModel);
+            });
 
             questionRecyclerView.setAdapter(questionRecyclerAdapter);
         }
@@ -120,8 +112,6 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_import) {
             startActivityForResult(questionsViewModel.openFileExplorer(), INTENT_FILE_CODE);
-
-
             return true;
 
         } else if (id == R.id.action_delete) {
@@ -143,7 +133,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
                 }
             });
 
-            alertDialogBuilder.setMessage("Etes-vous sûr de vouloir supprimer toutes les questions importées ?");
+            alertDialogBuilder.setMessage(getString(R.string.question_dialog_delete_confirm));
             alertDialogBuilder.show();
 
             return true;
@@ -183,7 +173,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_all_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -195,8 +185,13 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_all_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @Override
+    public void processErrorParsing(String message) {
+        // TODO: 24/01/2018 Alert dialog display error
     }
 }

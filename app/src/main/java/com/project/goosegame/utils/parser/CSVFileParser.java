@@ -1,8 +1,11 @@
-package com.project.goosegame.utils;
+package com.project.goosegame.utils.parser;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
+import com.project.goosegame.utils.observable.AsyncQuestions;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,19 +24,23 @@ import java.util.List;
 public class CSVFileParser {
 
     private FileInputStream fileInputStream;
-    private static final String TAG  ="CSV_PARSER";
     private ArrayList<Question> questionsList;
-    public CSVFileParser(File file){
+    private Context context;
+    private AsyncQuestions response;
+    public CSVFileParser(Context context,AsyncQuestions response,File file){
+        this.context = context;
+        this.response = response;
         questionsList = new ArrayList<>();
         try {
             fileInputStream = new FileInputStream(file);
 
         } catch (FileNotFoundException e) {
+            response.processErrorParsing(context.getString(R.string.parsing_error_file));
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Question> read(){
+    public ArrayList<Question> read(AsyncQuestions response){
         List resultList = new ArrayList();
         BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
         try {
@@ -48,7 +55,8 @@ public class CSVFileParser {
             }
         }
         catch (IOException ex) {
-            throw new RuntimeException("Error in reading CSV file: "+ex);
+            response.processErrorParsing(context.getString(R.string.parsing_error_reading));
+            //throw new RuntimeException("Error in reading CSV file : "+ex);
         }
         finally {
             try {
@@ -56,7 +64,8 @@ public class CSVFileParser {
                 reader.close();
             }
             catch (IOException e) {
-                throw new RuntimeException("Error while closing input stream: "+e);
+                response.processErrorParsing(context.getString(R.string.parsing_error_reading));
+                //throw new RuntimeException("Error while closing input stream : "+e);
             }
         }
         return questionsList;

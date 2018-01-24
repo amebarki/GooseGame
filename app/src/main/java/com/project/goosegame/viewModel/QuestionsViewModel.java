@@ -12,8 +12,8 @@ import android.webkit.MimeTypeMap;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.CSVFileParser;
-import com.project.goosegame.utils.async.AsyncQuestions;
+import com.project.goosegame.utils.parser.CSVFileParser;
+import com.project.goosegame.utils.observable.AsyncQuestions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class QuestionsViewModel extends BaseObservable {
     private Context context;
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
-    public AsyncQuestions response = null;
+    private AsyncQuestions response = null;
     private QuestionManager questionManager = null;
 
     public QuestionsViewModel(Context context) {
@@ -38,6 +38,12 @@ public class QuestionsViewModel extends BaseObservable {
         this.context = context;
         questionManager = QuestionManager.getInstance();
         questionManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
+    }
+
+
+
+    public void setAsyncQuestions(AsyncQuestions asyncQuestions){
+        this.response = asyncQuestions;
     }
 
 
@@ -65,9 +71,9 @@ public class QuestionsViewModel extends BaseObservable {
             String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
             if (fileExtension.compareTo("csv") == 0) {
                 File f = new File(pathFolder.getAbsolutePath(), file.getName());
-                Log.d("TAGO", f.getAbsolutePath());
-                csvFileParser = new CSVFileParser(f);
-                questionsList.addAll(csvFileParser.read());
+                csvFileParser = new CSVFileParser(context,response,f);
+                questionsList.addAll(csvFileParser.read(response));
+
                 // import list question from CSV to the database
                 new AsyncTask<Void, Void, Boolean>() {
                     @Override

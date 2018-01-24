@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -12,8 +11,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.project.goosegame.R;
-import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.async.AsyncParameters;
+
+import com.project.goosegame.utils.observable.AsyncParameters;
+
+import com.project.goosegame.utils.observable.AsyncParameters;
 import com.project.goosegame.viewModel.ParametersViewModel;
 
 import java.util.List;
@@ -23,17 +24,17 @@ import java.util.List;
  */
 
 public class ParametersActivity extends AppCompatActivity implements AsyncParameters
-        ,View.OnClickListener {
+        , View.OnClickListener {
 
-private ParametersViewModel parametersViewModel;
-private List<String> gameTypeList;
-private String selectedGameType;
+    private ParametersViewModel parametersViewModel;
+    private List<String> gameTypeList;
+    private String selectedGameType;
 
-private RadioGroup playerNumberRadioGroup;
-private RadioGroup difficultyRadioGroup;
-private RadioGroup gameTimeRadioGroup;
-private NumberPicker gameTypePicker;
-private Button continueButton;
+    private RadioGroup playerNumberRadioGroup;
+    private RadioGroup difficultyRadioGroup;
+    private RadioGroup gameTimeRadioGroup;
+    private NumberPicker gameTypePicker;
+    private Button continueButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ private Button continueButton;
         setContentView(R.layout.activity_parameters);
         parametersViewModel = new ParametersViewModel(getApplicationContext());
         parametersViewModel.initQuestionTypeList();
-        parametersViewModel.response = this;
+        parametersViewModel.setAsyncParameters(this);
 
         playerNumberRadioGroup = findViewById(R.id.param_radio_player_number);
         difficultyRadioGroup = findViewById(R.id.param_radio_difficulty);
@@ -50,7 +51,7 @@ private Button continueButton;
 
         gameTypePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 selectedGameType = gameTypeList.get(newVal - 1);
             }
         });
@@ -72,7 +73,7 @@ private Button continueButton;
         radioButton = findViewById(gameTimeRadioGroup.getCheckedRadioButtonId());
         int gameTime = getGameTime(gameTimeRadioGroup.indexOfChild(radioButton));
 
-        parametersViewModel.initGooseGame(nbPlayer,difficulty,1,gameTime,selectedGameType);
+        parametersViewModel.initGooseGame(nbPlayer, difficulty, 1, gameTime, selectedGameType);
     }
 
     private int getGameTime(int gameTime) {
@@ -115,5 +116,5 @@ private Button continueButton;
     }
 
     // TODO: 19/01/2018 Create Button to launch the playersActivity and call the function to initGooseGame of parametersViewModel 
-    
+
 }

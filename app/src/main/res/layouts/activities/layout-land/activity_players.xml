@@ -10,7 +10,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/global_margin">
+        android:padding="@dimen/global_margin"
+        android:focusedByDefault="true">
 
         <LinearLayout
             android:id="@+id/players_layout_player1"

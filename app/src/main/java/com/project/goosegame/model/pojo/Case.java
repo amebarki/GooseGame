@@ -32,15 +32,6 @@ public class Case {
         this.width = 200;
     }
 
-    /** Type :
-     *  0 ->
-     *  1 ->
-     *  2 ->
-     *  3 ->
-     *  4 ->
-     *  5 ->
-     */
-
     public int getId() {
         return id;
     }
@@ -100,21 +91,21 @@ public class Case {
     public void calculatePosition(float xMargin, float yMargin,float previousX,float previousY, int windowWidth){
         //calcul position
         boolean toRight = true;
-            x = previousX;
-            y = previousY;
+            this.x = previousX;
+            this.y = previousY;
 
             if (toRight) {
                 if (x + 300 + xMargin + 300 < windowWidth) {
-                    x = x + 300 + xMargin;
+                    this.x = this.x + 300 + xMargin;
                 } else {
-                    y = y + 200 + yMargin;
+                    this.y = this.y + 200 + yMargin;
                     toRight = false;
                 }
             } else {
-                if (x - xMargin - 300 > 0) {
-                    x = x - xMargin - 300;
+                if (this.x - xMargin - 300 > 0) {
+                    this.x = this.x - xMargin - 300;
                 } else {
-                    y = y + 200 + yMargin;
+                    this.y = this.y + 200 + yMargin;
                     toRight = true;
                 }
             }
