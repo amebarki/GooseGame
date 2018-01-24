@@ -51,7 +51,6 @@ public class ParametersViewModel extends BaseObservable {
     }
 
     public void initPlayers(List<Player> playersList) {
-        // TODO: 19/01/2018 create in PlayersActivity the function to launch the game and call this function to init player
         if (playersList != null) {
             gameManager.getGooseModel().setPlayerList(playersList);
             if (gameManager.getGooseModel().getPlayerList() != null)

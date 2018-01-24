@@ -3,6 +3,7 @@ package com.project.goosegame.view.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -146,9 +147,9 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processAddQuestionsFromCSV(Boolean result) {
         if(result) {
-            Toast.makeText(this, getString(R.string.question_toast_import_success), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_import_success),Snackbar.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_import_error), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_import_error),Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -169,11 +170,11 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processDeleteQuestions(Boolean result) {
         if(result) {
-            Toast.makeText(this, getString(R.string.question_toast_delete_all_success), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_all_success),Snackbar.LENGTH_LONG).show();
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_error),Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -181,11 +182,12 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processDeleteQuestion(Boolean result) {
         if(result) {
-            Toast.makeText(this, getString(R.string.question_toast_delete_success), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_success),Snackbar.LENGTH_LONG).show();
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_error),Snackbar.LENGTH_LONG).show();
+
         }
 
     }

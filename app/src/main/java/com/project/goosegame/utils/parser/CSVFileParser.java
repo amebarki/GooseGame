@@ -48,6 +48,7 @@ public class CSVFileParser {
         try {
             reader = new BufferedReader(new InputStreamReader(fileInputStream,"WINDOWS-1252"));
         } catch (UnsupportedEncodingException e) {
+            response.processErrorParsing(context.getString(R.string.parsing_error_charset));
             e.printStackTrace();
         }
         try {
