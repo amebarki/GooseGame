@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/game_layout_case"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/game_layout_pion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/game_pion1"
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
+
+        <ImageView
+            android:id="@+id/game_pion2"
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
+
+        <ImageView
+            android:id="@+id/game_pion3"
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
+
+        <ImageView
+            android:id="@+id/game_pion4"
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/game_layout_question4"
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/layout_background"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/game_lib_question4"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:textSize="50dp"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question4_answer1"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question4_answer2"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question4_answer3"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question4_answer4"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:id="@+id/game_layout_question3"
+        android:layout_centerInParent="true"
+        android:background="@drawable/layout_background"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/game_lib_question3"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:textSize="50dp"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question3_answer1"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question3_answer2"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question3_answer3"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:id="@+id/game_layout_question2"
+        android:layout_centerInParent="true"
+        android:background="@drawable/layout_background"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/game_lib_question2"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:textSize="50dp"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question2_answer1"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/game_button_question2_answer2"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/game_text_game_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:id="@+id/game_layout_dice"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@drawable/layout_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/game_text_dice_player"
+            android:textSize="50dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:text="Lancer"
+            android:id="@+id/game_button_dice_launch"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/game_text_dice_result"
+            android:textSize="50dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:id="@+id/game_layout_bonus_malus"
+        android:focusableInTouchMode="false"
+        android:visibility="gone"
+        android:background="@drawable/layout_background">>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bonus / Malus"
+            android:id="@+id/game_text_title_bonus_malus"
+            android:textSize="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/game_text_result_bonus_malus"
+            android:layout_gravity="center_horizontal"
+            android:textSize="50dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continuer"
+            android:id="@+id/game_button_bonus_malus"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:id="@+id/game_layout_dice_result"
+        android:focusableInTouchMode="false"
+        android:visibility="gone"
+        android:background="@drawable/layout_background">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Bonus / Malus"
+            android:id="@+id/game_text_dice_result"
+            android:textSize="50dp"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continuer"
+            android:id="@+id/game_button_dice_result_continue"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/game_layout_end"
+        android:background="#979797"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/game_text_end"
+            android:textSize="50dp"
+            android:layout_margin="100dp" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:text="Nouvelle Partie"
+            android:id="@+id/game_button_end_new" />
+    </LinearLayout>
+
+</RelativeLayout>

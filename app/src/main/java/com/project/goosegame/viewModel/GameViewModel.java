@@ -3,6 +3,7 @@ package com.project.goosegame.viewModel;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.BaseObservable;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.async.GameInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +30,7 @@ public class GameViewModel extends BaseObservable {
     private List<Question> gameQuestionsList = null;
 
     public GameInterface response = null;
+    private int nbCaseToMove;
 
 
     public GameViewModel(Context context) {
@@ -38,12 +41,30 @@ public class GameViewModel extends BaseObservable {
 
     }
 
+    public void getGooseModel() {
+        response.processGooseModel(gameManager.getGooseModel());
+    }
+
+
     public void initGameQuestions() {
+        new AsyncTask<Void, Void, List<Question>>() {
+            @Override
+            protected List<Question> doInBackground(Void... voids) {
+                gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),
+                                gameManager.getGooseModel().getDifficulty()));
+                return gameQuestionsList;
+            }
+
+            @Override
+            protected void onPostExecute(List<Question> questionList) {
+                super.onPostExecute(questionList);
+
+                if (gameQuestionsList != null && !gameQuestionsList.isEmpty())
+                    response.processGameQuestions(gameQuestionsList);
+            }
+        };
+
         // TODO: 19/01/2018 manage error message
-        gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),
-                gameManager.getGooseModel().getDifficulty()));
-        if (gameQuestionsList != null && !gameQuestionsList.isEmpty())
-            response.processGameQuestions(gameQuestionsList);
     }
 
     // TODO: 19/01/2018 activity recup window dimension and pass to this function to calculate the dimension of cases
@@ -120,7 +141,7 @@ public class GameViewModel extends BaseObservable {
             }.start();
         } else {
             // turn finish for the currentPlayer if duration game is end
-            new CountDownTimer(4000, 1000) {
+            /*new CountDownTimer(4000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                 }
@@ -128,23 +149,22 @@ public class GameViewModel extends BaseObservable {
                 @Override
                 public void onFinish() {
                     // LayoutFin View.Visible + string
-                    response.processDisplayEnd(View.VISIBLE, "Temp écoulé !", true);
+                    response.processDisplayEnd(View.VISIBLE, "Temp écoulé !");
                     // create button to finish
                 }
-            }.start();
+            }.start();*/
+            response.processDisplayEnd(View.VISIBLE, "Temp écoulé !");
         }
     }
 
     // call by the buttonLaunchDice
     public void ThrowDice() {
-        int nbCaseToMove = 0;
+        nbCaseToMove = 0;
         do {
             nbCaseToMove = (int) ((Math.random() * 6 * gameManager.getGooseModel().getNumberDice()));
         } while (nbCaseToMove == 0);
 
-        final int finalNbCaseToMove = nbCaseToMove;
-
-        // display how case player will advance
+        // display how many case player will advance
         new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -152,10 +172,13 @@ public class GameViewModel extends BaseObservable {
 
             @Override
             public void onFinish() {
-                response.processDisplayResultDice(View.GONE, "Vous avancez de " + Integer.toString(finalNbCaseToMove) + " case(s)");
+                response.processDisplayResultDice(View.GONE, "Vous avancez de " + Integer.toString(nbCaseToMove) + " case(s)");
             }
         }.start();
 
+    }
+
+    public void verifyShowQuestion() {
         // Show the random question or if player reach endboard, party is finish
         new CountDownTimer(4000, 1000) {
             @Override
@@ -164,14 +187,13 @@ public class GameViewModel extends BaseObservable {
 
             @Override
             public void onFinish() {
-                // TODO: 22/01/2018 see if it is the correct way to determine the end maybe add thenbCaseToMove in the condition
+                // TODO: 22/01/2018 see if it is the correct way to determine the end maybe add the nbCaseToMove in the condition
                 int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
-                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + finalNbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
+                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
                     //layoutFin.setVisibility(View.VISIBLE);
                     //tvFin.setText(sets.getListPlayer().get(currentPlayer).getName() + " a gagné la partie !!");
                     response.processDisplayEnd(View.VISIBLE,
-                            gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + " a gagné la partie !!",
-                            true);
+                            gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + " a gagné la partie !!");
 
 /*                    bFinNew.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -183,11 +205,10 @@ public class GameViewModel extends BaseObservable {
                 } else {
                     //validMove();
                     //display question if not the end
-                    showQuestion(finalNbCaseToMove);
+                    showQuestion(nbCaseToMove);
                 }
             }
         }.start();
-
     }
 
     public void moveToNextCase(int caseToMove) {
@@ -289,17 +310,64 @@ public class GameViewModel extends BaseObservable {
             public void onFinish() {
                 int currentCasePlayer = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
                 int typeCase = gameManager.getGooseModel().getBoardGame().get(currentCasePlayer+caseToMove).getType();
-                if (typeCase >= 0 && typeCase <= 4) {
+
+                if (typeCase > 0) {
                     int indexQuestion = (int) (Math.random() * (gameQuestionsList.size() - 1));
-                    Question q = gameQuestionsList.get(indexQuestion);
+                    Question question = gameQuestionsList.get(indexQuestion);
                     int positionResponse = (int) (Math.random() * 3);
+                    int nbAnswer = 4;
+
+                    List<String> answerList = new ArrayList<String>();
+
+                    switch (positionResponse) {
+                        case 0:
+                            answerList.add(question.getCorrectAnswer());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getFalseAnswerTwo());
+                            answerList.add(question.getFalseAnswerThree());
+                            break;
+
+                        case 1:
+                            answerList.add(question.getFalseAnswerTwo());
+                            answerList.add(question.getCorrectAnswer());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getFalseAnswerThree());
+                            break;
+
+                        case 2:
+                            answerList.add(question.getFalseAnswerThree());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getCorrectAnswer());
+                            answerList.add(question.getFalseAnswerTwo());
+                            break;
+
+                        case 3:
+                            answerList.add(question.getFalseAnswerThree());
+                            answerList.add(question.getFalseAnswerOne());
+                            answerList.add(question.getFalseAnswerTwo());
+                            answerList.add(question.getCorrectAnswer());
+                            break;
+
+                        default:
+
+                            break;
+                    }
+
+                    nbAnswer = question.getNbAnswer();
+
                        /*layoutTrouver4.setVisibility(View.VISIBLE);
                 tvTrouver4Type.setText("Trouver le contraire de ");
                 tvTrouver4Question.setVisibility(View.VISIBLE);
                 tvTrouver4Question.setText(q.getIntituleQuestion());*/
                     gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(caseToMove);
-                    response.processShowQuestion(q, positionResponse);
-                } else if (typeCase == 5) {
+
+
+
+
+
+
+                    response.processShowQuestion(question, nbAnswer, answerList);
+                } else if (typeCase == 0) {
                     //layoutBonusMalus.setVisibility(View.VISIBLE);
                     int nbCaseRandom = 0;
                     do {
@@ -340,22 +408,23 @@ public class GameViewModel extends BaseObservable {
 
                     // AlertDialog
                 } else {
-                    response.processShowDialog("Pas de questions !! ", "Chargerr base de questions");
+                    response.processShowDialog("Pas de questions !! ", "Chargez base de questions");
                 }
             }
         }.start();
     }
 
 
-    public void startBonusMalus(int nbCaseToMove) {
+    public void startBonusMalus() {
         //layoutBonusMalus.setVisibility(View.GONE);
+        int nbCaseToMove = gameManager.getGooseModel().getCurrentPlayerObject().getNbCaseToMove();
+
         if (nbCaseToMove > 0) {
             moveToNextCase(nbCaseToMove);
         } else {
             moveToPreviousCase(nbCaseToMove);
         }
 
-        //tourFini();
         endOfTurn();
 
     }
@@ -382,7 +451,7 @@ public class GameViewModel extends BaseObservable {
             //tvResultat.setText("Bravo tu as bien répondu !!");
             //sets.getListPlayer().get(currentPlayer).setScore(sets.getListPlayer().get(currentPlayer).getScore()+1);
             gameManager.getGooseModel().getCurrentPlayerObject().setScore(gameManager.getGooseModel().getCurrentPlayerObject().getScore() + 1);
-            response.processShowResultQuestion("Bravo tu as bien répondu !!", isCorrect);
+            response.processShowResultQuestion("Bravo, tu as bien répondu !!", isCorrect);
 
         } else {
             //tvResultat.setText("Dommage tu as répondu faux, retourne sur la case où tu étais...");
@@ -421,5 +490,4 @@ public class GameViewModel extends BaseObservable {
             endOfTurn();
         }
     }
-
 }

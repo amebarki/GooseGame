@@ -1,5 +1,8 @@
 package com.project.goosegame.view.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +22,13 @@ public class QuestionRecyclerAdapter extends RecyclerView.Adapter<QuestionRecycl
     private List<Question> questionList;
     private CustomItemClickListener listener;
     private QuestionsViewModel questionsViewModel;
+    private Context context;
 
-    public QuestionRecyclerAdapter(List<Question> questionList, CustomItemClickListener listener, QuestionsViewModel questionsViewModel) {
+    public QuestionRecyclerAdapter(List<Question> questionList, QuestionsViewModel questionsViewModel, Context context, CustomItemClickListener listener) {
         this.questionList = questionList;
         this.listener = listener;
         this.questionsViewModel = questionsViewModel;
+        this.context = context;
     }
 
     @Override
@@ -53,7 +58,22 @@ public class QuestionRecyclerAdapter extends RecyclerView.Adapter<QuestionRecycl
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                questionsViewModel.deleteQuestion(questionList.get(position));
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setPositiveButton("Supprimer",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                questionsViewModel.deleteQuestion(questionList.get(position));
+                            }
+                        });
+
+                alertDialogBuilder.setNegativeButton("Annuler",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
             }
         });
     }

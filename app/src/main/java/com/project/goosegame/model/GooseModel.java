@@ -146,28 +146,29 @@ public class GooseModel {
 
         float x = 0;
         float y = 0;
+
         // first case
-        Case start = new Case(0, false, 0, xMargin/2, yMargin/2);
+        Case start = new Case(0, false, 1, xMargin/2, yMargin/2);
         this.boardGame.add(start);
+
         // init the rest of the board game
         for (int i = 1; i < this.numberCase; i++) {
-            Case c = new Case(i, false, 0);
+            Case c = new Case(i, false, 1);
             c.calculatePosition(xMargin, yMargin,
                     this.boardGame.get(i - 1).getX(), this.boardGame.get(i-1).getY(),windowWidth);
+
             int percent = (int) (Math.random() * 100);
+
             if(percent <16){
-                c.setType(5); // Bonus/Malus
+                c.setType(0); // Bonus/Malus
                 c.setBonus(true);
             }
-            else{
-                c.setType(0);
-                //this.selectTypeCase(c);
-            }
+
             this.boardGame.add(c);
         }
     }
 
-    public void selectTypeCase(Case c){
+/*    public void selectTypeCase(Case c){
         switch ((int) (Math.random() * 5)) {
             //contraire
             case 0:
@@ -190,9 +191,7 @@ public class GooseModel {
                 c.setType(4);
                 break;
         }
-    }
-
-
+    } */
 
 
 }

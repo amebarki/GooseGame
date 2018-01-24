@@ -1,5 +1,6 @@
 package com.project.goosegame.utils.async;
 
+import com.project.goosegame.model.GooseModel;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
 import com.project.goosegame.model.pojo.Player;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public interface GameInterface {
 
-    void processPlayersList(List<Player> playersList);
+    void processGooseModel(GooseModel gooseModel);
 
     void processGameQuestions(List<Question> gameQuestionsList);
 
@@ -20,7 +21,7 @@ public interface GameInterface {
 
     void processDisplayTime(String time);
 
-    void processShowQuestion(Question q, int positionResponse);
+    void processShowQuestion(Question question, int nbAnswer, List<String> answerList);
 
     void processShowResultQuestion(String result,boolean isCorrect);
 
@@ -30,7 +31,7 @@ public interface GameInterface {
 
     void processDisplayResultDice(int visibility, String resultDice);
 
-    void processDisplayEnd(int visibility, String endText,boolean isOver);
+    void processDisplayEnd(int visibility, String endText);
 
     void processShowDialog(String title,String text);
 
