@@ -42,7 +42,7 @@ public class ParametersActivity extends AppCompatActivity implements AsyncParame
         setContentView(R.layout.activity_parameters);
         parametersViewModel = new ParametersViewModel(getApplicationContext());
         parametersViewModel.initQuestionTypeList();
-        parametersViewModel.response = this;
+        parametersViewModel.setAsyncParameters(this);
 
         playerNumberRadioGroup = findViewById(R.id.param_radio_player_number);
         difficultyRadioGroup = findViewById(R.id.param_radio_difficulty);

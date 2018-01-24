@@ -25,7 +25,7 @@ public class GameViewModel extends BaseObservable {
     private QuestionManager questionManager = null;
     private List<Question> gameQuestionsList = null;
 
-    public GameObservable response = null;
+    private GameObservable response = null;
 
 
     public GameViewModel(Context context) {
@@ -34,6 +34,11 @@ public class GameViewModel extends BaseObservable {
         this.questionManager = QuestionManager.getInstance();
         questionManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(this.context));
 
+    }
+
+
+    public void setGameObeservable(GameObservable gameObservable){
+        this.response = gameObservable;
     }
 
 
@@ -292,10 +297,6 @@ public class GameViewModel extends BaseObservable {
                     int indexQuestion = (int) (Math.random() * (gameQuestionsList.size() - 1));
                     Question q = gameQuestionsList.get(indexQuestion);
                     int positionResponse = (int) (Math.random() * 3);
-                       /*layoutTrouver4.setVisibility(View.VISIBLE);
-                tvTrouver4Type.setText("Trouver le contraire de ");
-                tvTrouver4Question.setVisibility(View.VISIBLE);
-                tvTrouver4Question.setText(q.getIntituleQuestion());*/
                     gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(caseToMove);
                     response.processShowQuestion(q, positionResponse);
                 } else if (typeCase == 5) {

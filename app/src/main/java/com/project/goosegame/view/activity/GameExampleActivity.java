@@ -33,7 +33,7 @@ private List<Player> playerList;
         int windowwidth = getWindowManager().getDefaultDisplay().getWidth();
         int windowheight = getWindowManager().getDefaultDisplay().getHeight();
         gameViewModel  = new GameViewModel(getApplicationContext());
-        gameViewModel.response = this;
+        gameViewModel.setGameObeservable(this);
         gameViewModel.initGameQuestions();
         gameViewModel.createCases(windowheight,windowwidth);
         gameViewModel.startTimer();

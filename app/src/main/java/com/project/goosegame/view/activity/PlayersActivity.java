@@ -89,7 +89,7 @@ public class PlayersActivity extends AppCompatActivity implements AsyncParameter
         setContentView(R.layout.activity_players);
 
         parametersViewModel = new ParametersViewModel(getApplicationContext());
-        parametersViewModel.response = this;
+        parametersViewModel.setAsyncParameters(this);
         parametersViewModel.getNumberPlayers();
 
         initImageButton();

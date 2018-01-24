@@ -41,7 +41,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         questionsViewModel = new QuestionsViewModel(getApplicationContext());
-        questionsViewModel.response = this;
+        questionsViewModel.setAsyncQuestions(this);
 
         questionsViewModel.displayQuestions();
     }

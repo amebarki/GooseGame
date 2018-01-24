@@ -52,21 +52,18 @@ public class ColorPickerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (settingsViewModel.getColorSelected()) {
                     case 0:
-                        Toast.makeText(ColorPickerActivity.this, "Primary", Toast.LENGTH_SHORT).show();
                         settingsViewModel.setPrimaryColor(colorSelected);
                         editor.putInt("PrimaryColor",colorSelected);
                         editor.commit();
                         finish();
                         break;
                     case 1:
-                        Toast.makeText(ColorPickerActivity.this, "Secundary", Toast.LENGTH_SHORT).show();
                         settingsViewModel.setSecundaryColor(colorSelected);
                         editor.putInt("SecundaryColor",colorSelected);
                         editor.commit();
                         finish();
                         break;
                     case 2:
-                        Toast.makeText(ColorPickerActivity.this, "Select", Toast.LENGTH_SHORT).show();
                         settingsViewModel.setSelectColor(colorSelected);
                         editor.putInt("SelectColor",colorSelected);
                         editor.commit();

@@ -22,7 +22,7 @@ public class ParametersViewModel extends BaseObservable {
     private Context context;
     private QuestionManager questionsManager = null;
     private GameManager gameManager = null;
-    public AsyncParameters response = null;
+    private AsyncParameters response = null;
 
     public ParametersViewModel(Context context) {
         this.context = context;
@@ -30,6 +30,11 @@ public class ParametersViewModel extends BaseObservable {
         questionsManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
         gameManager = GameManager.getInstance();
 
+    }
+
+
+    public void setAsyncParameters(AsyncParameters asyncParameters){
+        this.response = asyncParameters;
     }
 
     public void numberOfPlayers(){

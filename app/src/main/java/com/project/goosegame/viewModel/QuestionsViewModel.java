@@ -30,7 +30,7 @@ public class QuestionsViewModel extends BaseObservable {
     private Context context;
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
-    public AsyncQuestions response = null;
+    private AsyncQuestions response = null;
     private QuestionManager questionManager = null;
 
     public QuestionsViewModel(Context context) {
@@ -38,6 +38,12 @@ public class QuestionsViewModel extends BaseObservable {
         this.context = context;
         questionManager = QuestionManager.getInstance();
         questionManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
+    }
+
+
+
+    public void setAsyncQuestions(AsyncQuestions asyncQuestions){
+        this.response = asyncQuestions;
     }
 
 

@@ -3,12 +3,10 @@ package com.project.goosegame.viewModel;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
-import android.graphics.Color;
 
 import com.project.goosegame.manager.SettingsManager;
 import com.project.goosegame.utils.observable.SettingsObservable;
 import com.project.goosegame.view.activity.ColorPickerActivity;
-import com.project.goosegame.view.activity.SettingsExampleActivity;
 
 /**
  * Created by Adam on 23/01/2018.
@@ -20,34 +18,37 @@ public class SettingsViewModel extends BaseObservable {
 
     private Context context;
     private SettingsManager settingsManager = null;
-    public SettingsObservable settingsObservable = null;
+    private SettingsObservable response = null;
 
     public SettingsViewModel(Context context) {
         this.context = context;
         settingsManager = SettingsManager.getInstance();
 
     }
-// TODO: 23/01/2018 prepare selection via SettingsManager 
+
+    public void setSettingsObservable(SettingsObservable settingsObservable){
+        this.response = settingsObservable;
+    }
 
     public void getPrimaryColor() {
         Intent intent = new Intent(context, ColorPickerActivity.class);
         settingsManager.setCurrentSelectColor(0);
         //startActivityForResult(intent, 1);
-        settingsObservable.processOpenPrimaryColor(intent);
+        response.processOpenPrimaryColor(intent);
     }
 
     public void getSecundaryColor() {
         Intent intent = new Intent(context, ColorPickerActivity.class);
         settingsManager.setCurrentSelectColor(1);
         //startActivityForResult(intent, 1);
-        settingsObservable.processOpenSecundaryColor(intent);
+        response.processOpenSecundaryColor(intent);
     }
 
     public void getSelectColor() {
         Intent intent = new Intent(context, ColorPickerActivity.class);
         //startActivityForResult(intent, 1);
         settingsManager.setCurrentSelectColor(2);
-        settingsObservable.processOpenSelectColor(intent);
+        response.processOpenSelectColor(intent);
     }
 
     public void getFontSize() {
