@@ -195,5 +195,6 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processErrorParsing(String message) {
         // TODO: 24/01/2018 Alert dialog display error
+        Snackbar.make(findViewById(R.id.question_coordinator_layout), message,Snackbar.LENGTH_LONG).show();
     }
 }
