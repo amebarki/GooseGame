@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Jeu de l\'oie</string>
 
-    /*  Strings for MainActivity */
+    /* Strings for MainActivity */
     <string name="main_button_play">Jouer</string>
 
     /* Strings for ParametersActivity */
@@ -43,8 +43,23 @@
     <string name="question_toast_delete_all_error">Un problème est survenu lors de la suppression</string>
     <string name="question_toast_delete_success">La question a bien été supprimée</string>
 
-
-    <string name="title_activity_niveaux">Niveaux</string>
-
-
+    /* Strings for Parser */
+    <string name="parsing_error_file">Le fichier sélectionné n\'existe pas</string>
+    <string name="parsing_error_reading">Une erreur est survenue en lisant le fichier CSV</string>
+    <string name="parsing_error_closing_stream">Une erreur est survenue à la fin de la lecture du fichier CSV</string>
+    <string name="parsing_charset">Windows-1250</string>
+    /* Strings for GameActivity */
+    <string name="game_time_left">Temps restant : </string>
+    <string name="game_time_end">Time\'s up</string>
+    <string name="game_time_end_turn">Temps écoulé !</string>
+    <string name="game_advance_case">Vous pourrez avancez de %1$d case(s)</string>
+    <string name="game_player_win">a gagné la partie !!</string>
+    <string name="game_malus_title">Malus</string>
+    <string name="game_malus_message">Reculer de %1$d case(s)</string>
+    <string name="game_bonus_title">Bonus</string>
+    <string name="game_bonus_message">Avancer de %1$d case(s)</string>
+    <string name="game_erreur_questions_title">Pas de questions !!</string>
+    <string name="game_erreur_questions_message">Il n\'y a pas de questions, vous devez en charger des nouvelles</string>
+    <string name="game_question_good_answer_message">Bravo tu as bien répondu !!</string>
+    <string name="game_question_bad_answer_message">Dommage, mauvaise réponse, pas de déplacement.</string>
 </resources>

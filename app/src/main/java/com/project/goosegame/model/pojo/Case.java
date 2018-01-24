@@ -32,15 +32,6 @@ public class Case {
         this.width = 200;
     }
 
-    /** Type :
-     *  0 ->
-     *  1 ->
-     *  2 ->
-     *  3 ->
-     *  4 ->
-     *  5 ->
-     */
-
     public int getId() {
         return id;
     }

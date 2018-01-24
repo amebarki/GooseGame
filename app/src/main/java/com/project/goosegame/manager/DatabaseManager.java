@@ -26,12 +26,10 @@ public class DatabaseManager {
     private static Question addQuestion(final AppQuestionDatabase db, Question question) {
         db.questionDao().insertQuestion(question);
         List<Question> list = db.questionDao().getAll();
-        Log.d(DatabaseManager.TAG, "Rows Count: " + list.size());
         return question;
     }
     private void test(){}
     private static void populateWithDataCSV(AppQuestionDatabase db,int choice) {
-            Log.d("TAGO",choice +"");
     }
 
 

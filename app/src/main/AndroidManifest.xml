@@ -14,7 +14,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activity.MainActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.activity.QuestionActivity"
             android:screenOrientation="landscape" />
@@ -27,11 +33,6 @@
         <activity
             android:name=".view.activity.SettingsExampleActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".view.activity.ColorPickerActivity"
             android:screenOrientation="sensorLandscape">

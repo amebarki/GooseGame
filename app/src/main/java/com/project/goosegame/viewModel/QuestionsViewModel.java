@@ -71,9 +71,9 @@ public class QuestionsViewModel extends BaseObservable {
             String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
             if (fileExtension.compareTo("csv") == 0) {
                 File f = new File(pathFolder.getAbsolutePath(), file.getName());
-                Log.d("TAGO", f.getAbsolutePath());
-                csvFileParser = new CSVFileParser(f);
-                questionsList.addAll(csvFileParser.read());
+                csvFileParser = new CSVFileParser(context,response,f);
+                questionsList.addAll(csvFileParser.read(response));
+
                 // import list question from CSV to the database
                 new AsyncTask<Void, Void, Boolean>() {
                     @Override

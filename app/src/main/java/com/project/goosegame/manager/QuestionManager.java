@@ -14,7 +14,6 @@ public class QuestionManager {
 
     private static QuestionManager instance = null;
     private AppQuestionDatabase db;
-    public static final String TAG = "DATABASE";
 
     public static QuestionManager getInstance() {
         if (instance == null) {

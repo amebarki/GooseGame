@@ -30,7 +30,7 @@ import java.util.List;
  * Created by Adam on 23/01/2018.
  */
 
-public class SettingsExampleActivity extends AppCompatActivity implements SettingsObservable, AsyncQuestions {
+public class SettingsExampleActivity extends AppCompatActivity implements SettingsObservable {
 
     private SettingsViewModel settingsViewModel;
     private QuestionsViewModel questionsViewModel;
@@ -44,12 +44,10 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
         setContentView(R.layout.activity_settings);
         settingsViewModel = new SettingsViewModel(getApplicationContext());
         settingsViewModel.setSettingsObservable(this);
-        questionsViewModel = new QuestionsViewModel(this);
-        questionsViewModel.setAsyncQuestions(this);
         buttonPrimary = (Button) findViewById(R.id.settings_button_primary);
         buttonSecundary = (Button) findViewById(R.id.settings_button_secundary);
         buttonSelect = (Button) findViewById(R.id.settings_button_select);
-
+        
         buttonPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,28 +86,4 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
         startActivity(intent);
     }
 
-    @Override
-    public void processAddQuestionsFromCSV(Boolean result) {
-
-    }
-
-    @Override
-    public void processCallBaseQuestions(Boolean result) {
-
-    }
-
-    @Override
-    public void processDisplayQuestions(List<Question> questions) {
-
-    }
-
-    @Override
-    public void processDeleteQuestions(Boolean result) {
-
-    }
-
-    @Override
-    public void processDeleteQuestion(Boolean result) {
-
-    }
 }
