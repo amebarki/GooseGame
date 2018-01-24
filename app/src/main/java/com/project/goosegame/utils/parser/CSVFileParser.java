@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,10 +44,15 @@ public class CSVFileParser {
 
     public ArrayList<Question> read(AsyncQuestions response){
         List resultList = new ArrayList();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(fileInputStream,"WINDOWS-1252"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         try {
             // avoid the first line wich is the name of the columns
-            String csvLine=reader.readLine();
+            String csvLine= URLEncoder.encode(reader.readLine());
             while ((csvLine = reader.readLine()) != null) {
 
                 String[] row = csvLine.split(";");
