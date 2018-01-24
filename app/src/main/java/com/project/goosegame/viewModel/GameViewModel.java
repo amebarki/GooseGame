@@ -64,13 +64,12 @@ public class GameViewModel extends BaseObservable {
 
                 if (gameQuestionsList != null && !gameQuestionsList.isEmpty())
                     response.processGameQuestions(gameQuestionsList);
+                else
+                    response.processMessageError(context.getString(R.string.game_questions_init_error));
             }
         };
-
-        // TODO: 19/01/2018 manage error message
     }
 
-    // TODO: 19/01/2018 activity recup window dimension and pass to this function to calculate the dimension of cases
     public void createCases(int windowHeigth, int windowWidth) {
         int numberCase = gameManager.getGooseModel().calculateNumberCases();
         float xMargin = this.getXMargin(windowWidth);
@@ -80,6 +79,7 @@ public class GameViewModel extends BaseObservable {
             response.processGooseCases(gameManager.getGooseModel().getBoardGame());
         } else {
             response.processGooseCases(null);
+            response.processMessageError(context.getString(R.string.game_create_cases_error));
         }
     }
 
@@ -117,7 +117,7 @@ public class GameViewModel extends BaseObservable {
             }
 
             public void onFinish() {
-                response.processDisplayTime("Time up !");
+                response.processDisplayTime(context.getString(R.string.game_time_end));
                 gameManager.getGooseModel().setDurationGame(0);
             }
         }.start();
@@ -139,7 +139,7 @@ public class GameViewModel extends BaseObservable {
                 }
             }.start();
         } else {
-            response.processDisplayEnd(View.VISIBLE, "Temp écoulé !");
+            response.processDisplayEnd(View.VISIBLE, context.getString(R.string.game_time_end_turn));
         }
     }
 
@@ -158,7 +158,6 @@ public class GameViewModel extends BaseObservable {
 
             @Override
             public void onFinish() {
-                //response.processDisplayResultDice(View.GONE, "Vous avancez de " + Integer.toString(finalNbCaseToMove) + " case(s)");
                 response.processDisplayResultDice(View.GONE,context.getString(R.string.game_advance_case,nbCaseToMove));
 
             }
@@ -181,7 +180,6 @@ public class GameViewModel extends BaseObservable {
                             gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + context.getString(R.string.game_player_win));
                 } else {
                     showQuestion(nbCaseToMove);
-                    // TODO: 22/01/2018 see if it is the correct way to determine the end maybe add the nbCaseToMove in the condition
                     currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
                     if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
                         //layoutFin.setVisibility(View.VISIBLE);
@@ -363,8 +361,8 @@ public class GameViewModel extends BaseObservable {
 
                     }
                 } else {
-                    response.processShowDialog(context.getString(R.string.game_erreur_questions_title),
-                            context.getString(R.string.game_erreur_questions_message));
+                    response.processShowDialog(context.getString(R.string.game_questions_title_error),
+                            context.getString(R.string.game_questions_message_error));
                 }
             }
         }.start();

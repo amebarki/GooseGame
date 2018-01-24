@@ -1,7 +1,6 @@
 package com.project.goosegame.utils.parser;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -37,7 +35,7 @@ public class CSVFileParser {
             fileInputStream = new FileInputStream(file);
 
         } catch (FileNotFoundException e) {
-            response.processErrorParsing(context.getString(R.string.parsing_error_file));
+            response.processErrorParsing(context.getString(R.string.parsing_file_error));
             e.printStackTrace();
         }
     }
@@ -48,7 +46,7 @@ public class CSVFileParser {
         try {
             reader = new BufferedReader(new InputStreamReader(fileInputStream,"WINDOWS-1252"));
         } catch (UnsupportedEncodingException e) {
-            response.processErrorParsing(context.getString(R.string.parsing_error_charset));
+            response.processErrorParsing(context.getString(R.string.parsing_charset_error));
             e.printStackTrace();
         }
         try {
@@ -63,7 +61,7 @@ public class CSVFileParser {
             }
         }
         catch (IOException ex) {
-            response.processErrorParsing(context.getString(R.string.parsing_error_reading));
+            response.processErrorParsing(context.getString(R.string.parsing_reading_error));
             //throw new RuntimeException("Error in reading CSV file : "+ex);
         }
         finally {
@@ -72,7 +70,7 @@ public class CSVFileParser {
                 reader.close();
             }
             catch (IOException e) {
-                response.processErrorParsing(context.getString(R.string.parsing_error_reading));
+                response.processErrorParsing(context.getString(R.string.parsing_reading_error));
                 //throw new RuntimeException("Error while closing input stream : "+e);
             }
         }

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -578,5 +579,10 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
                 pion.animate().translationY(yTranslation).setDuration(duration);
             }
         }
+    }
+
+    @Override
+    public void processMessageError(String message) {
+        Snackbar.make(findViewById(R.id.game_coordinator_layout),message,Snackbar.LENGTH_SHORT).show();
     }
 }
