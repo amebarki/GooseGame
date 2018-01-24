@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/settings_button_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="309dp"
-        tools:layout_editor_absoluteY="373dp" />
+        android:layout_marginTop="140dp"
+        android:text="Primary"
+        app:layout_constraintTop_toBottomOf="@+id/settings_button_secundary"
+        tools:layout_editor_absoluteX="148dp" />
+
+    <Button
+        android:id="@+id/settings_button_secundary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Secundary"
+        app:layout_constraintTop_toBottomOf="@+id/settings_button_select"
+        tools:layout_editor_absoluteX="140dp" />
+
+    <Button
+        android:id="@+id/settings_button_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="72dp" />
 </android.support.constraint.ConstraintLayout>

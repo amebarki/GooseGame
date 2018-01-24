@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.CustomItemClickListener;
+import com.project.goosegame.utils.listener.CustomItemClickListener;
 import com.project.goosegame.viewModel.QuestionsViewModel;
 
 import java.util.List;

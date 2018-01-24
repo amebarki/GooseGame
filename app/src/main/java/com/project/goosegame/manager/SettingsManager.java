@@ -14,7 +14,7 @@ public class SettingsManager {
     private int primary;
     private int secundary;
     private int select;
-
+    private int currentSelectColor;
 
     public static SettingsManager getInstance() {
         if (instance == null) {
@@ -55,5 +55,13 @@ public class SettingsManager {
 
     public void setSelect(int select) {
         this.select = select;
+    }
+
+    public int getCurrentSelectColor() {
+        return currentSelectColor;
+    }
+
+    public void setCurrentSelectColor(int currentSelectColor) {
+        this.currentSelectColor = currentSelectColor;
     }
 }

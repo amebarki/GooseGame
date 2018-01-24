@@ -1,4 +1,4 @@
-package com.project.goosegame.utils;
+package com.project.goosegame.utils.colorpicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,10 +22,10 @@ import android.view.View;
 import com.project.goosegame.R;
 
 
-public class GradientView extends View {
+public class ColorPicker extends View {
 
     public interface OnColorChangedListener {
-        void onColorChanged(GradientView view, int color);
+        void onColorChanged(ColorPicker view, int color);
     }
 
     private static final boolean DEBUG = false;
@@ -33,7 +33,7 @@ public class GradientView extends View {
     private static final int[] GRAD_COLORS = new int[]{Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA, Color.RED};
     private static final int[] GRAD_ALPHA = new int[]{Color.WHITE, Color.TRANSPARENT};
 
-    private GradientView mBrightnessGradientView;
+    private ColorPicker mBrightnessColorPicker;
     private Shader mShader;
     private Drawable mPointerDrawable;
     private Paint mPaint;
@@ -57,23 +57,23 @@ public class GradientView extends View {
 
     private OnColorChangedListener mOnColorChangedListener;
 
-    public GradientView(Context context) {
+    public ColorPicker(Context context) {
         super(context);
         init(null);
     }
 
-    public GradientView(Context context, AttributeSet attrs) {
+    public ColorPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public GradientView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ColorPicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     @SuppressLint("NewApi")
-    public GradientView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ColorPicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -92,17 +92,17 @@ public class GradientView extends View {
         }
 
         if (attrs != null) {
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.GradientView);
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ColorPicker);
             for (int i = 0, n = typedArray.getIndexCount(); i < n; i++) {
                 int index = typedArray.getIndex(i);
                 switch (index) {
-                    case R.styleable.GradientView_radius:
+                    case R.styleable.ColorPicker_radius:
                         setRadius(typedArray.getDimensionPixelSize(index, 0));
                         break;
-                    case R.styleable.GradientView_pointerDrawable:
+                    case R.styleable.ColorPicker_pointerDrawable:
                         setPointerDrawable(typedArray.getDrawable(index));
                         break;
-                    case R.styleable.GradientView_lockPointerInBounds:
+                    case R.styleable.ColorPicker_lockPointerInBounds:
                         setLockPointerInBounds(typedArray.getBoolean(index, false));
                         break;
                 }
@@ -305,8 +305,8 @@ public class GradientView extends View {
     }
 
     protected void dispatchColorChanged(int color) {
-        if (mBrightnessGradientView != null) {
-            mBrightnessGradientView.setColor(color, false);
+        if (mBrightnessColorPicker != null) {
+            mBrightnessColorPicker.setColor(color, false);
         }
         if (mOnColorChangedListener != null) {
             mOnColorChangedListener.onColorChanged(this, color);
@@ -388,13 +388,13 @@ public class GradientView extends View {
      * Add reference for brightness view
      * @param brightnessGradient
      */
-    public void setBrightnessGradientView(GradientView brightnessGradient) {
-        if (mBrightnessGradientView != brightnessGradient) {
-            mBrightnessGradientView = brightnessGradient;
+    public void setBrightnessGradientView(ColorPicker brightnessGradient) {
+        if (mBrightnessColorPicker != brightnessGradient) {
+            mBrightnessColorPicker = brightnessGradient;
 
-            if (mBrightnessGradientView != null) {
-                mBrightnessGradientView.setIsBrightnessGradient(true);
-                mBrightnessGradientView.setColor(mSelectedColor);
+            if (mBrightnessColorPicker != null) {
+                mBrightnessColorPicker.setIsBrightnessGradient(true);
+                mBrightnessColorPicker.setColor(mSelectedColor);
             }
         }
     }

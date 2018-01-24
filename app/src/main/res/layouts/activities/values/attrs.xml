@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="GradientView">
+    <declare-styleable name="ColorPicker">
         <attr name="pointerDrawable" format="reference" />
         <attr name="radius" format="dimension" />
         <attr name="lockPointerInBounds" format="boolean" />

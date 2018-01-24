@@ -2,31 +2,23 @@ package com.project.goosegame.view.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.goosegame.R;
-import com.project.goosegame.utils.GradientView;
+import com.project.goosegame.utils.colorpicker.ColorPicker;
 import com.project.goosegame.viewModel.SettingsViewModel;
 
 public class ColorPickerActivity extends AppCompatActivity {
 
-    private GradientView mTop;
-    private GradientView mBottom;
-    private TextView mTextView;
-    private Button valider;
-    private int retourCoul;
+    private ColorPicker colorView;
+    private ColorPicker saturationView;
+    private Button validateButton;
+    private int colorSelected;
     SharedPreferences.Editor editor;
 
     private SettingsViewModel settingsViewModel = null;
@@ -41,65 +33,54 @@ public class ColorPickerActivity extends AppCompatActivity {
         editor = getSharedPreferences("couleurs", MODE_PRIVATE).edit();
         settingsViewModel = new SettingsViewModel(getApplicationContext());
 
-
-        valider = (Button) findViewById(R.id.validColor);
-        mTop = (GradientView)findViewById(R.id.top);
-        mBottom = (GradientView)findViewById(R.id.bottom);
-        mTop.setBrightnessGradientView(mBottom);
-        mBottom.setOnColorChangedListener(new GradientView.OnColorChangedListener() {
+        validateButton = (Button) findViewById(R.id.validColor);
+        colorView = (ColorPicker) findViewById(R.id.top);
+        saturationView = (ColorPicker) findViewById(R.id.bottom);
+        colorView.setBrightnessGradientView(saturationView);
+        saturationView.setOnColorChangedListener(new ColorPicker.OnColorChangedListener() {
             @Override
-            public void onColorChanged(GradientView view, int color) {
-                GradientDrawable bgShape = (GradientDrawable)valider.getBackground();
+            public void onColorChanged(ColorPicker view, int color) {
+                GradientDrawable bgShape = (GradientDrawable) validateButton.getBackground();
                 bgShape.setColor(color);
-                retourCoul = color;
+                colorSelected = color;
 
             }
         });
 
-        valider.setOnClickListener(new View.OnClickListener() {
+        validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(ColorPickerActivity.this, "Couci", Toast.LENGTH_SHORT).show();
-                /*String a =intent.getStringExtra("type");
-                String b =intent.getStringExtra("text");
-
-                if(intent.getStringExtra("type").equals("texteBouton")){
-                    ColorManager.getInstance().texteBouton = retourCoul;
-                    editor.putInt("texteBouton", retourCoul);
-                    editor.commit();
-                    finish();
-                }if(intent.getStringExtra("type").equals("fondBouton")){
-                    ColorManager.getInstance().fondBouton = retourCoul;
-                    editor.putInt("fondBouton", retourCoul);
-                    editor.commit();
-                    finish();
-                }if(intent.getStringExtra("type").equals("texteGeneral")){
-                    ColorManager.getInstance().texteGeneral = retourCoul;
-                    editor.putInt("texteGeneral", retourCoul);
-                    editor.commit();
-                    finish();
-                }if(intent.getStringExtra("type").equals("fondGeneral")){
-                    ColorManager.getInstance().fondGeneral = retourCoul;
-                    editor.putInt("fondGeneral", retourCoul);
-                    editor.commit();
-                    finish();
-                }if(intent.getStringExtra("type").equals("choixCase")){
-                    ColorManager.getInstance().choixCase = retourCoul;
-                    editor.putInt("choixCase", retourCoul);
-                    editor.commit();
-                    finish();
-                }*/
-
-
+                switch (settingsViewModel.getColorSelected()) {
+                    case 0:
+                        Toast.makeText(ColorPickerActivity.this, "Primary", Toast.LENGTH_SHORT).show();
+                        settingsViewModel.setPrimaryColor(colorSelected);
+                        editor.putInt("PrimaryColor",colorSelected);
+                        editor.commit();
+                        finish();
+                        break;
+                    case 1:
+                        Toast.makeText(ColorPickerActivity.this, "Secundary", Toast.LENGTH_SHORT).show();
+                        settingsViewModel.setSecundaryColor(colorSelected);
+                        editor.putInt("SecundaryColor",colorSelected);
+                        editor.commit();
+                        finish();
+                        break;
+                    case 2:
+                        Toast.makeText(ColorPickerActivity.this, "Select", Toast.LENGTH_SHORT).show();
+                        settingsViewModel.setSelectColor(colorSelected);
+                        editor.putInt("SelectColor",colorSelected);
+                        editor.commit();
+                        finish();
+                        break;
+                    default:
+                        finish();
+                        break;
+                }
             }
         });
 
 
     }
-
-
-
 
 
 }

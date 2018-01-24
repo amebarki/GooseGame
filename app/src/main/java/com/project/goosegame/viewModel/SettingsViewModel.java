@@ -21,6 +21,7 @@ public class SettingsViewModel extends BaseObservable {
     private Context context;
     private SettingsManager settingsManager = null;
     public SettingsObservable settingsObservable = null;
+
     public SettingsViewModel(Context context) {
         this.context = context;
         settingsManager = SettingsManager.getInstance();
@@ -30,22 +31,43 @@ public class SettingsViewModel extends BaseObservable {
 
     public void getPrimaryColor() {
         Intent intent = new Intent(context, ColorPickerActivity.class);
-        intent.putExtra("type","texteButton");
-
+        settingsManager.setCurrentSelectColor(0);
         //startActivityForResult(intent, 1);
+        settingsObservable.processOpenPrimaryColor(intent);
     }
 
     public void getSecundaryColor() {
-
+        Intent intent = new Intent(context, ColorPickerActivity.class);
+        settingsManager.setCurrentSelectColor(1);
+        //startActivityForResult(intent, 1);
+        settingsObservable.processOpenSecundaryColor(intent);
     }
 
     public void getSelectColor() {
-
+        Intent intent = new Intent(context, ColorPickerActivity.class);
+        //startActivityForResult(intent, 1);
+        settingsManager.setCurrentSelectColor(2);
+        settingsObservable.processOpenSelectColor(intent);
     }
 
     public void getFontSize() {
-
+        Intent intent = new Intent(context, ColorPickerActivity.class);
     }
 
+    public int getColorSelected(){
+        return settingsManager.getCurrentSelectColor();
+    }
+
+    public void setPrimaryColor(int primaryColor){
+        settingsManager.setPrimary(primaryColor);
+    }
+
+    public void setSecundaryColor(int secundaryColor){
+        settingsManager.setSecundary(secundaryColor);
+    }
+
+    public void setSelectColor(int selectColor){
+        settingsManager.setSelect(selectColor);
+    }
 }
 

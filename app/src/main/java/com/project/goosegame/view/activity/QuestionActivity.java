@@ -16,9 +16,8 @@ import android.widget.Toast;
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.observable.AsyncQuestions;
-import com.project.goosegame.utils.CustomItemClickListener;
-import com.project.goosegame.utils.HidingScrollListener;
-import com.project.goosegame.utils.observable.AsyncQuestions;
+import com.project.goosegame.utils.listener.CustomItemClickListener;
+import com.project.goosegame.utils.listener.HidingScrollListener;
 import com.project.goosegame.view.adapter.QuestionRecyclerAdapter;
 import com.project.goosegame.viewModel.QuestionsViewModel;
 
