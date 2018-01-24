@@ -40,8 +40,12 @@
     <string name="question_toast_import_success">Les questions ont bien été importées</string>
     <string name="question_toast_import_error">Un problème est survenu lors de l'importation</string>
     <string name="question_toast_delete_all_success">Les questions ont bien été supprimées</string>
-    <string name="question_toast_delete_all_error">Un problème est survenu lors de la suppression</string>
+    <string name="question_toast_delete_error">Un problème est survenu lors de la suppression</string>
     <string name="question_toast_delete_success">La question a bien été supprimée</string>
+    <string name="question_dialog_delete_confirm">Etes-vous sûr de vouloir supprimer toutes les questions importées ?</string>
+
+    /* Strings for GameActivity */
+    <string name="game_dialog_loading_fail">Une erreur est survenue lors du chargement du jeu. Partie annulée</string>
 
     /* Strings for Parser */
     <string name="parsing_error_file">Le fichier sélectionné n\'existe pas</string>

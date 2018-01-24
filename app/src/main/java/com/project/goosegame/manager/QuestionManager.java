@@ -82,7 +82,7 @@ public class QuestionManager {
         Question q1 = new Question("grammaire", 1, "titi", "tic", "tac", "tuc", "toc", 0);
         Question q2 = new Question("conjugaison", 2, "roro", "roc", "rac", "ruc", "ric", 0);
         Question q3 = new Question("synonyme", 3, "baba", "bac", "buc", "", "", 0);
-        Question q4 = new Question("vocabulaire", 4, "lulu", "luc", "lac", null, null, 0);
+        Question q4 = new Question("vocabulaire", 4, "lulu", "luc", "lac", "", "", 0);
         baseQuestions.add(q1);
         baseQuestions.add(q2);
         baseQuestions.add(q3);

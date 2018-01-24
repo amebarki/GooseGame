@@ -1,5 +1,6 @@
 package com.project.goosegame.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -233,12 +234,12 @@ public class PlayersActivity extends AppCompatActivity implements AsyncParameter
             @Override
             public void onClick(View v) {
 
-                //addPlayersToSettings();
+                addPlayersToSettings();
 
                 //TODO Ajouter Game Activity
-                //Intent i = new Intent(PlayersActivity.this, BoardActivity.class);
+                Intent i = new Intent(PlayersActivity.this, GameActivity.class);
 
-                //startActivity(i);
+                startActivity(i);
             }
         });
     }

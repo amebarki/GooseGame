@@ -1,5 +1,6 @@
 package com.project.goosegame.utils.observable;
 
+import com.project.goosegame.model.GooseModel;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
 import com.project.goosegame.model.pojo.Player;
@@ -12,13 +13,15 @@ import java.util.List;
 
 public interface GameObservable {
 
+    void processGooseModel(GooseModel gooseModel);
+
     void processGameQuestions(List<Question> gameQuestionsList);
 
     void processGooseCases(List<Case> boardGame);
 
     void processDisplayTime(String time);
 
-    void processShowQuestion(Question q, int positionResponse);
+    void processShowQuestion(Question question, int nbAnswer, List<String> answerList);
 
     void processShowResultQuestion(String result,boolean isCorrect);
 
@@ -28,10 +31,9 @@ public interface GameObservable {
 
     void processDisplayResultDice(int visibility, String resultDice);
 
-    void processDisplayEnd(int visibility, String endText,boolean isOver);
+    void processDisplayEnd(int visibility, String endText);
 
     void processShowDialog(String title,String text);
 
     void processAnimatePiece(int numberOfCaseToPass,int currentPlayer,int currentCase,float xTranslation,float yTranslation,int duration,boolean forward);
-
 }

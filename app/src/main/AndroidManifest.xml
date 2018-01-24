@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activity.MainActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,13 +23,13 @@
         </activity>
         <activity
             android:name=".view.activity.QuestionActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".view.activity.ParametersActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".view.activity.PlayersActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".view.activity.SettingsExampleActivity"
             android:screenOrientation="landscape">
@@ -37,6 +37,9 @@
         <activity android:name=".view.activity.ColorPickerActivity"
             android:screenOrientation="sensorLandscape">
         </activity>
+        <activity
+            android:name=".view.activity.GameActivity"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

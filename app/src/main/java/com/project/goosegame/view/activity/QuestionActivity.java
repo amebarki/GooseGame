@@ -42,7 +42,6 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
 
         questionsViewModel = new QuestionsViewModel(getApplicationContext());
         questionsViewModel.setAsyncQuestions(this);
-
         questionsViewModel.displayQuestions();
     }
 
@@ -60,12 +59,12 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
         if (questionList.size() > 0) {
-            QuestionRecyclerAdapter questionRecyclerAdapter = new QuestionRecyclerAdapter(questionList, new CustomItemClickListener() {
+            QuestionRecyclerAdapter questionRecyclerAdapter = new QuestionRecyclerAdapter(questionList, questionsViewModel, this, new CustomItemClickListener() {
                 @Override
                 public void onItemClick(View v, int position) {
 
                 }
-            }, questionsViewModel);
+            });
 
             questionRecyclerView.setAdapter(questionRecyclerAdapter);
         }
@@ -113,8 +112,6 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_import) {
             startActivityForResult(questionsViewModel.openFileExplorer(), INTENT_FILE_CODE);
-
-
             return true;
 
         } else if (id == R.id.action_delete) {
@@ -136,7 +133,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
                 }
             });
 
-            alertDialogBuilder.setMessage("Etes-vous sûr de vouloir supprimer toutes les questions importées ?");
+            alertDialogBuilder.setMessage(getString(R.string.question_dialog_delete_confirm));
             alertDialogBuilder.show();
 
             return true;
@@ -176,7 +173,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_all_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -188,7 +185,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_all_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
         }
 
     }

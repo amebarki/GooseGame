@@ -2,6 +2,7 @@ package com.project.goosegame.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -31,8 +32,10 @@ public class Question {
     private String falseAnswerThree;
     @ColumnInfo(name = "is_image")
     private int isImage;
+    @Ignore
+    private int nbAnswer;
 
-    public Question(String type, int level, String title, String correctAnswer, String falseAnswerOne,String falseAnswerTwo,String falseAnswerThree,int isImage) {
+    public Question(String type, int level, String title, String correctAnswer, String falseAnswerOne, String falseAnswerTwo, String falseAnswerThree, int isImage) {
         this.title = title;
         this.type = type;
         this.level = level;
@@ -41,6 +44,15 @@ public class Question {
         this.falseAnswerTwo = falseAnswerTwo;
         this.falseAnswerThree = falseAnswerThree;
         this.isImage = isImage;
+
+
+        if (falseAnswerTwo.compareTo("") == 0){
+            this.nbAnswer = 2;
+        } else if (falseAnswerThree.compareTo("") == 0) {
+            this.nbAnswer = 3;
+        } else {
+            this.nbAnswer = 4;
+        }
     }
 
 
@@ -114,6 +126,14 @@ public class Question {
 
     public void setIsImage(int isImage) {
         this.isImage = isImage;
+    }
+
+    public int getNbAnswer() {
+        return nbAnswer;
+    }
+
+    public void setNbAnswer(int nbAnswer) {
+        this.nbAnswer = nbAnswer;
     }
 
     @Override
