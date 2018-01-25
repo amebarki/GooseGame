@@ -1,55 +1,44 @@
 package com.project.goosegame.view.activity;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.goosegame.R;
-import com.project.goosegame.bdd.database.AppQuestionDatabase;
-import com.project.goosegame.manager.QuestionManager;
-import com.project.goosegame.model.Question;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.project.goosegame.utils.observable.MainObservable;
+import com.project.goosegame.viewModel.MainViewModel;
 
 /**
  * Created by Adam on 15/01/2018.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainObservable {
 
-    boolean listEmpty = false;
-    Button buttonLaunchGame;
-    ImageButton buttonSettings;
-    ImageButton buttonLoadBD;
-    ConstraintLayout constraintLayoutSplashScreen;
-    String[] permissions = new String[]{
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+    private MainViewModel mainViewModel = null;
+    private Button buttonLaunchGame;
+    private ImageButton buttonSettings;
+    private ImageButton buttonLoadBD;
+    private ConstraintLayout constraintLayoutSplashScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermissions();
-        QuestionManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(getApplicationContext()));
-        verifyListQuestions();
+        mainViewModel = new MainViewModel(getApplicationContext());
+        mainViewModel.setResponse(this);
+        mainViewModel.checkPermissions(this);
         constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
 
 
@@ -57,12 +46,7 @@ public class MainActivity extends AppCompatActivity {
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listEmpty) {
-                    createAlertDialog();
-                } else {
-                    Intent i = new Intent(MainActivity.this, ParametersActivity.class);
-                    startActivity(i);
-                }
+                mainViewModel.verifyListQuestions();
             }
         });
 
@@ -70,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, SettingsExampleActivity.class);
-                startActivity(i);
+                createAlertDialogSecretCode(1);
             }
         });
 
@@ -79,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         buttonLoadBD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, QuestionActivity.class);
-                startActivity(i);
+                createAlertDialogSecretCode(2);
             }
         });
 
@@ -94,22 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkPermissions() {
-        int result;
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        for (String p : permissions) {
-            result = ContextCompat.checkSelfPermission(this, p);
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                listPermissionsNeeded.add(p);
-            }
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == 100) {
@@ -121,40 +87,68 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void verifyListQuestions() {
-        new AsyncTask<Void, Void, List<Question>>() {
-            @Override
-            protected List<Question> doInBackground(Void... voids) {
-                return QuestionManager.getInstance().getListQuestions();
-            }
-            @Override
-            protected void onPostExecute(List<Question> questions) {
-                super.onPostExecute(questions);
-                if (questions.isEmpty()) {
-                    listEmpty = true;
-                } else {
-                    listEmpty = false;
-                }
-            }
-        }.execute();
-    }
-
-
-    public void createAlertDialog(){
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme);
-        alertDialogBuilder.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-        alertDialogBuilder.setMessage(getString(R.string.param_list_questions_error));
-        alertDialogBuilder.show();
+    @Override
+    public void processStartParametersActivity() {
+        Intent i = new Intent(MainActivity.this, ParametersActivity.class);
+        startActivity(i);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        verifyListQuestions();
+    public void processStartQuestionsActivity() {
+
+        Intent i = new Intent(MainActivity.this, QuestionActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public void processStartSettingsActivity() {
+        Intent i = new Intent(MainActivity.this, SettingsExampleActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public void processDisplayMessage(String message) {
+        createAlertDialog(message);
+    }
+
+
+    public void createAlertDialog(String message) {
+        LayoutInflater linf = LayoutInflater.from(this);
+        final View inflator = linf.inflate(R.layout.dialog_layout, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.DialogTextTheme)
+                .setView(inflator);
+
+        alertDialogBuilder.setPositiveButton(getString(R.string.main_dialog_message_ok),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        final TextView et2 = (TextView) inflator.findViewById(R.id.general_dialog_message);
+        et2.setText(message);
+        alertDialogBuilder.show();
+    }
+
+    public void createAlertDialogSecretCode(final int activity) {
+        LayoutInflater linf = LayoutInflater.from(this);
+        final View inflator = linf.inflate(R.layout.main_dialog_secret_code, null);
+        final EditText et2 = (EditText) inflator.findViewById(R.id.main_dialog_password);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme)
+                .setView(inflator);
+
+        alertDialogBuilder.setPositiveButton(getString(R.string.main_dialog_message_ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String code = et2.getText().toString();
+                mainViewModel.verifySecretCode(activity,Integer.parseInt(code));
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton(getString(R.string.main_dialog_message_cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+        alertDialogBuilder.show();
     }
 }

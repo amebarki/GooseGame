@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
@@ -115,27 +117,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionsObse
             return true;
 
         } else if (id == R.id.action_delete) {
-
-            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme);
-            alertDialogBuilder.setPositiveButton("Supprimer",
-                new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    questionsViewModel.deleteQuestions();
-                }
-            });
-
-            alertDialogBuilder.setNegativeButton("Annuler",
-                    new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-
-            alertDialogBuilder.setMessage(getString(R.string.question_dialog_delete_confirm));
-            alertDialogBuilder.show();
-
+           createAlertDialog();
             return true;
         }
 
@@ -195,5 +177,34 @@ public class QuestionActivity extends AppCompatActivity implements QuestionsObse
     public void processErrorParsing(String message) {
         // TODO: 24/01/2018 Alert dialog display error
         Snackbar.make(findViewById(R.id.question_coordinator_layout), message,Snackbar.LENGTH_LONG).show();
+    }
+
+
+
+    public void createAlertDialog()
+    {
+        LayoutInflater linf = LayoutInflater.from(this);
+        final View inflator = linf.inflate(R.layout.dialog_layout, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme)
+                .setView(inflator);
+        alertDialogBuilder.setPositiveButton(getString(R.string.question_dialog_delete_confirm),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        questionsViewModel.deleteQuestions();
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton(getString(R.string.question_dialog_delete_cancel),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        final TextView textView = (TextView) inflator.findViewById(R.id.general_dialog_message);
+        textView.setText(getString(R.string.question_dialog_delete_message));
+        alertDialogBuilder.show();
     }
 }

@@ -3,6 +3,12 @@
 
     /* Strings for MainActivity */
     <string name="main_button_play">Jouer</string>
+    <string name="main_dialog_secret_code_hint_password">Mot de Passe</string>
+    <string name="main_dialog_secret_code_error">mot de passe invalide</string>
+    <string name="main_dialog_message_ok">OK</string>
+    <string name="main_dialog_message_cancel">Annuler</string>
+    <string name="main_list_questions_error">Aucune questions trouvées</string>
+
 
     /* Strings for ParametersActivity */
     <string name="param_lib_player_number">Nombre de joueurs</string>
@@ -40,7 +46,9 @@
     <string name="question_snackbar_delete_all_success">Les questions ont bien été supprimées</string>
     <string name="question_snackbar_delete_error">Un problème est survenu lors de la suppression</string>
     <string name="question_snackbar_delete_success">La question a bien été supprimée</string>
-    <string name="question_dialog_delete_confirm">Etes-vous sûr de vouloir supprimer toutes les questions importées ?</string>
+    <string name="question_dialog_delete_message">Etes-vous sûr de vouloir supprimer toutes les questions importées ?</string>
+    <string name="question_dialog_delete_cancel">Annuler</string>
+    <string name="question_dialog_delete_confirm">Supprimer</string>
 
     /* Strings for GameActivity */
     <string name="game_dialog_loading_fail">Une erreur est survenue lors du chargement du jeu. Partie annulée</string>
