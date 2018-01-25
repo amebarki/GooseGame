@@ -41,7 +41,6 @@ public interface QuestionDao {
     @Query("SELECT DISTINCT type_question FROM questions")
     List<String> getQuestionTypes();
 
-
-    @Query("SELECT * FROM questions WHERE type_question = :type AND niveau_question = :difficulty")
+    @Query("SELECT * FROM questions WHERE type_question LIKE :type AND niveau_question LIKE :difficulty")
     List<Question> getGameQuestions(String type, int difficulty);
 }

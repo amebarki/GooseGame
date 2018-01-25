@@ -101,9 +101,7 @@ public class QuestionManager {
 
     public List<Question> initGameQuestions(String typeQuestion, int difficulty)
     {
-        return db.questionDao().getGameQuestions(typeQuestion,difficulty);
+        return db.questionDao().getGameQuestions(typeQuestion, difficulty);
     }
-
-
 
 }
