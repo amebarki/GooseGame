@@ -43,11 +43,16 @@ public class ParametersViewModel extends BaseObservable {
     }
 
     public void initGooseGame(int numberPlayer, int difficulty, int numberDice, int durationGame, String typeGame) {
-        GooseModel gooseModel = new GooseModel(numberPlayer, difficulty, numberDice, durationGame, typeGame);
-        gameManager.setGooseModel(gooseModel);
-        if (gameManager.getGooseModel() != null)
-            response.processParametersFinish(true);
-        response.processParametersFinish(false);
+
+        if (typeGame != null) {
+            GooseModel gooseModel = new GooseModel(numberPlayer, difficulty, numberDice, durationGame, typeGame);
+            gameManager.setGooseModel(gooseModel);
+            if (gameManager.getGooseModel() != null)
+                response.processParametersFinish(true);
+            response.processParametersFinish(false);
+        } else {
+            response.processDisplayMessage(context.getString(R.string.param_picker_error));
+        }
     }
 
     public void initPlayers(List<Player> playersList) {
@@ -76,7 +81,7 @@ public class ParametersViewModel extends BaseObservable {
                 if (types != null && types.isEmpty() == false)
                     response.processDisplayQuestionTypeList(types);
                 else
-                    response.processDisplayMessage(context.getString(R.string.param_list_types_error));
+                    response.processDisplayMessage(context.getString(R.string.param_list_questions_error));
             }
         }.execute();
     }

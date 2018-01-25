@@ -29,7 +29,8 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".view.activity.PlayersActivity"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="sensorLandscape"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".view.activity.SettingsExampleActivity"
             android:screenOrientation="landscape">

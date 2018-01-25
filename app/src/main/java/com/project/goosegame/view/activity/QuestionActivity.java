@@ -116,7 +116,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionsObse
 
         } else if (id == R.id.action_delete) {
 
-            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme);
             alertDialogBuilder.setPositiveButton("Supprimer",
                 new DialogInterface.OnClickListener() {
                 @Override
@@ -170,7 +170,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionsObse
     public void processDeleteQuestions(Boolean result) {
         if(result) {
             Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_all_success),Snackbar.LENGTH_LONG).show();
-            questionsViewModel.importBaseQuestions();
+            //questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
             Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_error),Snackbar.LENGTH_LONG).show();
@@ -182,7 +182,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionsObse
     public void processDeleteQuestion(Boolean result) {
         if(result) {
             Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_success),Snackbar.LENGTH_LONG).show();
-            questionsViewModel.importBaseQuestions();
+            //questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
             Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_error),Snackbar.LENGTH_LONG).show();

@@ -1,6 +1,8 @@
 package com.project.goosegame.view.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.ImageButton;
 import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.QuestionManager;
+import com.project.goosegame.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +31,9 @@ import java.util.List;
  * Created by Adam on 15/01/2018.
  */
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
+    boolean listEmpty = false;
     Button buttonLaunchGame;
     ImageButton buttonSettings;
     ImageButton buttonLoadBD;
@@ -43,15 +48,21 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermissions();
-
+        QuestionManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(getApplicationContext()));
+        verifyListQuestions();
         constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
+
 
         buttonLaunchGame = findViewById(R.id.main_button_play);
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ParametersActivity.class);
-                startActivity(i);
+                if (listEmpty) {
+                    createAlertDialog();
+                } else {
+                    Intent i = new Intent(MainActivity.this, ParametersActivity.class);
+                    startActivity(i);
+                }
             }
         });
 
@@ -59,7 +70,6 @@ public class MainActivity extends AppCompatActivity{
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Change activity
                 Intent i = new Intent(MainActivity.this, SettingsExampleActivity.class);
                 startActivity(i);
             }
@@ -81,17 +91,6 @@ public class MainActivity extends AppCompatActivity{
             }
         }, 2000);
 
-        new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                QuestionManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(getApplicationContext()));
-                return QuestionManager.getInstance().createQuestions();
-            }
-            @Override
-            protected void onPostExecute(Boolean result) {
-                super.onPostExecute(result);
-            }
-        }.execute();
 
     }
 
@@ -120,5 +119,42 @@ public class MainActivity extends AppCompatActivity{
             }
             return;
         }
+    }
+
+    public void verifyListQuestions() {
+        new AsyncTask<Void, Void, List<Question>>() {
+            @Override
+            protected List<Question> doInBackground(Void... voids) {
+                return QuestionManager.getInstance().getListQuestions();
+            }
+            @Override
+            protected void onPostExecute(List<Question> questions) {
+                super.onPostExecute(questions);
+                if (questions.isEmpty()) {
+                    listEmpty = true;
+                } else {
+                    listEmpty = false;
+                }
+            }
+        }.execute();
+    }
+
+
+    public void createAlertDialog(){
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme);
+        alertDialogBuilder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        alertDialogBuilder.setMessage(getString(R.string.param_list_questions_error));
+        alertDialogBuilder.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        verifyListQuestions();
     }
 }

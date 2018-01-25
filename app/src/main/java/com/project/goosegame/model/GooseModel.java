@@ -161,7 +161,6 @@ public class GooseModel {
                 c.setType(0); // Bonus/Malus
                 c.setBonus(true);
             }
-
             this.boardGame.add(c);
         }
     }

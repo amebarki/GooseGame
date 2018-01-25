@@ -22,8 +22,8 @@
     <string name="param_radio_button_game_time_3">30</string>
     <string name="param_lib_game_type">Type de partie</string>
     <string name="param_button_continue">Continuer</string>
-    <string name="param_list_types_error">Aucune questions trouvées</string>
-
+    <string name="param_list_questions_error">Aucune questions trouvées</string>
+    <string name="param_picker_error">Sélectionnez un type de questions</string>
 
     /* Strings for PlayersActivity */
     <string name="players_button_launch_game">Lancer la partie</string>

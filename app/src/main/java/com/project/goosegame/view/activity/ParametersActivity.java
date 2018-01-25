@@ -1,5 +1,7 @@
 package com.project.goosegame.view.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,11 +11,10 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.project.goosegame.R;
-
 import com.project.goosegame.utils.observable.ParametersObservable;
-
 import com.project.goosegame.viewModel.ParametersViewModel;
 
 import java.util.List;
@@ -48,6 +49,7 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
         gameTypePicker = findViewById(R.id.param_picker_game_type);
 
         gameTypePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 selectedGameType = gameTypeList.get(newVal - 1);
@@ -71,6 +73,7 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
         radioButton = findViewById(gameTimeRadioGroup.getCheckedRadioButtonId());
         int gameTime = getGameTime(gameTimeRadioGroup.indexOfChild(radioButton));
 
+        Toast.makeText(this, selectedGameType, Toast.LENGTH_SHORT).show();
         parametersViewModel.initGooseGame(nbPlayer, difficulty, 1, gameTime, selectedGameType);
     }
 
@@ -93,6 +96,8 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
             gameTypePicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             gameTypePicker.setMinValue(1);
             gameTypePicker.setMaxValue(gameTypeList.size());
+            gameTypePicker.setValue(1);
+            selectedGameType = gameTypeList.get(gameTypePicker.getMinValue()-1);
             gameTypePicker.setDisplayedValues(gameTypeList.toArray(new String[0]));
         }
     }
@@ -115,9 +120,16 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
 
     @Override
     public void processDisplayMessage(String message) {
-
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme);
+        alertDialogBuilder.setPositiveButton("Revenir au menu",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.show();
     }
-
-    // TODO: 19/01/2018 Create Button to launch the playersActivity and call the function to initGooseGame of parametersViewModel 
 
 }

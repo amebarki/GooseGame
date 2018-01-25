@@ -261,6 +261,7 @@ public class GameViewModel extends BaseObservable {
                 response.processMessageError(context.getString(R.string.game_animate_player_error));
                 break;
         }
+
     }
 
     // get the number of case to move if player answer correctly to the question

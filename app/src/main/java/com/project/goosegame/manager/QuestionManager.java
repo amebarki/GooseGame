@@ -1,5 +1,6 @@
 package com.project.goosegame.manager;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
