@@ -12,13 +12,13 @@ import android.widget.NumberPicker;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.observable.AsyncParameters;
+import com.project.goosegame.utils.observable.ParametersObservable;
 import com.project.goosegame.viewModel.ParametersViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayersActivity extends AppCompatActivity implements AsyncParameters {
+public class PlayersActivity extends AppCompatActivity implements ParametersObservable {
     private ParametersViewModel parametersViewModel;
 
     LinearLayout layoutPlayer2;
@@ -90,7 +90,7 @@ public class PlayersActivity extends AppCompatActivity implements AsyncParameter
         setContentView(R.layout.activity_players);
 
         parametersViewModel = new ParametersViewModel(getApplicationContext());
-        parametersViewModel.setAsyncParameters(this);
+        parametersViewModel.setParametersObservable(this);
         parametersViewModel.getNumberPlayers();
 
         initImageButton();
@@ -315,5 +315,10 @@ public class PlayersActivity extends AppCompatActivity implements AsyncParameter
     public void processNumberPlayers(int numberPlayers) {
         nbPlayer = numberPlayers;
         setNumberPlayer(nbPlayer);
+    }
+
+    @Override
+    public void processDisplayMessage(String message) {
+
     }
 }

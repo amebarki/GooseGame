@@ -36,4 +36,7 @@ public interface GameObservable {
     void processShowDialog(String title,String text);
 
     void processAnimatePiece(int numberOfCaseToPass,int currentPlayer,int currentCase,float xTranslation,float yTranslation,int duration,boolean forward);
+
+    void processMessageError(String message);
 }
+

@@ -9,6 +9,7 @@ import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.bdd.dao.QuestionDao;
 /**
@@ -24,14 +25,21 @@ public abstract class AppQuestionDatabase extends RoomDatabase {
     {
         if(instance == null)
         {
-            instance = Room.databaseBuilder(context.getApplicationContext(),AppQuestionDatabase.class,"questions")
-                    .addMigrations(MIGRATION_1_2)
+            instance = Room.databaseBuilder(context.getApplicationContext(),AppQuestionDatabase.class,context.getString(R.string.databasase_name))
+                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3)
                     .build();
         }
         return instance;
     }
 
     static final Migration MIGRATION_1_2 = new Migration(1,2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // Nothing to add, just migrate to the new Database and keep the old data
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2,3) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             // Nothing to add, just migrate to the new Database and keep the old data

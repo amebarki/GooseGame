@@ -3,6 +3,7 @@ package com.project.goosegame.view.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.observable.AsyncQuestions;
+import com.project.goosegame.utils.observable.QuestionsObservable;
 import com.project.goosegame.utils.listener.CustomItemClickListener;
 import com.project.goosegame.utils.listener.HidingScrollListener;
 import com.project.goosegame.view.adapter.QuestionRecyclerAdapter;
@@ -23,7 +23,7 @@ import com.project.goosegame.viewModel.QuestionsViewModel;
 
 import java.util.List;
 
-public class QuestionActivity extends AppCompatActivity implements AsyncQuestions {
+public class QuestionActivity extends AppCompatActivity implements QuestionsObservable {
 
     private static final int INTENT_FILE_CODE = 10;
     private QuestionsViewModel questionsViewModel;
@@ -41,7 +41,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         questionsViewModel = new QuestionsViewModel(getApplicationContext());
-        questionsViewModel.setAsyncQuestions(this);
+        questionsViewModel.setQuestionsObservable(this);
         questionsViewModel.displayQuestions();
     }
 
@@ -146,9 +146,9 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processAddQuestionsFromCSV(Boolean result) {
         if(result) {
-            Toast.makeText(this, getString(R.string.question_toast_import_success), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_import_success),Snackbar.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_import_error), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_import_error),Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -169,11 +169,11 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processDeleteQuestions(Boolean result) {
         if(result) {
-            Toast.makeText(this, getString(R.string.question_toast_delete_all_success), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_all_success),Snackbar.LENGTH_LONG).show();
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_error),Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -181,11 +181,12 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processDeleteQuestion(Boolean result) {
         if(result) {
-            Toast.makeText(this, getString(R.string.question_toast_delete_success), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_success),Snackbar.LENGTH_LONG).show();
             questionsViewModel.importBaseQuestions();
             questionsViewModel.displayQuestions();
         } else {
-            Toast.makeText(this, getString(R.string.question_toast_delete_error), Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.question_coordinator_layout), getString(R.string.question_snackbar_delete_error),Snackbar.LENGTH_LONG).show();
+
         }
 
     }
@@ -193,5 +194,6 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
     @Override
     public void processErrorParsing(String message) {
         // TODO: 24/01/2018 Alert dialog display error
+        Snackbar.make(findViewById(R.id.question_coordinator_layout), message,Snackbar.LENGTH_LONG).show();
     }
 }

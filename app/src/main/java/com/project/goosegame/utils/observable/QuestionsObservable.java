@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Adam on 18/01/2018.
  */
 
-public interface AsyncQuestions {
+public interface QuestionsObservable {
 
     void processAddQuestionsFromCSV(Boolean result);
     void processCallBaseQuestions(Boolean result);

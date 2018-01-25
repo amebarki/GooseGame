@@ -12,9 +12,8 @@ import android.widget.RadioGroup;
 
 import com.project.goosegame.R;
 
-import com.project.goosegame.utils.observable.AsyncParameters;
+import com.project.goosegame.utils.observable.ParametersObservable;
 
-import com.project.goosegame.utils.observable.AsyncParameters;
 import com.project.goosegame.viewModel.ParametersViewModel;
 
 import java.util.List;
@@ -23,8 +22,7 @@ import java.util.List;
  * Created by Adam on 15/01/2018.
  */
 
-public class ParametersActivity extends AppCompatActivity implements AsyncParameters
-        , View.OnClickListener {
+public class ParametersActivity extends AppCompatActivity implements ParametersObservable, View.OnClickListener {
 
     private ParametersViewModel parametersViewModel;
     private List<String> gameTypeList;
@@ -42,7 +40,7 @@ public class ParametersActivity extends AppCompatActivity implements AsyncParame
         setContentView(R.layout.activity_parameters);
         parametersViewModel = new ParametersViewModel(getApplicationContext());
         parametersViewModel.initQuestionTypeList();
-        parametersViewModel.setAsyncParameters(this);
+        parametersViewModel.setParametersObservable(this);
 
         playerNumberRadioGroup = findViewById(R.id.param_radio_player_number);
         difficultyRadioGroup = findViewById(R.id.param_radio_difficulty);
@@ -112,6 +110,11 @@ public class ParametersActivity extends AppCompatActivity implements AsyncParame
 
     @Override
     public void processNumberPlayers(int numberPlayers) {
+
+    }
+
+    @Override
+    public void processDisplayMessage(String message) {
 
     }
 

@@ -2,6 +2,8 @@ package com.project.goosegame.utils.observable;
 
 import android.content.Intent;
 
+import java.util.List;
+
 /**
  * Created by Adam on 23/01/2018.
  */
@@ -14,4 +16,6 @@ public interface SettingsObservable {
     public void processOpenSecundaryColor(Intent intent);
 
     public void processOpenSelectColor(Intent intent);
+
+    public void processFontSizeList(List fontSizeList);
 }

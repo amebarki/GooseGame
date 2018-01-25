@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //TODO Change activity
-                Intent i = new Intent(MainActivity.this, MainActivity.class);
+                Intent i = new Intent(MainActivity.this, SettingsExampleActivity.class);
                 startActivity(i);
             }
         });

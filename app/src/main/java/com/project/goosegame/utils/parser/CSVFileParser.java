@@ -1,19 +1,19 @@
 package com.project.goosegame.utils.parser;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.observable.AsyncQuestions;
+import com.project.goosegame.utils.observable.QuestionsObservable;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +26,8 @@ public class CSVFileParser {
     private FileInputStream fileInputStream;
     private ArrayList<Question> questionsList;
     private Context context;
-    private AsyncQuestions response;
-    public CSVFileParser(Context context,AsyncQuestions response,File file){
+    private QuestionsObservable response;
+    public CSVFileParser(Context context, QuestionsObservable response, File file){
         this.context = context;
         this.response = response;
         questionsList = new ArrayList<>();
@@ -35,17 +35,23 @@ public class CSVFileParser {
             fileInputStream = new FileInputStream(file);
 
         } catch (FileNotFoundException e) {
-            response.processErrorParsing(context.getString(R.string.parsing_error_file));
+            response.processErrorParsing(context.getString(R.string.parsing_file_error));
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Question> read(AsyncQuestions response){
+    public ArrayList<Question> read(QuestionsObservable response){
         List resultList = new ArrayList();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(fileInputStream,"WINDOWS-1252"));
+        } catch (UnsupportedEncodingException e) {
+            response.processErrorParsing(context.getString(R.string.parsing_charset_error));
+            e.printStackTrace();
+        }
         try {
             // avoid the first line wich is the name of the columns
-            String csvLine=reader.readLine();
+            String csvLine= URLEncoder.encode(reader.readLine());
             while ((csvLine = reader.readLine()) != null) {
 
                 String[] row = csvLine.split(";");
@@ -55,7 +61,7 @@ public class CSVFileParser {
             }
         }
         catch (IOException ex) {
-            response.processErrorParsing(context.getString(R.string.parsing_error_reading));
+            response.processErrorParsing(context.getString(R.string.parsing_reading_error));
             //throw new RuntimeException("Error in reading CSV file : "+ex);
         }
         finally {
@@ -64,7 +70,7 @@ public class CSVFileParser {
                 reader.close();
             }
             catch (IOException e) {
-                response.processErrorParsing(context.getString(R.string.parsing_error_reading));
+                response.processErrorParsing(context.getString(R.string.parsing_reading_error));
                 //throw new RuntimeException("Error while closing input stream : "+e);
             }
         }

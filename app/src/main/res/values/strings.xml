@@ -10,22 +10,20 @@
     <string name="param_radio_button_player_number_2">2</string>
     <string name="param_radio_button_player_number_3">3</string>
     <string name="param_radio_button_player_number_4">4</string>
-
     <string name="param_lib_difficulty">Difficulté</string>
     <string name="param_radio_button_difficulty_1">CP</string>
     <string name="param_radio_button_difficulty_2">CE1</string>
     <string name="param_radio_button_difficulty_3">CE2</string>
     <string name="param_radio_button_difficulty_4">CM1</string>
     <string name="param_radio_button_difficulty_5">CM2</string>
-
     <string name="param_lib_game_time">Durée de la partie (Minutes)</string>
     <string name="param_radio_button_game_time_1">10</string>
     <string name="param_radio_button_game_time_2">20</string>
     <string name="param_radio_button_game_time_3">30</string>
-
     <string name="param_lib_game_type">Type de partie</string>
-
     <string name="param_button_continue">Continuer</string>
+    <string name="param_list_types_error">Aucune questions trouvées</string>
+
 
     /* Strings for PlayersActivity */
     <string name="players_button_launch_game">Lancer la partie</string>
@@ -37,22 +35,15 @@
     /* Strings for QuestionActivity */
     <string name="question_menu_delete_all">Tout supprimer</string>
     <string name="question_menu_import">Importer</string>
-    <string name="question_toast_import_success">Les questions ont bien été importées</string>
-    <string name="question_toast_import_error">Un problème est survenu lors de l'importation</string>
-    <string name="question_toast_delete_all_success">Les questions ont bien été supprimées</string>
-    <string name="question_toast_delete_error">Un problème est survenu lors de la suppression</string>
-    <string name="question_toast_delete_success">La question a bien été supprimée</string>
+    <string name="question_snackbar_import_success">Les questions ont bien été importées</string>
+    <string name="question_snackbar_import_error">Un problème est survenu lors de l'importation</string>
+    <string name="question_snackbar_delete_all_success">Les questions ont bien été supprimées</string>
+    <string name="question_snackbar_delete_error">Un problème est survenu lors de la suppression</string>
+    <string name="question_snackbar_delete_success">La question a bien été supprimée</string>
     <string name="question_dialog_delete_confirm">Etes-vous sûr de vouloir supprimer toutes les questions importées ?</string>
 
     /* Strings for GameActivity */
     <string name="game_dialog_loading_fail">Une erreur est survenue lors du chargement du jeu. Partie annulée</string>
-
-    /* Strings for Parser */
-    <string name="parsing_error_file">Le fichier sélectionné n\'existe pas</string>
-    <string name="parsing_error_reading">Une erreur est survenue en lisant le fichier CSV</string>
-    <string name="parsing_error_closing_stream">Une erreur est survenue à la fin de la lecture du fichier CSV</string>
-    <string name="parsing_charset">Windows-1250</string>
-    /* Strings for GameActivity */
     <string name="game_time_left">Temps restant : </string>
     <string name="game_time_end">Time\'s up</string>
     <string name="game_time_end_turn">Temps écoulé !</string>
@@ -62,8 +53,21 @@
     <string name="game_malus_message">Reculer de %1$d case(s)</string>
     <string name="game_bonus_title">Bonus</string>
     <string name="game_bonus_message">Avancer de %1$d case(s)</string>
-    <string name="game_erreur_questions_title">Pas de questions !!</string>
-    <string name="game_erreur_questions_message">Il n\'y a pas de questions, vous devez en charger des nouvelles</string>
+    <string name="game_questions_title_error">Pas de questions !!</string>
+    <string name="game_questions_message_error">Il n\'y a pas de questions, vous devez en charger des nouvelles</string>
     <string name="game_question_good_answer_message">Bravo tu as bien répondu !!</string>
     <string name="game_question_bad_answer_message">Dommage, mauvaise réponse, pas de déplacement.</string>
+    <string name="game_questions_init_error">Les questions ne sont pas chargées</string>
+    <string name="game_create_cases_error">Création du plateau impossible !</string>
+    <string name="game_animate_player_error">Erreur lors de l\'animation</string>
+
+    /* Strings for Parser */
+    <string name="parsing_file_error">Le fichier sélectionné n\'existe pas</string>
+    <string name="parsing_reading_error">Une erreur est survenue en lisant le fichier CSV</string>
+    <string name="parsing_closing_stream_error">Une erreur est survenue à la fin de la lecture du fichier CSV</string>
+    <string name="parsing_charset">Windows-1250</string>
+    <string name="parsing_charset_error">Une erreur est survenue pendant la detection de l\'encodage du fichier CSV</string>
+
+    /* Strings for Database */
+    <string name="databasase_name">questions</string>
 </resources>
