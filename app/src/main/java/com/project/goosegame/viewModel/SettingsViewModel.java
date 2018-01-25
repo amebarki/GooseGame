@@ -17,8 +17,6 @@ import java.util.List;
  */
 
 public class SettingsViewModel extends BaseObservable {
-    // couleurs 3 primary, secondary, select
-    // font size
 
     private Context context;
     private SettingsManager settingsManager = null;
@@ -45,20 +43,17 @@ public class SettingsViewModel extends BaseObservable {
     public void getPrimaryColor() {
         Intent intent = new Intent(context, ColorPickerActivity.class);
         settingsManager.setCurrentSelectColor(0);
-        //startActivityForResult(intent, 1);
         response.processOpenPrimaryColor(intent);
     }
 
     public void getSecundaryColor() {
         Intent intent = new Intent(context, ColorPickerActivity.class);
         settingsManager.setCurrentSelectColor(1);
-        //startActivityForResult(intent, 1);
         response.processOpenSecundaryColor(intent);
     }
 
     public void getSelectColor() {
         Intent intent = new Intent(context, ColorPickerActivity.class);
-        //startActivityForResult(intent, 1);
         settingsManager.setCurrentSelectColor(2);
         response.processOpenSelectColor(intent);
     }

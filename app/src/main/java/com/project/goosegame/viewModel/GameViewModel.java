@@ -219,8 +219,8 @@ public class GameViewModel extends BaseObservable {
                 response.processAnimatePiece(numberOfCasesToPass, 0, currentCase, xTranslation, yTranslation, durationAnimation,true);
                 break;
             case 1:
-
-
+                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 40;
+                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
                 response.processAnimatePiece(numberOfCasesToPass, 1, currentCase, xTranslation, yTranslation, durationAnimation,true);
                 break;
             case 2:
@@ -234,8 +234,7 @@ public class GameViewModel extends BaseObservable {
                 response.processAnimatePiece(numberOfCasesToPass, 3, currentCase, xTranslation, yTranslation, durationAnimation,true);
                 break;
             default:
-                // TODO: 23/01/2018 create response erreur
-
+                response.processMessageError(context.getString(R.string.game_animate_player_error));
                 break;
 
         }
@@ -279,7 +278,7 @@ public class GameViewModel extends BaseObservable {
                 response.processAnimatePiece(numberOfCasesToStepBack,currentPlayer,currentCase,xTranslation,yTranslation,durationAnimation,false);
                 break;
             default:
-                // TODO: 24/01/2018 create erreur message
+                response.processMessageError(context.getString(R.string.game_animate_player_error));
                 break;
         }
     }

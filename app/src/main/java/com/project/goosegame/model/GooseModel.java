@@ -31,7 +31,7 @@ public class GooseModel {
         this.typeGame = typeGame;
         this.playerList = new ArrayList<>();
         this.boardGame = new ArrayList<>();
-        this.numberCase = 0; // TODO: 19/01/2018 see where to init the number of case
+        this.numberCase = 0;
         this.currentPlayer = 0;
 
     }
@@ -141,8 +141,6 @@ public class GooseModel {
     public void createCase(float xMargin, float yMargin, int windowWidth) {
 
         boolean toRight = true;
-        // listCase = new ArrayList<>();
-        // layoutCase = (RelativeLayout) findViewById(R.id.layoutCase);
 
         float x = 0;
         float y = 0;

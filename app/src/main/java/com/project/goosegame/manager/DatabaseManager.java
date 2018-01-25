@@ -32,16 +32,6 @@ public class DatabaseManager {
     private static void populateWithDataCSV(AppQuestionDatabase db,int choice) {
     }
 
-
-    // TODO: 17/01/2018  create function with choice or switch and call the function which use the dao of the database
-    // TODO: 17/01/2018 use the asynctask to call this one function
-    // TODO: 17/01/2018 create function to display questions
-    // TODO: 17/01/2018 create function to delete question
-    // TODO: 17/01/2018 create four examples question
-
-
-
-
     private static class PopulateDbAsync extends AsyncTask<Integer, Void, Void> {
 
         private final AppQuestionDatabase db;

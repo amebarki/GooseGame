@@ -4,12 +4,13 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.AsyncTask;
 
+import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.GooseModel;
 import com.project.goosegame.model.pojo.Player;
-import com.project.goosegame.utils.observable.AsyncParameters;
+import com.project.goosegame.utils.observable.ParametersObservable;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ParametersViewModel extends BaseObservable {
     private Context context;
     private QuestionManager questionsManager = null;
     private GameManager gameManager = null;
-    private AsyncParameters response = null;
+    private ParametersObservable response = null;
 
     public ParametersViewModel(Context context) {
         this.context = context;
@@ -33,12 +34,11 @@ public class ParametersViewModel extends BaseObservable {
     }
 
 
-    public void setAsyncParameters(AsyncParameters asyncParameters){
-        this.response = asyncParameters;
+    public void setAsyncParameters(ParametersObservable parametersObservable) {
+        this.response = parametersObservable;
     }
 
-    public void numberOfPlayers(){
-
+    public void numberOfPlayers() {
         response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
     }
 
@@ -59,12 +59,11 @@ public class ParametersViewModel extends BaseObservable {
         response.processPlayersFinish(false);
     }
 
-    public void getNumberPlayers()   {
-            response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
+    public void getNumberPlayers() {
+        response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
     }
 
     public void initQuestionTypeList() {
-        // TODO: 19/01/2018 verify null list
         new AsyncTask<Void, Void, List<String>>() {
             @Override
             protected List<String> doInBackground(Void... voids) {
@@ -74,7 +73,10 @@ public class ParametersViewModel extends BaseObservable {
             @Override
             protected void onPostExecute(List<String> types) {
                 super.onPostExecute(types);
-                response.processDisplayQuestionTypeList(types);
+                if (types != null && types.isEmpty() == false)
+                    response.processDisplayQuestionTypeList(types);
+                else
+                    response.processDisplayMessage(context.getString(R.string.param_list_types_error));
             }
         }.execute();
     }

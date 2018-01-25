@@ -26,7 +26,6 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class QuestionsViewModel extends BaseObservable {
-    // TODO: 18/01/2018 function about the suppression of list of questions or just one question 
     private Context context;
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
@@ -155,4 +154,3 @@ public class QuestionsViewModel extends BaseObservable {
         }.execute();
     }
 }
-// TODO: 22/01/2018 rajouter les questions de bases après la suppression 

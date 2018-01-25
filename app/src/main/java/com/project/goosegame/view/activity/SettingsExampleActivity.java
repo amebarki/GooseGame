@@ -83,7 +83,6 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();
-       // Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
