@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 
 import com.project.goosegame.R;
@@ -53,8 +54,10 @@ public class GameViewModel extends BaseObservable {
         new AsyncTask<Void, Void, List<Question>>() {
             @Override
             protected List<Question> doInBackground(Void... voids) {
+                gameQuestionsList = new ArrayList<Question>();
                 gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),
                                 gameManager.getGooseModel().getDifficulty()));
+
                 return gameQuestionsList;
             }
 
@@ -65,7 +68,7 @@ public class GameViewModel extends BaseObservable {
                 if (gameQuestionsList != null && !gameQuestionsList.isEmpty())
                     response.processGameQuestions(gameQuestionsList);
             }
-        };
+        }.execute();
 
         // TODO: 19/01/2018 manage error message
     }
@@ -97,19 +100,8 @@ public class GameViewModel extends BaseObservable {
     }
 
     public void startTimer() {
-        new CountDownTimer(gameManager.getGooseModel().getDurationGame() * 2000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
 
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        }.start();
-
-        new CountDownTimer(gameManager.getGooseModel().getDurationGame() * 1000, 1000) {
+        new CountDownTimer(gameManager.getGooseModel().getDurationGame() * 1000 * 60, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 response.processDisplayTime(context.getString(R.string.game_time_left) + (millisUntilFinished / (1000 * 60)) % 60 + " : " + (millisUntilFinished / 1000) % 60);
@@ -135,11 +127,11 @@ public class GameViewModel extends BaseObservable {
                 @Override
                 public void onFinish() {
                     int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
-                    response.processDisplayDicePlayer(View.VISIBLE, gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName());
+                    response.processDisplayDicePlayer(gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName());
                 }
             }.start();
         } else {
-            response.processDisplayEnd(View.VISIBLE, "Temp écoulé !");
+            response.processDisplayEnd("Temp écoulé !");
         }
     }
 
@@ -150,25 +142,13 @@ public class GameViewModel extends BaseObservable {
             nbCaseToMove = (int) ((Math.random() * 6 * gameManager.getGooseModel().getNumberDice()));
         } while (nbCaseToMove == 0);
 
-        // display how many case player will advance
-        new CountDownTimer(2000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                //response.processDisplayResultDice(View.GONE, "Vous avancez de " + Integer.toString(finalNbCaseToMove) + " case(s)");
-                response.processDisplayResultDice(View.GONE,context.getString(R.string.game_advance_case,nbCaseToMove));
-
-            }
-        }.start();
-
+        Log.d("throw",nbCaseToMove + "");
+        response.processDisplayResultDice(context.getString(R.string.game_advance_case,nbCaseToMove));
     }
 
     public void verifyShowQuestion() {
         // Show the random question or if player reach endboard, party is finish
-        new CountDownTimer(4000, 1000) {
+        new CountDownTimer(1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
@@ -177,8 +157,7 @@ public class GameViewModel extends BaseObservable {
             public void onFinish() {
                 int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
                 if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
-                    response.processDisplayEnd(View.VISIBLE,
-                            gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + context.getString(R.string.game_player_win));
+                    response.processDisplayEnd(gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + context.getString(R.string.game_player_win));
                 } else {
                     showQuestion(nbCaseToMove);
                     // TODO: 22/01/2018 see if it is the correct way to determine the end maybe add the nbCaseToMove in the condition
@@ -186,8 +165,7 @@ public class GameViewModel extends BaseObservable {
                     if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
                         //layoutFin.setVisibility(View.VISIBLE);
                         //tvFin.setText(sets.getListPlayer().get(currentPlayer).getName() + " a gagné la partie !!");
-                        response.processDisplayEnd(View.VISIBLE,
-                                gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + " a gagné la partie !!");
+                        response.processDisplayEnd(gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + " a gagné la partie !!");
                     } else {
                         showQuestion(nbCaseToMove);
                     }
@@ -221,8 +199,8 @@ public class GameViewModel extends BaseObservable {
                 response.processAnimatePiece(numberOfCasesToPass, 0, currentCase, xTranslation, yTranslation, durationAnimation,true);
                 break;
             case 1:
-
-
+                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 40;
+                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
                 response.processAnimatePiece(numberOfCasesToPass, 1, currentCase, xTranslation, yTranslation, durationAnimation,true);
                 break;
             case 2:
@@ -288,7 +266,7 @@ public class GameViewModel extends BaseObservable {
 
     // get the number of case to move if player answer correctly to the question
     public void showQuestion(final int caseToMove) {
-        new CountDownTimer(2000, 1000) {
+        new CountDownTimer(1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
@@ -298,6 +276,7 @@ public class GameViewModel extends BaseObservable {
                 int currentCasePlayer = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
                 int typeCase = gameManager.getGooseModel().getBoardGame().get(currentCasePlayer+caseToMove).getType();
 
+                Log.d("type",typeCase + "");
                 if (typeCase > 0) {
                     int indexQuestion = (int) (Math.random() * (gameQuestionsList.size() - 1));
                     Question question = gameQuestionsList.get(indexQuestion);
@@ -352,13 +331,11 @@ public class GameViewModel extends BaseObservable {
 
                     if (nbCaseRandom < 0) {
                         gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
-                        response.processLaunchBonusMalus(View.VISIBLE,
-                                context.getString(R.string.game_malus_title),
+                        response.processLaunchBonusMalus(context.getString(R.string.game_malus_title),
                                 context.getString(R.string.game_malus_message));
                     } else {
                         gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
-                        response.processLaunchBonusMalus(View.VISIBLE,
-                                context.getString(R.string.game_bonus_title),
+                        response.processLaunchBonusMalus(context.getString(R.string.game_bonus_title),
                                 context.getString(R.string.game_bonus_message));
 
                     }

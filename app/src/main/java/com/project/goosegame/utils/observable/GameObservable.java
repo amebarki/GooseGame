@@ -25,13 +25,13 @@ public interface GameObservable {
 
     void processShowResultQuestion(String result,boolean isCorrect);
 
-    void processLaunchBonusMalus(int visibility,String resultTitle,String result);
+    void processLaunchBonusMalus(String resultTitle,String result);
 
-    void processDisplayDicePlayer(int visibility, String namePlayer);
+    void processDisplayDicePlayer(String namePlayer);
 
-    void processDisplayResultDice(int visibility, String resultDice);
+    void processDisplayResultDice(String resultDice);
 
-    void processDisplayEnd(int visibility, String endText);
+    void processDisplayEnd(String endText);
 
     void processShowDialog(String title,String text);
 

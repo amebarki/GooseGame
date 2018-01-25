@@ -252,13 +252,6 @@
             android:text="Lancer"
             android:id="@+id/game_button_dice_launch"
             android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:id="@+id/game_text_dice_result"
-            android:textSize="50dp"
-            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -308,7 +301,6 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Bonus / Malus"
             android:id="@+id/game_text_dice_result"
             android:textSize="50dp"
             android:textAlignment="center" />

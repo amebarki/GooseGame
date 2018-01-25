@@ -278,6 +278,8 @@ public class PlayersActivity extends AppCompatActivity implements AsyncParameter
                 player = new Player(textPlayer4.getText().toString(), pionImage[getCurrentPosition(4)], getAnswerTime(pickerAnswerTime4.getValue()));
             playerList.add(player);
         }
+
+        parametersViewModel.initPlayers(playerList);
     }
 
     private int getAnswerTime(int pickerValue) {

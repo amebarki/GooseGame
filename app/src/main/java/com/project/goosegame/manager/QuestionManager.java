@@ -1,5 +1,7 @@
 package com.project.goosegame.manager;
 
+import android.util.Log;
+
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.model.Question;
 

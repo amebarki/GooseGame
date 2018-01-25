@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -83,9 +82,9 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     TextView endTextView;
     Button endNewGameButton;
 
-    TextView gameTimeTextView;
-
     RelativeLayout caseLayout;
+
+    TextView gameTimeTextView;
 
     private int nbPlayers;
 
@@ -97,31 +96,25 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
         windowWidth = getWindowManager().getDefaultDisplay().getWidth();
         windowHeight = getWindowManager().getDefaultDisplay().getHeight();
 
-        gameTimeTextView = findViewById(R.id.game_text_game_time);
-
         gameViewModel  = new GameViewModel(getApplicationContext());
         gameViewModel.setGameObeservable(this);
 
         pionsPlayer = new ArrayList<>();
+
         gameViewModel.initGameQuestions();
-
         gameViewModel.startTimer();
-
-
+        gameViewModel.getGooseModel();
     }
 
     public void initPion() {
 
-
         float depPion1X = 0;
         float depPion1Y = 0;
-
 
         pion1 = findViewById(R.id.game_pion1);
         pion2 = findViewById(R.id.game_pion2);
         pion3 = findViewById(R.id.game_pion3);
         pion4 = findViewById(R.id.game_pion4);
-
 
         pion1.setImageResource(playerList.get(0).getImage());
         pion1.setX(depPion1X);
@@ -208,7 +201,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
         diceResultTextView = findViewById(R.id.game_text_dice_result);
     }
 
-    public void initPopupDiceResult() {
+    public void initPopupResult() {
         resultatLayout = findViewById(R.id.game_layout_dice_result);
         resultatTextView = findViewById(R.id.game_text_dice_result);
         resultatContinuerButton = findViewById(R.id.game_button_dice_result_continue);
@@ -275,6 +268,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
 
                 }
 
+                question2Layout.setVisibility(View.GONE);
                 gameViewModel.verifyAnswer(answer, question);
             }
         };
@@ -314,6 +308,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
                         answer = "";
                 }
 
+                question3Layout.setVisibility(View.GONE);
                 gameViewModel.verifyAnswer(answer, question);
             }
         };
@@ -361,6 +356,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
                         answer = "";
                 }
 
+                question4Layout.setVisibility(View.GONE);
                 gameViewModel.verifyAnswer(answer, question);
             }
         };
@@ -402,7 +398,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
             createCaseOnBoard();
         } else {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setPositiveButton("Ok",
+            alertDialogBuilder.setPositiveButton("Revenir au menu",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -418,6 +414,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     @Override
     public void processDisplayTime(String time) {
 
+        gameTimeTextView = findViewById(R.id.game_text_game_time);
         gameTimeTextView.setText(time);
     }
 
@@ -441,7 +438,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
 
     @Override
     public void processShowResultQuestion(String message, final boolean isCorrect) {
-        initPopupDiceResult();
+        initPopupResult();
 
         resultatTextView.setText(message);
         resultatLayout.setVisibility(View.VISIBLE);
@@ -456,12 +453,12 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     }
 
     @Override
-    public void processLaunchBonusMalus(int visibility, String resultTitle, String result) {
+    public void processLaunchBonusMalus(String resultTitle, String result) {
         initPopupBonusMalus();
 
         bonusMalusTitleTextView.setText(resultTitle);
         bonusMalusResultTextView.setText(result);
-        bonusMalusLayout.setVisibility(visibility);
+        bonusMalusLayout.setVisibility(View.VISIBLE);
 
         bonusMalusContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -473,46 +470,49 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     }
 
     @Override
-    public void processDisplayDicePlayer(int visibility, String namePlayer) {
+    public void processDisplayDicePlayer(String namePlayer) {
 
         initPopupDice();
 
         dicePlayerTextView.setText(namePlayer);
-        diceLayout.setVisibility(visibility);
+        diceLayout.setVisibility(View.VISIBLE);
 
         diceLaunchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                diceLayout.setVisibility(View.GONE);
                 gameViewModel.ThrowDice();
             }
         });
     }
 
     @Override
-    public void processDisplayResultDice(int visibility, String resultDice) {
-        initPopupDiceResult();
+    public void processDisplayResultDice(String resultDice) {
+        initPopupResult();
 
         resultatTextView.setText(resultDice);
-        resultatLayout.setVisibility(visibility);
+        resultatLayout.setVisibility(View.VISIBLE);
 
         resultatContinuerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resultatLayout.setVisibility(View.GONE);
                 gameViewModel.verifyShowQuestion();
             }
         });
     }
 
     @Override
-    public void processDisplayEnd(int visibility, String endText) {
+    public void processDisplayEnd(String endText) {
         initPopupEnd();
 
         endTextView.setText(endText);
-        endLayout.setVisibility(visibility);
+        endLayout.setVisibility(View.VISIBLE);
 
         endNewGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                endLayout.setVisibility(View.GONE);
                 finish();
             }
         });

@@ -61,7 +61,7 @@ public class ParametersViewModel extends BaseObservable {
     }
 
     public void getNumberPlayers()   {
-            response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
+        response.processNumberPlayers(gameManager.getGooseModel().getNumberPlayer());
     }
 
     public void initQuestionTypeList() {
