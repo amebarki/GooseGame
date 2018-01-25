@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.observable.AsyncQuestions;
+import com.project.goosegame.utils.observable.QuestionsObservable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,8 +26,8 @@ public class CSVFileParser {
     private FileInputStream fileInputStream;
     private ArrayList<Question> questionsList;
     private Context context;
-    private AsyncQuestions response;
-    public CSVFileParser(Context context,AsyncQuestions response,File file){
+    private QuestionsObservable response;
+    public CSVFileParser(Context context, QuestionsObservable response, File file){
         this.context = context;
         this.response = response;
         questionsList = new ArrayList<>();
@@ -40,7 +40,7 @@ public class CSVFileParser {
         }
     }
 
-    public ArrayList<Question> read(AsyncQuestions response){
+    public ArrayList<Question> read(QuestionsObservable response){
         List resultList = new ArrayList();
         BufferedReader reader = null;
         try {

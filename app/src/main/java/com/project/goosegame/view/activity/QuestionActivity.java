@@ -12,11 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;
-import com.project.goosegame.utils.observable.AsyncQuestions;
+import com.project.goosegame.utils.observable.QuestionsObservable;
 import com.project.goosegame.utils.listener.CustomItemClickListener;
 import com.project.goosegame.utils.listener.HidingScrollListener;
 import com.project.goosegame.view.adapter.QuestionRecyclerAdapter;
@@ -24,7 +23,7 @@ import com.project.goosegame.viewModel.QuestionsViewModel;
 
 import java.util.List;
 
-public class QuestionActivity extends AppCompatActivity implements AsyncQuestions {
+public class QuestionActivity extends AppCompatActivity implements QuestionsObservable {
 
     private static final int INTENT_FILE_CODE = 10;
     private QuestionsViewModel questionsViewModel;
@@ -42,7 +41,7 @@ public class QuestionActivity extends AppCompatActivity implements AsyncQuestion
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         questionsViewModel = new QuestionsViewModel(getApplicationContext());
-        questionsViewModel.setAsyncQuestions(this);
+        questionsViewModel.setQuestionsObservable(this);
         questionsViewModel.displayQuestions();
     }
 

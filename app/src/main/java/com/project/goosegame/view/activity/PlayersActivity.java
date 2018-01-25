@@ -90,7 +90,7 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
         setContentView(R.layout.activity_players);
 
         parametersViewModel = new ParametersViewModel(getApplicationContext());
-        parametersViewModel.setAsyncParameters(this);
+        parametersViewModel.setParametersObservable(this);
         parametersViewModel.getNumberPlayers();
 
         initImageButton();

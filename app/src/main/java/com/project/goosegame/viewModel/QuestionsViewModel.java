@@ -6,14 +6,13 @@ import android.databinding.BaseObservable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.parser.CSVFileParser;
-import com.project.goosegame.utils.observable.AsyncQuestions;
+import com.project.goosegame.utils.observable.QuestionsObservable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class QuestionsViewModel extends BaseObservable {
     private Context context;
     private CSVFileParser csvFileParser;
     private ArrayList<Question> questionsList;
-    private AsyncQuestions response = null;
+    private QuestionsObservable response = null;
     private QuestionManager questionManager = null;
 
     public QuestionsViewModel(Context context) {
@@ -40,11 +39,9 @@ public class QuestionsViewModel extends BaseObservable {
     }
 
 
-
-    public void setAsyncQuestions(AsyncQuestions asyncQuestions){
-        this.response = asyncQuestions;
+    public void setQuestionsObservable(QuestionsObservable questionsObservable){
+        this.response = questionsObservable;
     }
-
 
     public Intent openFileExplorer() {
         File filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GameOfGoose" + File.separator);
