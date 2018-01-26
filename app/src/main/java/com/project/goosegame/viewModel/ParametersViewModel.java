@@ -59,9 +59,11 @@ public class ParametersViewModel extends BaseObservable {
         if (playersList != null) {
             gameManager.getGooseModel().setPlayerList(playersList);
             if (gameManager.getGooseModel().getPlayerList() != null)
-                response.processPlayersFinish(true);
+                response.processPlayersFinish();
+        } else {
+            response.processDisplayMessage(context.getString(R.string.players_message_error));
         }
-        response.processPlayersFinish(false);
+
     }
 
     public void getNumberPlayers() {

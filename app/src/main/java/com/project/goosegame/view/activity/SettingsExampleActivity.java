@@ -64,6 +64,7 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
 
 
         settingsViewModel.getListFontSize();
+        settingsViewModel.getListFontSize();
 
     }
 

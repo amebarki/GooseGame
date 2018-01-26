@@ -1,14 +1,19 @@
 package com.project.goosegame.view.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.pojo.Player;
@@ -162,24 +167,28 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
         pickerAnswerTime1.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         pickerAnswerTime1.setMinValue(0);
         pickerAnswerTime1.setMaxValue(2);
+        pickerAnswerTime1.setValue(0);
         pickerAnswerTime1.setDisplayedValues(displayedValues);
 
         pickerAnswerTime2 = findViewById(R.id.players_answer_time_player2);
         pickerAnswerTime2.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         pickerAnswerTime2.setMinValue(0);
         pickerAnswerTime2.setMaxValue(2);
+        pickerAnswerTime2.setValue(0);
         pickerAnswerTime2.setDisplayedValues(displayedValues);
 
         pickerAnswerTime3 = findViewById(R.id.players_answer_time_player3);
         pickerAnswerTime3.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         pickerAnswerTime3.setMinValue(0);
         pickerAnswerTime3.setMaxValue(2);
+        pickerAnswerTime3.setValue(0);
         pickerAnswerTime3.setDisplayedValues(displayedValues);
 
         pickerAnswerTime4 = findViewById(R.id.players_answer_time_player4);
         pickerAnswerTime4.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         pickerAnswerTime4.setMinValue(0);
         pickerAnswerTime4.setMaxValue(2);
+        pickerAnswerTime4.setValue(0);
         pickerAnswerTime4.setDisplayedValues(displayedValues);
 
 
@@ -233,13 +242,7 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 addPlayersToSettings();
-
-                //TODO Ajouter Game Activity
-                Intent i = new Intent(PlayersActivity.this, GameActivity.class);
-
-                startActivity(i);
             }
         });
     }
@@ -278,7 +281,6 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
                 player = new Player(textPlayer4.getText().toString(), pionImage[getCurrentPosition(4)], getAnswerTime(pickerAnswerTime4.getValue()));
             playerList.add(player);
         }
-
         parametersViewModel.initPlayers(playerList);
     }
 
@@ -307,8 +309,9 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
     }
 
     @Override
-    public void processPlayersFinish(Boolean result) {
-
+    public void processPlayersFinish() {
+        Intent i = new Intent(PlayersActivity.this, GameActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -319,6 +322,20 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
 
     @Override
     public void processDisplayMessage(String message) {
+        LayoutInflater linf = LayoutInflater.from(this);
+        final View inflator = linf.inflate(R.layout.dialog_layout, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.DialogTextTheme)
+                .setView(inflator);
 
+        alertDialogBuilder.setPositiveButton(getString(R.string.main_dialog_message_ok),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        final TextView messageTextView = (TextView) inflator.findViewById(R.id.general_dialog_message);
+        messageTextView.setText(message);
+        alertDialogBuilder.show();
     }
 }

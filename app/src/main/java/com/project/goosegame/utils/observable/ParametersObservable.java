@@ -10,7 +10,7 @@ public interface ParametersObservable {
 
     void processDisplayQuestionTypeList(List<String> types);
     void processParametersFinish(Boolean result);
-    void processPlayersFinish(Boolean result);
+    void processPlayersFinish();
     void processNumberPlayers(int numberPlayers);
     void processDisplayMessage(String message);
 }

@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.goosegame.R;
@@ -73,7 +75,6 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
         radioButton = findViewById(gameTimeRadioGroup.getCheckedRadioButtonId());
         int gameTime = getGameTime(gameTimeRadioGroup.indexOfChild(radioButton));
 
-        Toast.makeText(this, selectedGameType, Toast.LENGTH_SHORT).show();
         parametersViewModel.initGooseGame(nbPlayer, difficulty, 1, gameTime, selectedGameType);
     }
 
@@ -97,7 +98,7 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
             gameTypePicker.setMinValue(1);
             gameTypePicker.setMaxValue(gameTypeList.size());
             gameTypePicker.setValue(1);
-            selectedGameType = gameTypeList.get(gameTypePicker.getMinValue()-1);
+            selectedGameType = gameTypeList.get(gameTypePicker.getMinValue() - 1);
             gameTypePicker.setDisplayedValues(gameTypeList.toArray(new String[0]));
         }
     }
@@ -109,8 +110,9 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
     }
 
     @Override
-    public void processPlayersFinish(Boolean result) {
-
+    public void processPlayersFinish() {
+        Intent i = new Intent(this, GameActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -120,15 +122,20 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
 
     @Override
     public void processDisplayMessage(String message) {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme);
-        alertDialogBuilder.setPositiveButton("Revenir au menu",
+        LayoutInflater linf = LayoutInflater.from(this);
+        final View inflator = linf.inflate(R.layout.dialog_layout, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.DialogTextTheme)
+                .setView(inflator);
+
+        alertDialogBuilder.setPositiveButton(getString(R.string.main_dialog_message_ok),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        dialog.cancel();
                     }
                 });
-        alertDialogBuilder.setMessage(message);
+        final TextView messageTextView = (TextView) inflator.findViewById(R.id.general_dialog_message);
+        messageTextView.setText(message);
         alertDialogBuilder.show();
     }
 
