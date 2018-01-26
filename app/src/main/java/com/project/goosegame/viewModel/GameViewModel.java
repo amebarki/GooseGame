@@ -12,9 +12,11 @@ import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
+import com.project.goosegame.model.pojo.Case;
 import com.project.goosegame.utils.observable.GameObservable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -49,6 +51,9 @@ public class GameViewModel extends BaseObservable {
         response.processGooseModel(gameManager.getGooseModel());
     }
 
+    public GameManager getGameManager() {
+        return gameManager;
+    }
 
     public void initGameQuestions() {
         new AsyncTask<Void, Void, List<Question>>() {
@@ -78,12 +83,15 @@ public class GameViewModel extends BaseObservable {
         int numberCase = gameManager.getGooseModel().calculateNumberCases();
         float xMargin = this.getXMargin(windowWidth);
         float yMargin = this.getYMargin(windowHeigth);
+
         gameManager.getGooseModel().createCase(xMargin, yMargin, windowWidth);
-        if (gameManager.getGooseModel().getBoardGame().size() == numberCase) {
-            response.processGooseCases(gameManager.getGooseModel().getBoardGame());
+
+        List<Case> caseList = gameManager.getGooseModel().getBoardGame();
+
+        if (caseList.size() == numberCase) {
+            response.processGooseCases(caseList);
         } else {
             response.processGooseCases(null);
-            response.processMessageError(context.getString(R.string.game_create_cases_error));
         }
     }
 
@@ -102,7 +110,7 @@ public class GameViewModel extends BaseObservable {
 
     public void startTimer() {
 
-        new CountDownTimer(gameManager.getGooseModel().getDurationGame() * 1000 * 60, 1000) {
+        new CountDownTimer(gameManager.getGooseModel().getDurationGame() * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 response.processDisplayTime(context.getString(R.string.game_time_left) + (millisUntilFinished / (1000 * 60)) % 60 + " : " + (millisUntilFinished / 1000) % 60);
@@ -132,7 +140,7 @@ public class GameViewModel extends BaseObservable {
                 }
             }.start();
         } else {
-            response.processDisplayEnd(context.getString(R.string.game_time_end_turn));
+            response.processDisplayEnd(context.getString(R.string.game_time_end));
         }
     }
 
@@ -161,14 +169,6 @@ public class GameViewModel extends BaseObservable {
                     response.processDisplayEnd(gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + context.getString(R.string.game_player_win));
                 } else {
                     showQuestion(nbCaseToMove);
-                    currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
-                    if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
-                        //layoutFin.setVisibility(View.VISIBLE);
-                        //tvFin.setText(sets.getListPlayer().get(currentPlayer).getName() + " a gagné la partie !!");
-                        response.processDisplayEnd(gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + " a gagné la partie !!");
-                    } else {
-                        showQuestion(nbCaseToMove);
-                    }
                 }
             }
         }.start();
@@ -178,46 +178,24 @@ public class GameViewModel extends BaseObservable {
         int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
         int currentCase = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
 
-        int durationAnimation = 2000;
+        int durationAnimation = 1000;
         float xTranslation = 0.0f;
         float yTranslation = 0.0f;
+
         int numberOfCasesToPass = 0;
         int numberCase = gameManager.getGooseModel().getNumberCase();
+
         if (gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase() + caseToMove >= numberCase) {
             numberOfCasesToPass = numberCase - gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase() - 1;
         }else
         {
             numberOfCasesToPass = caseToMove;
         }
-        // move the player before to move in the graphic interface
-        gameManager.getGooseModel().getPlayerList().get(currentPlayer).setCurrentCase(currentCase + numberOfCasesToPass);
-        gameManager.getGooseModel().getPlayerList().get(currentCase).setNbCaseToMove(0);
-        switch (gameManager.getGooseModel().getCurrentPlayer()) {
-            case 0:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY();
-                response.processAnimatePiece(numberOfCasesToPass, 0, currentCase, xTranslation, yTranslation, durationAnimation,true);
-                break;
-            case 1:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 40;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
-                response.processAnimatePiece(numberOfCasesToPass, 1, currentCase, xTranslation, yTranslation, durationAnimation,true);
-                break;
-            case 2:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 100;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
-                response.processAnimatePiece(numberOfCasesToPass, 2, currentCase, xTranslation, yTranslation, durationAnimation,true);
-                break;
-            case 3:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 160;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
-                response.processAnimatePiece(numberOfCasesToPass, 3, currentCase, xTranslation, yTranslation, durationAnimation,true);
-                break;
-            default:
-                response.processMessageError(context.getString(R.string.game_animate_player_error));
-                break;
+        gameManager.getGooseModel().getPlayerList().get(currentPlayer).setNbCaseToMove(0);
 
-        }
+        response.processAnimatePiece(numberOfCasesToPass,true);
+
+
     }
 
     public void moveToPreviousCase(int caseToMove) {
@@ -234,34 +212,9 @@ public class GameViewModel extends BaseObservable {
         }else{
             numberOfCasesToStepBack = caseToMove;
         }
-        gameManager.getGooseModel().getPlayerList().get(currentPlayer).setCurrentCase(currentCase + numberOfCasesToStepBack);
-        gameManager.getGooseModel().getPlayerList().get(currentCase).setNbCaseToMove(0);
-        switch (currentPlayer) {
-            case 0:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
-                response.processAnimatePiece(numberOfCasesToStepBack,currentPlayer,currentCase,xTranslation,yTranslation,durationAnimation,false);
-                break;
-            case 1:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
-                response.processAnimatePiece(numberOfCasesToStepBack,currentPlayer,currentCase,xTranslation,yTranslation,durationAnimation,false);
-                break;
-            case 2:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
-                response.processAnimatePiece(numberOfCasesToStepBack,currentPlayer,currentCase,xTranslation,yTranslation,durationAnimation,false);
-                break;
-            case 3:
-                xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
-                yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 40;
-                response.processAnimatePiece(numberOfCasesToStepBack,currentPlayer,currentCase,xTranslation,yTranslation,durationAnimation,false);
-                break;
-            default:
-                response.processMessageError(context.getString(R.string.game_animate_player_error));
-                break;
-        }
+        gameManager.getGooseModel().getPlayerList().get(currentPlayer).setNbCaseToMove(0);
 
+        response.processAnimatePiece(numberOfCasesToStepBack,false);
     }
 
     // get the number of case to move if player answer correctly to the question
@@ -324,21 +277,34 @@ public class GameViewModel extends BaseObservable {
 
                     response.processShowQuestion(question, nbAnswer, answerList);
                 } else if (typeCase == 0) {
-                    int nbCaseRandom = 0;
-                    do {
-                        nbCaseRandom = (int) ((Math.random() * 6) - 3);
-                    } while (nbCaseRandom == 0);
+                    moveToNextCase(nbCaseToMove);
 
-                    if (nbCaseRandom < 0) {
-                        gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
-                        response.processLaunchBonusMalus(context.getString(R.string.game_malus_title),
-                                context.getString(R.string.game_malus_message));
-                    } else {
-                        gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
-                        response.processLaunchBonusMalus(context.getString(R.string.game_bonus_title),
-                                context.getString(R.string.game_bonus_message));
+                    new CountDownTimer(1000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                        }
 
-                    }
+                        @Override
+                        public void onFinish() {
+                            int nbCaseRandom = 0;
+                            do {
+                                nbCaseRandom = (int) ((Math.random() * 6) - 3);
+                            } while (nbCaseRandom == 0);
+
+                            if (nbCaseRandom < 0) {
+                                gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
+                                response.processLaunchBonusMalus(context.getString(R.string.game_malus_title),
+                                        String.format(context.getString(R.string.game_malus_message),nbCaseRandom * -1));
+                            } else {
+                                gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
+                                response.processLaunchBonusMalus(context.getString(R.string.game_bonus_title),
+                                        String.format(context.getString(R.string.game_bonus_message),nbCaseRandom));
+
+                            }
+                        }
+                    }.start();
+
+
                 } else {
                     response.processShowDialog(context.getString(R.string.game_questions_title_error),
                             context.getString(R.string.game_questions_message_error));
@@ -385,17 +351,9 @@ public class GameViewModel extends BaseObservable {
 
     public void validateMove(boolean isCorrect) {
         if (isCorrect) {
-            new CountDownTimer(2000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                }
+            moveToNextCase(gameManager.getGooseModel().getCurrentPlayerObject().getNbCaseToMove());
+            endOfTurn();
 
-                @Override
-                public void onFinish() {
-                    moveToNextCase(gameManager.getGooseModel().getCurrentPlayerObject().getNbCaseToMove());
-                    endOfTurn();
-                }
-            }.start();
         } else {
             endOfTurn();
         }

@@ -1,5 +1,6 @@
 package com.project.goosegame.utils.observable;
 
+import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.model.GooseModel;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
@@ -35,7 +36,7 @@ public interface GameObservable {
 
     void processShowDialog(String title,String text);
 
-    void processAnimatePiece(int numberOfCaseToPass,int currentPlayer,int currentCase,float xTranslation,float yTranslation,int duration,boolean forward);
+    void processAnimatePiece(int numberOfCaseToPass, boolean forward);
 
     void processMessageError(String message);
 }

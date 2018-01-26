@@ -4,9 +4,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.project.goosegame.R;
+import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.model.GooseModel;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Case;
@@ -52,7 +56,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     TextView diceResultTextView;
     Button diceLaunchButton;
 
-    LinearLayout resultatLayout;
+    ConstraintLayout resultatLayout;
     TextView resultatTextView;
     Button resultatContinuerButton;
 
@@ -104,13 +108,14 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
 
         gameViewModel.initGameQuestions();
         gameViewModel.startTimer();
-        gameViewModel.getGooseModel();
     }
 
     public void initPion() {
+        GameManager gameManager = gameViewModel.getGameManager();
+        int currentCase = 0;
 
-        float depPion1X = 0;
-        float depPion1Y = 0;
+        float depPion1X = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
+        float depPion1Y = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 20;
 
         pion1 = findViewById(R.id.game_pion1);
         pion2 = findViewById(R.id.game_pion2);
@@ -124,26 +129,27 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
 
         if (nbPlayers > 1) {
             pion2.setImageResource(playerList.get(1).getImage());
-            pion2.setX(depPion1X + 100);
-            pion2.setY(depPion1Y);
+            pion2.setX(depPion1X + 80);
+            pion2.setY(depPion1Y - 20);
             pion1.bringToFront();
         }
 
         if (nbPlayers > 2) {
             pion3.setImageResource(playerList.get(2).getImage());
-            pion3.setX(depPion1X);
-            pion3.setY(depPion1Y + 70);
+            pion3.setX(depPion1X - 20);
+            pion3.setY(depPion1Y + 80);
             pion1.bringToFront();
         }
 
         if (nbPlayers > 3) {
             pion4.setImageResource(playerList.get(3).getImage());
-            pion4.setX(depPion1X + 100);
-            pion4.setY(depPion1Y + 70);
+            pion4.setX(depPion1X + 80);
+            pion4.setY(depPion1Y + 80);
             pion1.bringToFront();
         }
 
-        gameViewModel.createCases(windowHeight,windowWidth);
+        gameViewModel.newTurn();
+
     }
 
     public void createCaseOnBoard() {
@@ -192,20 +198,20 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
             caseLayout.addView(textView);
         }
 
-        gameViewModel.newTurn();
+        initPion();
     }
 
     public void initPopupDice() {
         diceLayout = findViewById(R.id.game_layout_dice);
         dicePlayerTextView = findViewById(R.id.game_text_dice_player);
         diceLaunchButton = findViewById(R.id.game_button_dice_launch);
-        diceResultTextView = findViewById(R.id.game_text_dice_result);
+        diceResultTextView = findViewById(R.id.game_text_result);
     }
 
     public void initPopupResult() {
-        resultatLayout = findViewById(R.id.game_layout_dice_result);
-        resultatTextView = findViewById(R.id.game_text_dice_result);
-        resultatContinuerButton = findViewById(R.id.game_button_dice_result_continue);
+        resultatLayout = findViewById(R.id.game_layout_result);
+        resultatTextView = findViewById(R.id.game_text_result);
+        resultatContinuerButton = findViewById(R.id.game_button_result_continue);
     }
 
     public void initPopupQuestion2() {
@@ -233,7 +239,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     }
 
     public void initPopupBonusMalus() {
-        bonusMalusLayout = findViewById(R.id.game_layout_question4);
+        bonusMalusLayout = findViewById(R.id.game_layout_bonus_malus);
         bonusMalusTitleTextView = findViewById(R.id.game_text_title_bonus_malus);
         bonusMalusResultTextView = findViewById(R.id.game_text_result_bonus_malus);
         bonusMalusContinueButton = findViewById(R.id.game_button_bonus_malus);
@@ -381,7 +387,8 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
 
         this.playerList = gooseModel.getPlayerList();
         this.nbPlayers = gooseModel.getNumberPlayer();
-        initPion();
+
+        gameViewModel.createCases(windowHeight,windowWidth);
     }
 
     @Override
@@ -420,7 +427,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     }
 
     @Override
-    public void processShowQuestion(Question question, int nbAnswer, List<String> answerList) {
+    public void processShowQuestion(Question question, final int nbAnswer, List<String> answerList) {
 
         switch (nbAnswer) {
             case 2:
@@ -435,6 +442,38 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
                 showPopupQuestion4(question, answerList);
         }
 
+
+        GameManager gameManager = gameViewModel.getGameManager();
+
+        new CountDownTimer(gameManager.getGooseModel().getCurrentPlayerObject().getAnswerTime() * 1000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                switch (nbAnswer) {
+                    case 2:
+                        question2Layout.setVisibility(View.GONE);
+                        break;
+
+                    case 3:
+                        question3Layout.setVisibility(View.GONE);
+                        break;
+
+                    case 4:
+                        question4Layout.setVisibility(View.GONE);
+                        break;
+
+                    default:
+
+                }
+
+                processShowResultQuestion(getString(R.string.game_time_end_turn),false);
+            }
+        }.start();
     }
 
     @Override
@@ -464,7 +503,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
         bonusMalusContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resultatLayout.setVisibility(View.GONE);
+                bonusMalusLayout.setVisibility(View.GONE);
                 gameViewModel.startBonusMalus();
             }
         });
@@ -537,46 +576,127 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     }
 
     @Override
-    public void processAnimatePiece(int numberOfCaseToPass, int currentPlayer, int currentCase, float xTranslation, float yTranslation, int duration, boolean forward) {
-        // TODO: 23/01/2018 create boucle for with numberOfCaseToPass has the limit if forward == true
-        // TODO: 23/01/2018 in this boucle, move the currentPlayer pion from his currentCase one by one
-        // TODO: 23/01/2018 see example of the old code :
-        /**
-         *  pion is the image of the graphic part
-         *  pion4.bringToFront();
-         *  pion4.animate().translationX(listCase.get(sets.getListPlayer().get(3).getCurrentCase()).getX() + 160).setDuration(2000);
-         *  pion4.animate().translationY(listCase.get(sets.getListPlayer().get(3).getCurrentCase()).getY() - 40).setDuration(2000);
-         */
-        // TODO: 23/01/2018 the new code will be like this :
-        /**
-         * "thePion".animate().translationX(xTranslation).setDuration(duration);
-         */
-        // TODO: 23/01/2018 if forward == false the limit of the boucle will be 0
+    public void processAnimatePiece(int numberOfCaseToPass, boolean forward) {
+        GameManager gameManager = gameViewModel.getGameManager();
 
-        ImageView pion;
+        float xTranslation = 0.0f;
+        float yTranslation = 0.0f;
 
-        switch (currentPlayer) {
-            case 1:
-                pion = pion1;
-                break;
-            case 2:
-                pion = pion2;
-                break;
-            case 3:
-                pion = pion3;
-                break;
-            default:
-        }       pion = pion4;
+        int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
+        int currentCase = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
 
         if (forward) {
             for (int i = 0; i < numberOfCaseToPass; i++) {
-                pion.animate().translationX(xTranslation).setDuration(duration);
-                pion.animate().translationY(yTranslation).setDuration(duration);
+
+                switch (currentPlayer) {
+                    case 0:
+                        gameManager.getGooseModel().getCurrentPlayerObject().setCurrentCase(currentCase + 1);
+                        currentCase = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 20;
+
+                        pion1.bringToFront();
+                        pion1.animate().translationX(xTranslation).setDuration(1000);
+                        pion1.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+
+                    case 1:
+                        gameManager.getGooseModel().getPlayerList().get(currentPlayer).setCurrentCase(currentCase + 1);
+                        currentCase = gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 80;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 20;
+
+                        pion2.bringToFront();
+                        pion2.animate().translationX(xTranslation).setDuration(1000);
+                        pion2.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+
+                    case 2:
+                        gameManager.getGooseModel().getPlayerList().get(currentPlayer).setCurrentCase(currentCase + 1);
+                        currentCase = gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() + 80;
+
+                        pion3.bringToFront();
+                        pion3.animate().translationX(xTranslation).setDuration(1000);
+                        pion3.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+
+                    case 3:
+                        gameManager.getGooseModel().getPlayerList().get(currentPlayer).setCurrentCase(currentCase + 1);
+                        currentCase = gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 80;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() + 80;
+
+                        pion4.bringToFront();
+                        pion4.animate().translationX(xTranslation).setDuration(1000);
+                        pion4.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+                    default:
+                        processMessageError(getString(R.string.game_animate_player_error));
+                        break;
+
+                }
             }
         } else {
             for (int i = numberOfCaseToPass; i < 0; i++) {
-                pion.animate().translationX(xTranslation).setDuration(duration);
-                pion.animate().translationY(yTranslation).setDuration(duration);
+                switch (currentPlayer) {
+                    case 0:
+                        gameManager.getGooseModel().getCurrentPlayerObject().setCurrentCase(currentCase - 1);
+                        currentCase = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 20;
+
+                        pion1.bringToFront();
+                        pion1.animate().translationX(xTranslation).setDuration(1000);
+                        pion1.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+
+                    case 1:
+                        gameManager.getGooseModel().getCurrentPlayerObject().setCurrentCase(currentCase - 1);
+                        currentCase = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 60;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() - 20;
+
+                        pion2.bringToFront();
+                        pion2.animate().translationX(xTranslation).setDuration(1000);
+                        pion2.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+
+                    case 2:
+                        gameManager.getGooseModel().getCurrentPlayerObject().setCurrentCase(currentCase - 1);
+                        currentCase = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() - 20;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() + 60;
+
+                        pion3.bringToFront();
+                        pion3.animate().translationX(xTranslation).setDuration(1000);
+                        pion3.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+
+                    case 3:
+                        gameManager.getGooseModel().getCurrentPlayerObject().setCurrentCase(currentCase - 1);
+                        currentCase = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
+
+                        xTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getX() + 60;
+                        yTranslation = gameManager.getGooseModel().getBoardGame().get(currentCase).getY() + 60;
+
+                        pion4.bringToFront();
+                        pion4.animate().translationX(xTranslation).setDuration(1000);
+                        pion4.animate().translationY(yTranslation).setDuration(1000);
+                        break;
+
+                    default:
+                        processMessageError(getString(R.string.game_animate_player_error));
+                        break;
+                }
             }
         }
     }
