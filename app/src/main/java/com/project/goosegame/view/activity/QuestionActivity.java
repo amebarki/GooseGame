@@ -48,6 +48,12 @@ public class QuestionActivity extends AppCompatActivity implements QuestionsObse
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == INTENT_FILE_CODE) {
             questionsViewModel.loadFile(resultCode, data);
