@@ -304,7 +304,7 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
     }
 
     @Override
-    public void processParametersFinish(Boolean result) {
+    public void processParametersFinish() {
 
     }
 

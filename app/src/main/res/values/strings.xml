@@ -30,6 +30,8 @@
     <string name="param_button_continue">Continuer</string>
     <string name="param_list_questions_error">Aucune questions trouvées</string>
     <string name="param_picker_error">Sélectionnez un type de questions</string>
+    <string name="param_verify_list_questions_error">Aucune questions trouvées pour le type et la difficulté sélectionnés</string>
+
 
     /* Strings for PlayersActivity */
     <string name="players_button_launch_game">Lancer la partie</string>

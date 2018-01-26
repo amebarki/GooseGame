@@ -104,7 +104,7 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
     }
 
     @Override
-    public void processParametersFinish(Boolean result) {
+    public void processParametersFinish() {
         Intent i = new Intent(this, PlayersActivity.class);
         startActivity(i);
     }

@@ -165,7 +165,7 @@ public class GameViewModel extends BaseObservable {
             @Override
             public void onFinish() {
                 int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
-                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
+                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove >= gameManager.getGooseModel().getNumberCase() - 1) {
                     response.processDisplayEnd(gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + context.getString(R.string.game_player_win));
                 } else {
                     showQuestion(nbCaseToMove);

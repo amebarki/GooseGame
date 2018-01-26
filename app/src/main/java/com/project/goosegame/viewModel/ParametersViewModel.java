@@ -9,6 +9,7 @@ import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.GooseModel;
+import com.project.goosegame.model.Question;
 import com.project.goosegame.model.pojo.Player;
 import com.project.goosegame.utils.observable.ParametersObservable;
 
@@ -42,13 +43,13 @@ public class ParametersViewModel extends BaseObservable {
     }
 
     public void initGooseGame(int numberPlayer, int difficulty, int numberDice, int durationGame, String typeGame) {
-
         if (typeGame != null) {
             GooseModel gooseModel = new GooseModel(numberPlayer, difficulty, numberDice, durationGame, typeGame);
             gameManager.setGooseModel(gooseModel);
             if (gameManager.getGooseModel() != null)
-                response.processParametersFinish(true);
-            response.processParametersFinish(false);
+                this.verifyGameQuestions(typeGame, difficulty);
+            else
+                response.processDisplayMessage(context.getString(R.string.param_list_questions_error));
         } else {
             response.processDisplayMessage(context.getString(R.string.param_picker_error));
         }
@@ -83,6 +84,25 @@ public class ParametersViewModel extends BaseObservable {
                     response.processDisplayQuestionTypeList(types);
                 else
                     response.processDisplayMessage(context.getString(R.string.param_list_questions_error));
+            }
+        }.execute();
+    }
+
+
+    public void verifyGameQuestions(final String type, final int difficulty) {
+        new AsyncTask<Void, Void, List<Question>>() {
+            @Override
+            protected List<Question> doInBackground(Void... voids) {
+                return questionsManager.initGameQuestions(type, difficulty);
+            }
+
+            @Override
+            protected void onPostExecute(List<Question> gameQuestionsList) {
+                super.onPostExecute(gameQuestionsList);
+                if (gameQuestionsList != null && gameQuestionsList.isEmpty() == false)
+                    response.processParametersFinish();
+                else
+                    response.processDisplayMessage(context.getString(R.string.param_verify_list_questions_error));
             }
         }.execute();
     }
