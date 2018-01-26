@@ -33,7 +33,6 @@ public class ParametersViewModel extends BaseObservable {
 
     }
 
-
     public void setParametersObservable(ParametersObservable parametersObservable) {
         this.response = parametersObservable;
     }
