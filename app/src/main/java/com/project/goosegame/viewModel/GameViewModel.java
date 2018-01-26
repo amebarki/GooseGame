@@ -61,7 +61,7 @@ public class GameViewModel extends BaseObservable {
             protected List<Question> doInBackground(Void... voids) {
                 gameQuestionsList = new ArrayList<Question>();
                 gameQuestionsList.addAll(questionManager.initGameQuestions(gameManager.getGooseModel().getTypeGame(),
-                        gameManager.getGooseModel().getDifficulty()));
+                                gameManager.getGooseModel().getDifficulty()));
 
                 return gameQuestionsList;
             }
@@ -151,7 +151,7 @@ public class GameViewModel extends BaseObservable {
             nbCaseToMove = (int) ((Math.random() * 6 * gameManager.getGooseModel().getNumberDice()));
         } while (nbCaseToMove == 0);
 
-        response.processDisplayResultDice(context.getString(R.string.game_advance_case, nbCaseToMove));
+        response.processDisplayResultDice(context.getString(R.string.game_advance_case,nbCaseToMove));
 
     }
 
@@ -187,12 +187,13 @@ public class GameViewModel extends BaseObservable {
 
         if (gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase() + caseToMove >= numberCase) {
             numberOfCasesToPass = numberCase - gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase() - 1;
-        } else {
+        }else
+        {
             numberOfCasesToPass = caseToMove;
         }
         gameManager.getGooseModel().getPlayerList().get(currentPlayer).setNbCaseToMove(0);
 
-        response.processAnimatePiece(numberOfCasesToPass, true);
+        response.processAnimatePiece(numberOfCasesToPass,true);
 
 
     }
@@ -208,12 +209,12 @@ public class GameViewModel extends BaseObservable {
 
         if (gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase() + caseToMove < 0) {
             numberOfCasesToStepBack = 0;
-        } else {
+        }else{
             numberOfCasesToStepBack = caseToMove;
         }
         gameManager.getGooseModel().getPlayerList().get(currentPlayer).setNbCaseToMove(0);
 
-        response.processAnimatePiece(numberOfCasesToStepBack, false);
+        response.processAnimatePiece(numberOfCasesToStepBack,false);
     }
 
     // get the number of case to move if player answer correctly to the question
@@ -227,13 +228,7 @@ public class GameViewModel extends BaseObservable {
             public void onFinish() {
 
                 int currentCasePlayer = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
-                int typeCase = 0;
-                if (currentCasePlayer + caseToMove >= gameManager.getGooseModel().getNumberCase() - 1) {
-                    int finalCase = gameManager.getGooseModel().getNumberCase() - 1;
-                    typeCase = gameManager.getGooseModel().getBoardGame().get(finalCase).getType();
-                } else {
-                    typeCase = gameManager.getGooseModel().getBoardGame().get(currentCasePlayer + caseToMove).getType();
-                }
+                int typeCase = gameManager.getGooseModel().getBoardGame().get(currentCasePlayer+caseToMove).getType();
 
                 if (typeCase > 0) {
                     int indexQuestion = (int) (Math.random() * (gameQuestionsList.size() - 1));
@@ -299,11 +294,11 @@ public class GameViewModel extends BaseObservable {
                             if (nbCaseRandom < 0) {
                                 gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
                                 response.processLaunchBonusMalus(context.getString(R.string.game_malus_title),
-                                        String.format(context.getString(R.string.game_malus_message), nbCaseRandom * -1));
+                                        String.format(context.getString(R.string.game_malus_message),nbCaseRandom * -1));
                             } else {
                                 gameManager.getGooseModel().getCurrentPlayerObject().setNbCaseToMove(nbCaseRandom);
                                 response.processLaunchBonusMalus(context.getString(R.string.game_bonus_title),
-                                        String.format(context.getString(R.string.game_bonus_message), nbCaseRandom));
+                                        String.format(context.getString(R.string.game_bonus_message),nbCaseRandom));
 
                             }
                         }
