@@ -1,5 +1,7 @@
 package com.project.goosegame.model;
 
+import android.util.Log;
+
 import com.project.goosegame.model.pojo.Case;
 import com.project.goosegame.model.pojo.Player;
 
@@ -20,19 +22,19 @@ public class GooseModel {
     private List<Player> playerList;
     private List<Case> boardGame;
     private int currentPlayer;
-
-
+    private boolean toRight;
 
     public GooseModel(int numberPlayer, int difficulty, int numberDice, int durationGame, String typeGame) {
         this.numberPlayer = numberPlayer;
         this.difficulty = difficulty;
         this.numberDice = numberDice;
-        this.durationGame = durationGame;
+        this.durationGame = durationGame * 60;
         this.typeGame = typeGame;
         this.playerList = new ArrayList<>();
         this.boardGame = new ArrayList<>();
         this.numberCase = 0;
         this.currentPlayer = 0;
+        this.toRight = true;
 
     }
 
@@ -152,8 +154,8 @@ public class GooseModel {
         // init the rest of the board game
         for (int i = 1; i < this.numberCase; i++) {
             Case c = new Case(i, false, 1);
-            c.calculatePosition(xMargin, yMargin,
-                    this.boardGame.get(i - 1).getX(), this.boardGame.get(i-1).getY(),windowWidth);
+            toRight = c.calculatePosition(xMargin, yMargin,
+                    this.boardGame.get(i - 1).getX(), this.boardGame.get(i-1).getY(),windowWidth, toRight);
 
             int percent = (int) (Math.random() * 100);
 
@@ -165,31 +167,5 @@ public class GooseModel {
             this.boardGame.add(c);
         }
     }
-
-/*    public void selectTypeCase(Case c){
-        switch ((int) (Math.random() * 5)) {
-            //contraire
-            case 0:
-                c.setType(0);
-                break;
-            //Synonyme
-            case 1:
-                c.setType(1);
-                break;
-            //Intrus
-            case 2:
-                c.setType(2);
-                break;
-            //Lecture
-            case 3:
-                c.setType(3);
-                break;
-            //Grammaire
-            case 4:
-                c.setType(4);
-                break;
-        }
-    } */
-
 
 }
