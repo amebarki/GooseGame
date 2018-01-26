@@ -67,15 +67,15 @@ public class SettingsViewModel extends BaseObservable {
     }
 
     public void setPrimaryColor(int primaryColor) {
-        settingsManager.setPrimary(primaryColor);
+        settingsManager.getColorManager().setPrimary(primaryColor);
     }
 
     public void setSecundaryColor(int secundaryColor) {
-        settingsManager.setSecundary(secundaryColor);
+        settingsManager.getColorManager().setSecundary(secundaryColor);
     }
 
     public void setSelectColor(int selectColor) {
-        settingsManager.setSelect(selectColor);
+        settingsManager.getColorManager().setSelect(selectColor);
     }
 }
 

@@ -11,9 +11,6 @@ public class SettingsManager {
 
     private static SettingsManager instance = null;
     private int FontSize;
-    private int primary;
-    private int secundary;
-    private int select;
     private int currentSelectColor;
 
     public static SettingsManager getInstance() {
@@ -21,6 +18,11 @@ public class SettingsManager {
             instance = new SettingsManager();
         }
         return instance;
+    }
+
+    public ColorManager getColorManager()
+    {
+        return ColorManager.getInstance();
     }
 
 
@@ -33,33 +35,10 @@ public class SettingsManager {
     }
 
 
-    public int getPrimary() {
-        return primary;
-    }
-
-    public void setPrimary(int primary) {
-        this.primary = primary;
-    }
-
-    public int getSecundary() {
-        return secundary;
-    }
-
-    public void setSecundary(int secundary) {
-        this.secundary = secundary;
-    }
-
-    public int getSelect() {
-        return select;
-    }
-
-    public void setSelect(int select) {
-        this.select = select;
-    }
-
     public int getCurrentSelectColor() {
         return currentSelectColor;
     }
+
 
     public void setCurrentSelectColor(int currentSelectColor) {
         this.currentSelectColor = currentSelectColor;

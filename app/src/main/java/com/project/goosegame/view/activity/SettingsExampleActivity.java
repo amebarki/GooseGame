@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.project.goosegame.R;
 import com.project.goosegame.utils.observable.SettingsObservable;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by Adam on 23/01/2018.
  */
 
-public class SettingsExampleActivity extends AppCompatActivity implements SettingsObservable,AdapterView.OnItemSelectedListener {
+public class SettingsExampleActivity extends AppCompatActivity implements SettingsObservable, AdapterView.OnItemSelectedListener {
 
     private SettingsViewModel settingsViewModel;
     private QuestionsViewModel questionsViewModel;
@@ -30,15 +31,16 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
     private Button buttonSelect;
     private Spinner spinner;
     private List fontSizeList;
+    private TextView primaryTextView, secundaryTextView, selectTextView, fontSizeTextView;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         settingsViewModel = new SettingsViewModel(getApplicationContext());
         settingsViewModel.setSettingsObservable(this);
-        buttonPrimary = (Button) findViewById(R.id.settings_button_primary);
-        buttonSecundary = (Button) findViewById(R.id.settings_button_secundary);
-        buttonSelect = (Button) findViewById(R.id.settings_button_select);
+        this.initialize();
 
         buttonPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,19 +62,39 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
             }
         });
 
-        spinner = (Spinner) findViewById(R.id.settings_spinner);
-        spinner.setOnItemSelectedListener(this);
+
         settingsViewModel.getListFontSize();
 
     }
 
 
+    public void initialize()
+    {
+        buttonPrimary = (Button) findViewById(R.id.settings_button_primary);
+        buttonSecundary = (Button) findViewById(R.id.settings_button_secundary);
+        buttonSelect = (Button) findViewById(R.id.settings_button_select);
+        spinner = (Spinner) findViewById(R.id.settings_spinner);
+        primaryTextView = (TextView) findViewById(R.id.settings_text_view_primary);
+        secundaryTextView = (TextView) findViewById(R.id.settings_text_view_secundary);
+        selectTextView = (TextView) findViewById(R.id.settings_text_view_select);
+        fontSizeTextView = (TextView) findViewById(R.id.settings_text_view_font_size);
+
+        spinner.setOnItemSelectedListener(this);
+
+        buttonPrimary.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        buttonSecundary.setBackgroundColor(getResources().getColor(R.color.colorSecondary));
+        buttonSelect.setBackgroundColor(getResources().getColor(R.color.colorSelect));
+
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();
     }
+
     public void onNothingSelected(AdapterView<?> arg0) {
     }
+
     @Override
     public void processOpenPrimaryColor(Intent intent) {
         startActivity(intent);

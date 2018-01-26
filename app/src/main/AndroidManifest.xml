@@ -33,7 +33,7 @@
             android:launchMode="singleTask"/>
         <activity
             android:name=".view.activity.SettingsExampleActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
         </activity>
         <activity android:name=".view.activity.ColorPickerActivity"
             android:screenOrientation="sensorLandscape">
