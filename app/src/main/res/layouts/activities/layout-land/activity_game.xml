@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -16,339 +16,351 @@
 
         <ImageView
             android:id="@+id/game_pion1"
-            android:layout_width="120dp"
-            android:layout_height="120dp" />
+            android:layout_width="@dimen/game_pion_size"
+            android:layout_height="@dimen/game_pion_size" />
 
         <ImageView
             android:id="@+id/game_pion2"
-            android:layout_width="120dp"
-            android:layout_height="120dp" />
+            android:layout_width="@dimen/game_pion_size"
+            android:layout_height="@dimen/game_pion_size" />
 
         <ImageView
             android:id="@+id/game_pion3"
-            android:layout_width="120dp"
-            android:layout_height="120dp" />
+            android:layout_width="@dimen/game_pion_size"
+            android:layout_height="@dimen/game_pion_size" />
 
         <ImageView
             android:id="@+id/game_pion4"
-            android:layout_width="120dp"
-            android:layout_height="120dp" />
+            android:layout_width="@dimen/game_pion_size"
+            android:layout_height="@dimen/game_pion_size" />
 
     </RelativeLayout>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/game_layout_question4"
-        android:layout_width="600dp"
-        android:layout_height="400dp"
-        android:layout_centerInParent="true"
+        android:layout_width="@dimen/game_popup_width"
+        android:layout_height="@dimen/game_popup_height"
         android:background="@drawable/layout_background"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="20dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="New Text"
             android:id="@+id/game_lib_question4"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:textSize="50dp"
-            android:gravity="center_horizontal" />
+            android:layout_width="@dimen/game_popup_text_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/game_popup_text_size"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"  />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="8">
+        <Button
+            android:id="@+id/game_button_question4_answer1"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game_button_question4_answer3"
+            android:layout_margin="15dp" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+        <Button
+            android:id="@+id/game_button_question4_answer2"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game_button_question4_answer4"
+            android:layout_margin="15dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question4_answer1"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"/>
+        <Button
+            android:id="@+id/game_button_question4_answer3"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="15dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question4_answer2"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
-            </LinearLayout>
+        <Button
+            android:id="@+id/game_button_question4_answer4"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="15dp" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+    </android.support.constraint.ConstraintLayout>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question4_answer3"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question4_answer4"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="600dp"
-        android:layout_height="400dp"
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/game_layout_question3"
-        android:layout_centerInParent="true"
+        android:layout_width="@dimen/game_popup_width"
+        android:layout_height="@dimen/game_popup_height"
         android:background="@drawable/layout_background"
-        android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="20dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="New Text"
             android:id="@+id/game_lib_question3"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:textSize="50dp"
-            android:gravity="center_horizontal" />
+            android:layout_width="@dimen/game_popup_text_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/game_popup_text_size"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="8" >
+        <Button
+            android:id="@+id/game_button_question3_answer1"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/game_button_question3_answer2"
+            app:layout_constraintBottom_toTopOf="@+id/game_button_question3_answer3"
+            android:layout_margin="10dp" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
+        <Button
+            android:id="@+id/game_button_question3_answer2"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/game_button_question3_answer1"
+            app:layout_constraintBottom_toTopOf="@+id/game_button_question3_answer3"
+            android:layout_margin="10dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question3_answer1"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
+        <Button
+            android:id="@+id/game_button_question3_answer3"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="10dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question3_answer2"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
+    </android.support.constraint.ConstraintLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question3_answer3"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="600dp"
-        android:layout_height="400dp"
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/game_layout_question2"
-        android:layout_centerInParent="true"
+        android:layout_width="@dimen/game_popup_width"
+        android:layout_height="@dimen/game_popup_height"
         android:background="@drawable/layout_background"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="20dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="New Text"
             android:id="@+id/game_lib_question2"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:textSize="50dp"
-            android:gravity="center_horizontal" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/game_popup_text_width"
             android:layout_height="wrap_content"
-            android:layout_weight="2" >
+            android:textSize="@dimen/game_popup_text_size"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
+        <Button
+            android:id="@+id/game_button_question2_answer1"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/game_button_question2_answer2"
+            android:layout_margin="10dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question2_answer1"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
+        <Button
+            android:id="@+id/game_button_question2_answer2"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/game_button_question2_answer1"
+            android:layout_margin="10dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/game_button_question2_answer2"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:id="@+id/game_text_game_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:textSize="50sp" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="600dp"
-        android:layout_height="400dp"
-        android:id="@+id/game_layout_dice"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:visibility="gone"
-        android:background="@drawable/layout_background">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:id="@+id/game_text_dice_player"
-            android:textSize="50dp"
-            android:layout_weight="1"
-            android:layout_marginTop="20dp"/>
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="0dp"
-            android:text="Lancer"
-            android:id="@+id/game_button_dice_launch"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="600dp"
-        android:layout_height="400dp"
-        android:layout_centerInParent="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:id="@+id/game_layout_bonus_malus"
-        android:focusableInTouchMode="false"
-        android:visibility="gone"
-        android:background="@drawable/layout_background">>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bonus / Malus"
-            android:id="@+id/game_text_title_bonus_malus"
-            android:textSize="50dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/game_text_result_bonus_malus"
-            android:layout_gravity="center_horizontal"
-            android:textSize="50dp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Continuer"
-            android:id="@+id/game_button_bonus_malus"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
+        android:textSize="@dimen/game_popup_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="20dp"/>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="600dp"
-        android:layout_height="400dp"
-        android:layout_centerInParent="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:id="@+id/game_layout_result"
-        android:focusableInTouchMode="false"
+        android:id="@+id/game_layout_dice"
+        android:layout_width="@dimen/game_popup_width"
+        android:layout_height="@dimen/game_popup_height"
         android:visibility="gone"
         android:background="@drawable/layout_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:padding="20dp">
 
         <TextView
-            android:layout_width="400dp"
+            android:id="@+id/game_text_dice_player"
+            android:layout_width="@dimen/game_popup_text_width"
             android:layout_height="wrap_content"
-            android:id="@+id/game_text_result"
-            android:textSize="50dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/game_popup_text_size"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="Continuer"
-            android:id="@+id/game_button_result_continue"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/game_button_dice_launch"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:text="@string/game_popup_button_launch"
+            android:textSize="@dimen/game_popup_button_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/game_text_result"
-            android:layout_marginTop="20dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="20dp" />
 
     </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/game_layout_bonus_malus"
+        android:layout_width="@dimen/game_popup_width"
+        android:layout_height="@dimen/game_popup_width"
+        android:focusableInTouchMode="false"
+        android:visibility="gone"
+        android:background="@drawable/layout_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/game_text_title_bonus_malus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bonus / Malus"
+            android:textAlignment="center"
+            android:textSize="@dimen/game_popup_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/game_text_result_bonus_malus"
+            android:layout_width="@dimen/game_popup_text_width"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/game_popup_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_text_title_bonus_malus"
+            app:layout_constraintBottom_toTopOf="@+id/game_button_bonus_malus"/>
+
+        <Button
+            android:id="@+id/game_button_bonus_malus"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:text="@string/game_popup_button_continue"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/game_layout_result"
+        android:layout_width="@dimen/game_popup_width"
+        android:layout_height="@dimen/game_popup_height"
+        android:visibility="gone"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/layout_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/game_text_result"
+            android:layout_width="@dimen/game_popup_text_width"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/game_popup_text_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/game_button_result_continue"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:text="@string/game_popup_button_continue"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="20dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/game_layout_end"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/game_layout_end"
-        android:background="#979797"
-        android:gravity="center"
+        android:background="@color/colorBackgroundPopup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
             android:id="@+id/game_text_end"
-            android:textSize="50dp"
-            android:layout_margin="100dp" />
+            android:layout_width="@dimen/game_popup_text_width"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/game_popup_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game_button_end_new"/>
 
         <Button
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:text="Nouvelle Partie"
-            android:id="@+id/game_button_end_new" />
-    </LinearLayout>
+            android:id="@+id/game_button_end_new"
+            android:layout_width="@dimen/game_popup_button_width"
+            android:layout_height="@dimen/game_popup_button_height"
+            android:text="@string/game_popup_button_new_game"
+            android:textSize="@dimen/game_popup_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="20dp"/>
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/game_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        app:layout_constraintBottom_toBottomOf="parent" >
+
     </android.support.design.widget.CoordinatorLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

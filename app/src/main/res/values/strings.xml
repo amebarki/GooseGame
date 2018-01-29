@@ -9,7 +9,6 @@
     <string name="main_dialog_message_cancel">Annuler</string>
     <string name="main_list_questions_error">Aucune questions trouvées</string>
 
-
     /* Strings for ParametersActivity */
     <string name="param_lib_player_number">Nombre de joueurs</string>
     <string name="param_radio_button_player_number_1">1</string>
@@ -54,7 +53,7 @@
     /* Strings for GameActivity */
     <string name="game_dialog_loading_fail">Une erreur est survenue lors du chargement du jeu. Partie annulée</string>
     <string name="game_time_left">Temps restant : </string>
-    <string name="game_time_end">Time\'s up</string>
+    <string name="game_time_end">Partie terminée !</string>
     <string name="game_time_end_turn">Temps écoulé !</string>
     <string name="game_advance_case">Vous pourrez avancez de %1$d case(s)</string>
     <string name="game_player_win">a gagné la partie !!</string>
@@ -69,7 +68,9 @@
     <string name="game_questions_init_error">Les questions ne sont pas chargées</string>
     <string name="game_create_cases_error">Création du plateau impossible !</string>
     <string name="game_animate_player_error">Erreur lors de l\'animation</string>
-
+    <string name="game_popup_button_new_game">Nouvelle Partie</string>
+    <string name="game_popup_button_continue">Continuer</string>
+    <string name="game_popup_button_launch">Continuer</string>
 
     /* Strings for SettingsActivity */
     <string name="settings_text_font_size">Taille de police : </string>

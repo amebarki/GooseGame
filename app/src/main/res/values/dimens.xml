@@ -32,16 +32,15 @@
     <dimen name="question_recycler_item_button_supp_width">36dp</dimen>
     <dimen name="question_recycler_item_button_supp_height">36dp</dimen>
 
-
     /* Dimensions for ColorPickerActivity */
-        <dimen name="activity_horizontal_margin">16dp</dimen>
-        <dimen name="activity_vertical_margin">16dp</dimen>
-        <dimen name="gap">10dp</dimen>
-        <dimen name="radius">3dp</dimen>
-        <dimen name="gap_small">5dp</dimen>
-        <dimen name="gap_large">20dp</dimen>
-        <dimen name="text">20sp</dimen>
-        <dimen name="fab_margin">16dp</dimen>
-        <dimen name="textSize">80sp</dimen>
+    <dimen name="color_picker_activity_horizontal_margin">16dp</dimen>
+    <dimen name="color_picker_activity_vertical_margin">16dp</dimen>
+    <dimen name="color_picker_gap">10dp</dimen>
+    <dimen name="color_picker_radius">3dp</dimen>
+    <dimen name="color_picker_gap_small">5dp</dimen>
+    <dimen name="color_picker_gap_large">20dp</dimen>
+    <dimen name="color_picker_text">20sp</dimen>
+    <dimen name="color_picker_fab_margin">16dp</dimen>
+    <dimen name="color_picker_text_size">80sp</dimen>
 
 </resources>

@@ -90,6 +90,16 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==1000){
+            if(resultCode==1){
+                finish();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public void processDisplayQuestionTypeList(List<String> types) {
         gameTypeList = types;
 
@@ -106,13 +116,12 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
     @Override
     public void processParametersFinish(Boolean result) {
         Intent i = new Intent(this, PlayersActivity.class);
-        startActivity(i);
+        startActivityForResult(i,1000);
     }
 
     @Override
     public void processPlayersFinish() {
-        Intent i = new Intent(this, GameActivity.class);
-        startActivity(i);
+
     }
 
     @Override
@@ -134,7 +143,7 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
                         dialog.cancel();
                     }
                 });
-        final TextView messageTextView = (TextView) inflator.findViewById(R.id.general_dialog_message);
+        final TextView messageTextView = inflator.findViewById(R.id.general_dialog_message);
         messageTextView.setText(message);
         alertDialogBuilder.show();
     }

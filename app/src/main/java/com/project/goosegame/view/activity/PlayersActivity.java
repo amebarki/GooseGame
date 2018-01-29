@@ -103,6 +103,16 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
         initButton();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==1000){
+            if(resultCode==1){
+                setResult(1);
+                finish();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     public void setNumberPlayer(int nbPlayer) {
 
@@ -311,7 +321,7 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
     @Override
     public void processPlayersFinish() {
         Intent i = new Intent(PlayersActivity.this, GameActivity.class);
-        startActivity(i);
+        startActivityForResult(i,1000);
     }
 
     @Override

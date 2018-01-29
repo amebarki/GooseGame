@@ -165,7 +165,7 @@ public class GameViewModel extends BaseObservable {
             @Override
             public void onFinish() {
                 int currentPlayer = gameManager.getGooseModel().getCurrentPlayer();
-                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove == gameManager.getGooseModel().getNumberCase() - 1) {
+                if (gameManager.getGooseModel().getPlayerList().get(currentPlayer).getCurrentCase() + nbCaseToMove >= gameManager.getGooseModel().getNumberCase() - 1) {
                     response.processDisplayEnd(gameManager.getGooseModel().getPlayerList().get(currentPlayer).getName() + context.getString(R.string.game_player_win));
                 } else {
                     showQuestion(nbCaseToMove);
@@ -229,7 +229,6 @@ public class GameViewModel extends BaseObservable {
                 int currentCasePlayer = gameManager.getGooseModel().getCurrentPlayerObject().getCurrentCase();
                 int typeCase = gameManager.getGooseModel().getBoardGame().get(currentCasePlayer+caseToMove).getType();
 
-                Log.d("type",typeCase + "");
                 if (typeCase > 0) {
                     int indexQuestion = (int) (Math.random() * (gameQuestionsList.size() - 1));
                     Question question = gameQuestionsList.get(indexQuestion);
