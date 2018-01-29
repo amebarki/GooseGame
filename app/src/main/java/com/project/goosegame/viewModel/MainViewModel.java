@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
+import com.project.goosegame.manager.ColorManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.Question;
 import com.project.goosegame.utils.observable.MainObservable;
@@ -23,11 +24,12 @@ import java.util.List;
  * Created by Adam on 25/01/2018.
  */
 
-public class MainViewModel extends BaseObservable {
+public class MainViewModel extends BaseObservable implements ViewModel {
 
     private int secretCode = 3932;
     private Context context;
     private MainObservable response = null;
+    private ColorManager colorManager = null;
     private String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -36,6 +38,7 @@ public class MainViewModel extends BaseObservable {
     public MainViewModel(Context context) {
         this.context = context;
         QuestionManager.getInstance().setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
+        colorManager = ColorManager.getInstance();
     }
 
     public void setResponse(MainObservable mainObservable) {
@@ -78,15 +81,32 @@ public class MainViewModel extends BaseObservable {
     }
 
 
-    public void verifySecretCode(int activity,int code) {
+    public void verifySecretCode(int activity, int code) {
         if (this.secretCode == code) {
             if (activity == 2) {
                 response.processStartQuestionsActivity();
             } else
                 response.processStartSettingsActivity();
-        }else{
+        } else {
             response.processDisplayMessage(context.getString(R.string.main_dialog_secret_code_error));
         }
     }
+
+    public void checkPrimaryColor() {
+        if(colorManager.getPrimary() != -1)
+            response.processPrimaryColor(colorManager.getPrimary());
+
+    }
+
+    public void checkSecundaryColor() {
+        if(colorManager.getSecundary() != -1)
+            response.processSecundaryColor(colorManager.getSecundary());
+    }
+
+    public void checkSelectColor() {
+        if(colorManager.getSelect() != -1)
+            response.processSelectColor(colorManager.getSelect());
+    }
+
 }
 

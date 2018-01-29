@@ -3,6 +3,7 @@ package com.project.goosegame.view.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,13 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
     private RadioGroup gameTimeRadioGroup;
     private NumberPicker gameTypePicker;
     private Button continueButton;
+    private ScrollView scrollViewLayout;
+
+
+    private TextView textViewPlayerNumber;
+    private TextView textViewDifficulty;
+    private TextView textViewGameTime;
+    private TextView textViewType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,10 +54,22 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
         parametersViewModel.initQuestionTypeList();
         parametersViewModel.setParametersObservable(this);
 
+
+        textViewPlayerNumber = (TextView) findViewById(R.id.param_lib_player_number);
+        textViewGameTime = (TextView) findViewById(R.id.param_lib_game_time);
+        textViewDifficulty = (TextView) findViewById(R.id.param_lib_difficulty);
+        textViewType = (TextView) findViewById(R.id.param_lib_game_type);
+
+        scrollViewLayout = (ScrollView) findViewById(R.id.param_scroll_view);
         playerNumberRadioGroup = findViewById(R.id.param_radio_player_number);
         difficultyRadioGroup = findViewById(R.id.param_radio_difficulty);
         gameTimeRadioGroup = findViewById(R.id.param_radio_game_time);
         gameTypePicker = findViewById(R.id.param_picker_game_type);
+        continueButton = findViewById(R.id.param_button_continue);
+
+        parametersViewModel.checkPrimaryColor();
+        parametersViewModel.checkSecundaryColor();
+        parametersViewModel.checkSelectColor();
 
         gameTypePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
 
@@ -58,7 +79,6 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
             }
         });
 
-        continueButton = findViewById(R.id.param_button_continue);
         continueButton.setOnClickListener(this);
     }
 
@@ -139,4 +159,31 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
         alertDialogBuilder.show();
     }
 
+    @Override
+    public void processPrimaryColor(int color) {
+       // scrollViewLayout.setBackgroundColor(color);
+        //gameTypePicker.setBackgroundColor(color);
+    }
+
+    @Override
+    public void processSecundaryColor(int color) {
+       /* textViewPlayerNumber.setTextColor(color);
+        textViewDifficulty.setTextColor(color);
+        textViewGameTime.setTextColor(color);
+        textViewType.setTextColor(color);
+        continueButton.setTextColor(color);*/
+    }
+
+    @Override
+    public void processSelectColor(int color) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        parametersViewModel.checkPrimaryColor();
+        parametersViewModel.checkSecundaryColor();
+        parametersViewModel.checkSelectColor();
+    }
 }

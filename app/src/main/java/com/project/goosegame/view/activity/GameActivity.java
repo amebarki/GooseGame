@@ -705,4 +705,19 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     public void processMessageError(String message) {
         Snackbar.make(findViewById(R.id.game_coordinator_layout),message,Snackbar.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void processPrimaryColor(int color) {
+
+    }
+
+    @Override
+    public void processSecundaryColor(int color) {
+
+    }
+
+    @Override
+    public void processSelectColor(int color) {
+
+    }
 }

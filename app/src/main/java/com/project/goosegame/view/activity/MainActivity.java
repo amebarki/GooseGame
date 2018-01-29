@@ -31,14 +31,18 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
     private ImageButton buttonSettings;
     private ImageButton buttonLoadBD;
     private ConstraintLayout constraintLayoutSplashScreen;
-
+    private ConstraintLayout constraintLayoutBackground;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainViewModel = new MainViewModel(getApplicationContext());
         mainViewModel.setResponse(this);
+        mainViewModel.checkPrimaryColor();
+        mainViewModel.checkSecundaryColor();
+        mainViewModel.checkSelectColor();
         mainViewModel.checkPermissions(this);
+        constraintLayoutBackground = findViewById(R.id.main_background);
         constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
 
 
@@ -95,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
 
     @Override
     public void processStartQuestionsActivity() {
-
         Intent i = new Intent(MainActivity.this, QuestionActivity.class);
         startActivity(i);
     }
@@ -134,13 +137,13 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
         LayoutInflater linf = LayoutInflater.from(this);
         final View inflator = linf.inflate(R.layout.main_dialog_secret_code, null);
         final EditText et2 = (EditText) inflator.findViewById(R.id.main_dialog_password);
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.DialogTextTheme)
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.DialogTextTheme)
                 .setView(inflator);
 
         alertDialogBuilder.setPositiveButton(getString(R.string.main_dialog_message_ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String code = et2.getText().toString();
-                mainViewModel.verifySecretCode(activity,Integer.parseInt(code));
+                mainViewModel.verifySecretCode(activity, Integer.parseInt(code));
             }
         });
 
@@ -150,5 +153,29 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
             }
         });
         alertDialogBuilder.show();
+    }
+
+    @Override
+    public void processPrimaryColor(int color) {
+        constraintLayoutBackground.setBackgroundColor(color);
+        buttonLaunchGame.setTextColor(color);
+        constraintLayoutSplashScreen.setBackgroundColor(color);
+    }
+
+    @Override
+    public void processSecundaryColor(int color) {
+    }
+
+    @Override
+    public void processSelectColor(int color) {
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mainViewModel.checkPrimaryColor();
+        mainViewModel.checkSecundaryColor();
+        mainViewModel.checkSelectColor();
     }
 }

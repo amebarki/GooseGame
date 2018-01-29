@@ -3,9 +3,11 @@ package com.project.goosegame.viewModel;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
+import com.project.goosegame.manager.ColorManager;
 import com.project.goosegame.manager.GameManager;
 import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.model.GooseModel;
@@ -19,11 +21,12 @@ import java.util.List;
  * Created by Adam on 18/01/2018.
  */
 
-public class ParametersViewModel extends BaseObservable {
+public class ParametersViewModel extends BaseObservable implements ViewModel{
 
     private Context context;
     private QuestionManager questionsManager = null;
     private GameManager gameManager = null;
+    private ColorManager colorManager = null;
     private ParametersObservable response = null;
 
     public ParametersViewModel(Context context) {
@@ -31,7 +34,7 @@ public class ParametersViewModel extends BaseObservable {
         questionsManager = QuestionManager.getInstance();
         questionsManager.setAppQuestionDatabase(AppQuestionDatabase.getInstance(context));
         gameManager = GameManager.getInstance();
-
+        colorManager = ColorManager.getInstance();
     }
 
     public void setParametersObservable(ParametersObservable parametersObservable) {
@@ -106,4 +109,21 @@ public class ParametersViewModel extends BaseObservable {
             }
         }.execute();
     }
+
+    public void checkPrimaryColor() {
+        if(colorManager.getPrimary() != -1)
+            response.processPrimaryColor(colorManager.getPrimary());
+
+    }
+
+    public void checkSecundaryColor() {
+        if(colorManager.getSecundary() != -1)
+            response.processSecundaryColor(colorManager.getSecundary());
+    }
+
+    public void checkSelectColor() {
+        if(colorManager.getSelect() != -1)
+            response.processSelectColor(colorManager.getSelect());
+    }
+
 }

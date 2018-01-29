@@ -78,7 +78,7 @@
     <string name="settings_text_primary_color">Couleur primaire : </string>
     <string name="settings_text_secundary_color">Couleur secondaire</string>
     <string name="settings_text_select_color">Couleur de champs de texte/saisie : </string>
-
+    <string name="settings_button_validate">Valider</string>
     /* Strings for Parser */
     <string name="parsing_file_error">Le fichier sélectionné n\'existe pas</string>
     <string name="parsing_reading_error">Une erreur est survenue en lisant le fichier CSV</string>

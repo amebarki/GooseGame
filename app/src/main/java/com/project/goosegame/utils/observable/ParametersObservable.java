@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Adam on 18/01/2018.
  */
 
-public interface ParametersObservable {
+public interface ParametersObservable extends ColorObservable{
 
     void processDisplayQuestionTypeList(List<String> types);
     void processParametersFinish();

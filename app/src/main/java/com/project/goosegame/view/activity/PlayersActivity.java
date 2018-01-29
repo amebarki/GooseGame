@@ -338,4 +338,19 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
         messageTextView.setText(message);
         alertDialogBuilder.show();
     }
+
+    @Override
+    public void processPrimaryColor(int color) {
+
+    }
+
+    @Override
+    public void processSecundaryColor(int color) {
+
+    }
+
+    @Override
+    public void processSelectColor(int color) {
+
+    }
 }

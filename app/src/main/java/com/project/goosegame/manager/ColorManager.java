@@ -8,9 +8,9 @@ public class ColorManager {
 
 
     private static ColorManager instance = null;
-    private int primary;
-    private int secundary;
-    private int select;
+    private int primary = -1;
+    private int secundary = -1;
+    private int select = -1;
 
     public static ColorManager getInstance() {
         if (instance == null) {
@@ -42,6 +42,7 @@ public class ColorManager {
     public void setSelect(int select) {
         this.select = select;
     }
+
 
 
 }

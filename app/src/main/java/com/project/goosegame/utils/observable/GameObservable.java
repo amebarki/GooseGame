@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Adam on 19/01/2018.
  */
 
-public interface GameObservable {
+public interface GameObservable extends ColorObservable {
 
     void processGooseModel(GooseModel gooseModel);
 

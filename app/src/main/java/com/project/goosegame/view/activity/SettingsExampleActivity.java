@@ -29,6 +29,7 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
     private Button buttonPrimary;
     private Button buttonSecundary;
     private Button buttonSelect;
+    private Button buttonValidate;
     private Spinner spinner;
     private List fontSizeList;
     private TextView primaryTextView, secundaryTextView, selectTextView, fontSizeTextView;
@@ -41,6 +42,13 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
         settingsViewModel = new SettingsViewModel(getApplicationContext());
         settingsViewModel.setSettingsObservable(this);
         this.initialize();
+
+        buttonValidate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         buttonPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +79,7 @@ public class SettingsExampleActivity extends AppCompatActivity implements Settin
 
     public void initialize()
     {
+        buttonValidate = (Button) findViewById(R.id.settings_button_validate);
         buttonPrimary = (Button) findViewById(R.id.settings_button_primary);
         buttonSecundary = (Button) findViewById(R.id.settings_button_secundary);
         buttonSelect = (Button) findViewById(R.id.settings_button_select);
