@@ -42,6 +42,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     private List<Case> caseList;
     private List<Player> playerList;
     private GooseModel gooseModel;
+    private CountDownTimer answerTimeTimer;
 
     private int windowWidth;
     private int windowHeight;
@@ -51,7 +52,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     ImageView pion3;
     ImageView pion4;
 
-    LinearLayout diceLayout;
+    ConstraintLayout diceLayout;
     TextView dicePlayerTextView;
     TextView diceResultTextView;
     Button diceLaunchButton;
@@ -60,30 +61,30 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     TextView resultatTextView;
     Button resultatContinuerButton;
 
-    LinearLayout question2Layout;
+    ConstraintLayout question2Layout;
     TextView question2TextView;
     Button question2Answer1Button;
     Button question2Answer2Button;
 
-    LinearLayout question3Layout;
+    ConstraintLayout question3Layout;
     TextView question3TextView;
     Button question3Answer1Button;
     Button question3Answer2Button;
     Button question3Answer3Button;
 
-    LinearLayout question4Layout;
+    ConstraintLayout question4Layout;
     TextView question4TextView;
     Button question4Answer1Button;
     Button question4Answer2Button;
     Button question4Answer3Button;
     Button question4Answer4Button;
 
-    LinearLayout bonusMalusLayout;
+    ConstraintLayout bonusMalusLayout;
     TextView bonusMalusTitleTextView;
     TextView bonusMalusResultTextView;
     Button bonusMalusContinueButton;
 
-    LinearLayout endLayout;
+    ConstraintLayout endLayout;
     TextView endTextView;
     Button endNewGameButton;
 
@@ -275,6 +276,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
 
                 }
 
+                answerTimeTimer.cancel();
                 question2Layout.setVisibility(View.GONE);
                 gameViewModel.verifyAnswer(answer, question);
             }
@@ -315,6 +317,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
                         answer = "";
                 }
 
+                answerTimeTimer.cancel();
                 question3Layout.setVisibility(View.GONE);
                 gameViewModel.verifyAnswer(answer, question);
             }
@@ -363,6 +366,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
                         answer = "";
                 }
 
+                answerTimeTimer.cancel();
                 question4Layout.setVisibility(View.GONE);
                 gameViewModel.verifyAnswer(answer, question);
             }
@@ -410,6 +414,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        setResult(1);
                         finish();
                     }
                 });
@@ -445,7 +450,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
 
         GameManager gameManager = gameViewModel.getGameManager();
 
-        new CountDownTimer(gameManager.getGooseModel().getCurrentPlayerObject().getAnswerTime() * 1000, 1000) {
+        answerTimeTimer = new CountDownTimer(gameManager.getGooseModel().getCurrentPlayerObject().getAnswerTime() * 1000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -553,6 +558,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
             @Override
             public void onClick(View v) {
                 endLayout.setVisibility(View.GONE);
+                setResult(1);
                 finish();
             }
         });

@@ -17,30 +17,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/color_picker_activity_horizontal_margin"
+            android:paddingRight="@dimen/color_picker_activity_horizontal_margin"
+            android:paddingTop="@dimen/color_picker_activity_vertical_margin"
+            android:paddingBottom="@dimen/color_picker_activity_vertical_margin"
             tools:context=".MainActivity">
 
             <com.project.goosegame.utils.colorpicker.ColorPicker
                 android:id="@+id/top"
-                app:radius="@dimen/radius"
+                app:radius="@dimen/color_picker_radius"
                 app:pointerDrawable="@drawable/pointer_simple"
                 app:lockPointerInBounds="true"
                 android:background="@drawable/gradient_background"
-                android:layout_margin="@dimen/gap_large"
-                android:padding="@dimen/gap_small"
+                android:layout_margin="@dimen/color_picker_gap_large"
+                android:padding="@dimen/color_picker_gap_small"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"/>
 
         <com.project.goosegame.utils.colorpicker.ColorPicker
             android:id="@+id/bottom"
             android:background="@drawable/gradient_background"
-            android:layout_margin="@dimen/gap_large"
-            android:padding="@dimen/gap_small"
+            android:layout_margin="@dimen/color_picker_gap_large"
+            android:padding="@dimen/color_picker_gap_small"
             app:lockPointerInBounds="false"
-            app:radius="@dimen/radius"
+            app:radius="@dimen/color_picker_radius"
             app:pointerDrawable="@drawable/pointer_arrows"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

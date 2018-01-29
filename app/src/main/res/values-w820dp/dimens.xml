@@ -30,4 +30,25 @@
     <dimen name="question_recycler_item_lib_max_width">800dp</dimen>
     <dimen name="question_recycler_item_button_supp_width">36dp</dimen>
     <dimen name="question_recycler_item_button_supp_height">36dp</dimen>
+
+    /* Dimensions for GameActivity */
+    <dimen name="game_pion_size">120dp</dimen>
+    <dimen name="game_popup_width">600dp</dimen>
+    <dimen name="game_popup_height">600dp</dimen>
+    <dimen name="game_popup_text_width">400dp</dimen>
+    <dimen name="game_popup_text_size">40sp</dimen>
+    <dimen name="game_popup_button_text_size">24sp</dimen>
+    <dimen name="game_popup_button_height">150dp</dimen>
+    <dimen name="game_popup_button_width">270dp</dimen>
+
+    /* Dimensions for ColorPickerActivity */
+    <dimen name="color_picker_activity_horizontal_margin">16dp</dimen>
+    <dimen name="color_picker_activity_vertical_margin">16dp</dimen>
+    <dimen name="color_picker_gap">10dp</dimen>
+    <dimen name="color_picker_radius">3dp</dimen>
+    <dimen name="color_picker_gap_small">5dp</dimen>
+    <dimen name="color_picker_gap_large">20dp</dimen>
+    <dimen name="color_picker_text">20sp</dimen>
+    <dimen name="color_picker_fab_margin">16dp</dimen>
+    <dimen name="color_picker_text_size">80sp</dimen>
 </resources>
