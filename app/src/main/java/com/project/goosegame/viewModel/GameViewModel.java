@@ -148,7 +148,7 @@ public class GameViewModel extends BaseObservable {
     public void ThrowDice() {
         nbCaseToMove = 0;
         do {
-            nbCaseToMove = (int) ((Math.random() * 6 * gameManager.getGooseModel().getNumberDice()));
+            nbCaseToMove = (int) ((Math.random() * 6 * gameManager.getGooseModel().getNumberDice() + 1));
         } while (nbCaseToMove == 0);
 
         response.processDisplayResultDice(context.getString(R.string.game_advance_case,nbCaseToMove));

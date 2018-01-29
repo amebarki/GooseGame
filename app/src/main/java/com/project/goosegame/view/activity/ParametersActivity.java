@@ -55,12 +55,12 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
         parametersViewModel.setParametersObservable(this);
 
 
-        textViewPlayerNumber = (TextView) findViewById(R.id.param_lib_player_number);
-        textViewGameTime = (TextView) findViewById(R.id.param_lib_game_time);
-        textViewDifficulty = (TextView) findViewById(R.id.param_lib_difficulty);
-        textViewType = (TextView) findViewById(R.id.param_lib_game_type);
+        textViewPlayerNumber = findViewById(R.id.param_lib_player_number);
+        textViewGameTime = findViewById(R.id.param_lib_game_time);
+        textViewDifficulty = findViewById(R.id.param_lib_difficulty);
+        textViewType = findViewById(R.id.param_lib_game_type);
 
-        scrollViewLayout = (ScrollView) findViewById(R.id.param_scroll_view);
+        scrollViewLayout = findViewById(R.id.param_scroll_view);
         playerNumberRadioGroup = findViewById(R.id.param_radio_player_number);
         difficultyRadioGroup = findViewById(R.id.param_radio_difficulty);
         gameTimeRadioGroup = findViewById(R.id.param_radio_game_time);
