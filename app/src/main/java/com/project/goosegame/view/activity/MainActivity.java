@@ -3,6 +3,7 @@ package com.project.goosegame.view.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.project.goosegame.R;
 import com.project.goosegame.utils.observable.MainObservable;
@@ -32,19 +32,18 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
     private ImageButton buttonLoadBD;
     private ConstraintLayout constraintLayoutSplashScreen;
     private ConstraintLayout constraintLayoutBackground;
+    private SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainViewModel = new MainViewModel(getApplicationContext());
-        mainViewModel.setResponse(this);
-        mainViewModel.checkPrimaryColor();
-        mainViewModel.checkSecundaryColor();
-        mainViewModel.checkSelectColor();
-        mainViewModel.checkPermissions(this);
-        constraintLayoutBackground = findViewById(R.id.main_background);
-        constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
 
+        mainViewModel = new MainViewModel(getApplicationContext());
+
+        getPrefsColor();
+
+        mainViewModel.setResponse(this);
 
         buttonLaunchGame = findViewById(R.id.main_button_play);
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +69,11 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
             }
         });
 
+        mainViewModel.checkPrimaryColor();
+        mainViewModel.checkSecundaryColor();
+        mainViewModel.checkSelectColor();
+        mainViewModel.checkPermissions(this);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -78,6 +82,27 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
         }, 2000);
 
 
+    }
+
+    private void getPrefsColor() {
+        int defaultPrimaryColor;
+        int defaultSecondaryColor;
+        int defaultSelectColor;
+        int primary;
+        int secondary;
+        int select;
+
+        sharedPref = this.getSharedPreferences(getString(R.string.shared_pref_color), this.MODE_PRIVATE);
+        defaultPrimaryColor = getResources().getColor(R.color.colorPrimary);
+        primary = sharedPref.getInt(getString(R.string.saved_primary_color),defaultPrimaryColor);
+        defaultSecondaryColor = getResources().getColor(R.color.colorSecondary);
+        secondary = sharedPref.getInt(getString(R.string.saved_secondary_color),defaultSecondaryColor);
+        defaultSelectColor = getResources().getColor(R.color.colorSelect);
+        select = sharedPref.getInt(getString(R.string.saved_select_color),defaultSelectColor);
+
+        mainViewModel.setPrimaryColor(primary);
+        mainViewModel.setSecondaryColor(secondary);
+        mainViewModel.setSelectColor(select);
     }
 
     @Override
@@ -105,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
 
     @Override
     public void processStartSettingsActivity() {
-        Intent i = new Intent(MainActivity.this, SettingsExampleActivity.class);
+        Intent i = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(i);
     }
 
@@ -128,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
                         dialog.cancel();
                     }
                 });
-        final TextView et2 = (TextView) inflator.findViewById(R.id.general_dialog_message);
+        final TextView et2 = inflator.findViewById(R.id.general_dialog_message);
         et2.setText(message);
         alertDialogBuilder.show();
     }
@@ -157,13 +182,16 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
 
     @Override
     public void processPrimaryColor(int color) {
+        constraintLayoutBackground = findViewById(R.id.main_background);
+        constraintLayoutSplashScreen = findViewById(R.id.imageSplashScreen);
+
         constraintLayoutBackground.setBackgroundColor(color);
         buttonLaunchGame.setTextColor(color);
         constraintLayoutSplashScreen.setBackgroundColor(color);
     }
 
     @Override
-    public void processSecundaryColor(int color) {
+    public void processSecondaryColor(int color) {
     }
 
     @Override

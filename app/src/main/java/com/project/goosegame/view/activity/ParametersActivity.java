@@ -3,6 +3,8 @@ package com.project.goosegame.view.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,7 +41,6 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
     private NumberPicker gameTypePicker;
     private Button continueButton;
     private ScrollView scrollViewLayout;
-
 
     private TextView textViewPlayerNumber;
     private TextView textViewDifficulty;
@@ -170,12 +171,12 @@ public class ParametersActivity extends AppCompatActivity implements ParametersO
 
     @Override
     public void processPrimaryColor(int color) {
-       // scrollViewLayout.setBackgroundColor(color);
-        //gameTypePicker.setBackgroundColor(color);
+        scrollViewLayout.setBackgroundColor(color);
+
     }
 
     @Override
-    public void processSecundaryColor(int color) {
+    public void processSecondaryColor(int color) {
        /* textViewPlayerNumber.setTextColor(color);
         textViewDifficulty.setTextColor(color);
         textViewGameTime.setTextColor(color);

@@ -8,7 +8,7 @@ public interface ColorObservable {
 
     void processPrimaryColor(int color);
 
-    void processSecundaryColor(int color);
+    void processSecondaryColor(int color);
 
     void processSelectColor(int color);
 }

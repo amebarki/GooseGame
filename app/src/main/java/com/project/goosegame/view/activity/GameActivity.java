@@ -718,7 +718,7 @@ public class GameActivity extends AppCompatActivity implements GameObservable {
     }
 
     @Override
-    public void processSecundaryColor(int color) {
+    public void processSecondaryColor(int color) {
 
     }
 

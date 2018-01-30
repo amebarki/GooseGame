@@ -8,7 +8,6 @@ import android.databinding.BaseObservable;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
@@ -92,6 +91,19 @@ public class MainViewModel extends BaseObservable implements ViewModel {
         }
     }
 
+    public void setPrimaryColor(int primaryColor) {
+        colorManager.setPrimary(primaryColor);
+    }
+
+    public void setSecondaryColor(int secundaryColor) {
+        colorManager.setSecundary(secundaryColor);
+    }
+
+    public void setSelectColor(int selectColor) {
+        colorManager.setSelect(selectColor);
+    }
+
+
     public void checkPrimaryColor() {
         if(colorManager.getPrimary() != -1)
             response.processPrimaryColor(colorManager.getPrimary());
@@ -100,7 +112,7 @@ public class MainViewModel extends BaseObservable implements ViewModel {
 
     public void checkSecundaryColor() {
         if(colorManager.getSecundary() != -1)
-            response.processSecundaryColor(colorManager.getSecundary());
+            response.processSecondaryColor(colorManager.getSecundary());
     }
 
     public void checkSelectColor() {

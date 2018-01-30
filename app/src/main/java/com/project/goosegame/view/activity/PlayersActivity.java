@@ -355,7 +355,7 @@ public class PlayersActivity extends AppCompatActivity implements ParametersObse
     }
 
     @Override
-    public void processSecundaryColor(int color) {
+    public void processSecondaryColor(int color) {
 
     }
 

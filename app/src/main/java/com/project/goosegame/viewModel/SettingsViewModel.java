@@ -3,8 +3,8 @@ package com.project.goosegame.viewModel;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
-import android.widget.Toast;
 
+import com.project.goosegame.manager.ColorManager;
 import com.project.goosegame.manager.SettingsManager;
 import com.project.goosegame.utils.observable.SettingsObservable;
 import com.project.goosegame.view.activity.ColorPickerActivity;
@@ -16,17 +16,19 @@ import java.util.List;
  * Created by Adam on 23/01/2018.
  */
 
-public class SettingsViewModel extends BaseObservable {
+public class SettingsViewModel extends BaseObservable implements ViewModel {
 
     private Context context;
     private SettingsManager settingsManager = null;
     private SettingsObservable response = null;
     private List fontSizeList = null;
+    private ColorManager colorManager = null;
 
     public SettingsViewModel(Context context) {
         this.context = context;
         settingsManager = SettingsManager.getInstance();
         fontSizeList = new ArrayList();
+        colorManager = ColorManager.getInstance();
     }
 
     public void setSettingsObservable(SettingsObservable settingsObservable) {
@@ -67,15 +69,34 @@ public class SettingsViewModel extends BaseObservable {
     }
 
     public void setPrimaryColor(int primaryColor) {
-        settingsManager.getColorManager().setPrimary(primaryColor);
+        colorManager.setPrimary(primaryColor);
     }
 
     public void setSecundaryColor(int secundaryColor) {
-        settingsManager.getColorManager().setSecundary(secundaryColor);
+        colorManager.setSecundary(secundaryColor);
     }
 
     public void setSelectColor(int selectColor) {
-        settingsManager.getColorManager().setSelect(selectColor);
+        colorManager.setSelect(selectColor);
+    }
+
+    @Override
+    public void checkPrimaryColor() {
+        if(colorManager.getPrimary() != -1)
+            response.processPrimaryColor(colorManager.getPrimary());
+
+    }
+
+    @Override
+    public void checkSecundaryColor() {
+        if(colorManager.getSecundary() != -1)
+            response.processSecondaryColor(colorManager.getSecundary());
+    }
+
+    @Override
+    public void checkSelectColor() {
+        if(colorManager.getSelect() != -1)
+            response.processSelectColor(colorManager.getSelect());
     }
 }
 

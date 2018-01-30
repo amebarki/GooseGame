@@ -3,7 +3,6 @@ package com.project.goosegame.viewModel;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.project.goosegame.R;
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
@@ -110,17 +109,20 @@ public class ParametersViewModel extends BaseObservable implements ViewModel{
         }.execute();
     }
 
+    @Override
     public void checkPrimaryColor() {
         if(colorManager.getPrimary() != -1)
             response.processPrimaryColor(colorManager.getPrimary());
 
     }
 
+    @Override
     public void checkSecundaryColor() {
         if(colorManager.getSecundary() != -1)
-            response.processSecundaryColor(colorManager.getSecundary());
+            response.processSecondaryColor(colorManager.getSecundary());
     }
 
+    @Override
     public void checkSelectColor() {
         if(colorManager.getSelect() != -1)
             response.processSelectColor(colorManager.getSelect());

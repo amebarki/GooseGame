@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Jeu de l\'oie</string>
+    <string name="shared_pref_color">PrefColor</string>
+    <string name="saved_primary_color">PrimaryColor</string>
+    <string name="saved_secondary_color">SecondaryColor</string>
+    <string name="saved_select_color">SelectColor</string>
 
     /* Strings for MainActivity */
     <string name="main_button_play">Jouer</string>

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Adam on 23/01/2018.
  */
 
-public interface SettingsObservable {
+public interface SettingsObservable extends ColorObservable {
 
 
     public void processOpenPrimaryColor(Intent intent);
