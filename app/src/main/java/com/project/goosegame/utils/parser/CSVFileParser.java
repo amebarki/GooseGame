@@ -54,7 +54,7 @@ public class CSVFileParser {
             String csvLine= URLEncoder.encode(reader.readLine());
             while ((csvLine = reader.readLine()) != null) {
 
-                String[] row = csvLine.split(";");
+                String[] row = csvLine.split(",");
                 Question question = new Question(row[1],Integer.parseInt(row[2]),row[3],row[4],
                         row[5],row[6],row[7],Integer.parseInt(row[8]));
                 questionsList.add(question);

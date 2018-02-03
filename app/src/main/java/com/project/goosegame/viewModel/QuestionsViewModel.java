@@ -56,7 +56,7 @@ public class QuestionsViewModel extends BaseObservable {
 
     public void loadFile(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            File pathFolder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GameOfGoose" + File.separator);
+            File pathFolder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "JeuOie" + File.separator);
             if (!pathFolder.exists()) {
                 pathFolder.mkdir();
             }
