@@ -1,6 +1,7 @@
 package com.project.goosegame.utils.parser;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.project.goosegame.R;
 import com.project.goosegame.model.Question;

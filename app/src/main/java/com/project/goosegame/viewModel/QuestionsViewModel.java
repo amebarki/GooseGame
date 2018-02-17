@@ -44,9 +44,9 @@ public class QuestionsViewModel extends BaseObservable {
     }
 
     public Intent openFileExplorer() {
-        File filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GameOfGoose" + File.separator);
+        File filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "JeuOie" + File.separator);
         if (!filePath.exists()) {
-            filePath.mkdir();
+            filePath.mkdirs();
         }
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("text/comma-separated-values");

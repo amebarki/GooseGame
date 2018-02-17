@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.project.goosegame.R;
+import com.project.goosegame.manager.QuestionManager;
 import com.project.goosegame.utils.observable.MainObservable;
 import com.project.goosegame.viewModel.MainViewModel;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
         getPrefsColor();
 
         mainViewModel.setResponse(this);
+
+        mainViewModel.importBaseQuestions();
 
         buttonLaunchGame = findViewById(R.id.main_button_play);
         buttonLaunchGame.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements MainObservable {
                 constraintLayoutSplashScreen.setVisibility(View.GONE);
             }
         }, 2000);
+
 
 
     }

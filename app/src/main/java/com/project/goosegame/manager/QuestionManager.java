@@ -2,6 +2,7 @@ package com.project.goosegame.manager;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.project.goosegame.bdd.database.AppQuestionDatabase;
 import com.project.goosegame.model.Question;
@@ -81,6 +82,7 @@ public class QuestionManager {
     }
 
     public boolean createQuestions() {
+        Log.d("TAGO","AGAAEF");
         ArrayList<Question> baseQuestions = new ArrayList<>();
         Question q1 = new Question("grammaire", 1, "titi", "tic", "tac", "tuc", "toc", 0);
         Question q2 = new Question("conjugaison", 2, "roro", "roc", "rac", "ruc", "ric", 0);

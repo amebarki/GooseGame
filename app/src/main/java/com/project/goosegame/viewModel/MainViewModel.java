@@ -79,6 +79,22 @@ public class MainViewModel extends BaseObservable implements ViewModel {
         }.execute();
     }
 
+    public void importBaseQuestions() {
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+
+                return QuestionManager.getInstance().createQuestions();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                super.onPostExecute(aBoolean);
+                //response.processDisplayMessage(context.getString(R.string.main_list_questions_error));
+            }
+        }.execute();
+    }
+
 
     public void verifySecretCode(int activity, int code) {
         if (this.secretCode == code) {
