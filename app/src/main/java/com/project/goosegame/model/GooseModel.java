@@ -24,6 +24,7 @@ public class GooseModel {
     private int currentPlayer;
     private boolean toRight;
 
+    // 1 -> CP / 2 -> CE1 / 3 -> CE2  4-> CM1 / 5 -> CM2
     public GooseModel(int numberPlayer, int difficulty, int numberDice, int durationGame, String typeGame) {
         this.numberPlayer = numberPlayer;
         this.difficulty = difficulty;

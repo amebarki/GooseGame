@@ -28,7 +28,8 @@ public class CSVFileParser {
     private ArrayList<Question> questionsList;
     private Context context;
     private QuestionsObservable response;
-    public CSVFileParser(Context context, QuestionsObservable response, File file){
+
+    public CSVFileParser(Context context, QuestionsObservable response, File file) {
         this.context = context;
         this.response = response;
         questionsList = new ArrayList<>();
@@ -41,40 +42,55 @@ public class CSVFileParser {
         }
     }
 
-    public ArrayList<Question> read(QuestionsObservable response){
+    public ArrayList<Question> read(QuestionsObservable response) {
         List resultList = new ArrayList();
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(fileInputStream,"WINDOWS-1252"));
+            reader = new BufferedReader(new InputStreamReader(fileInputStream, "WINDOWS-1252"));
         } catch (UnsupportedEncodingException e) {
             response.processErrorParsing(context.getString(R.string.parsing_charset_error));
             e.printStackTrace();
         }
         try {
             // avoid the first line wich is the name of the columns
-            String csvLine= URLEncoder.encode(reader.readLine());
+            String csvLine = URLEncoder.encode(reader.readLine());
             while ((csvLine = reader.readLine()) != null) {
 
                 String[] row = csvLine.split(",");
-                Question question = new Question(row[1],Integer.parseInt(row[2]),row[3],row[4],
-                        row[5],row[6],row[7],Integer.parseInt(row[8]));
+
+                Question question = new Question(row[1], determineLevelQuestion(row[2]), row[3], row[4],
+                        row[5], row[6], row[7], Integer.parseInt(row[8]));
                 questionsList.add(question);
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             response.processErrorParsing(context.getString(R.string.parsing_reading_error));
             //throw new RuntimeException("Error in reading CSV file : "+ex);
-        }
-        finally {
+        } finally {
             try {
                 fileInputStream.close();
                 reader.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 response.processErrorParsing(context.getString(R.string.parsing_reading_error));
                 //throw new RuntimeException("Error while closing input stream : "+e);
             }
         }
         return questionsList;
+    }
+
+    public int determineLevelQuestion(String level) {
+        switch (level) {
+            case "CP":
+                return 1;
+            case "CE1":
+                return 2;
+            case "CE2":
+                return 3;
+            case "CM1":
+                return 4;
+            case "CM2":
+                return 5;
+            default:
+                return 1;
+        }
     }
 }
