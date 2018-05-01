@@ -58,7 +58,7 @@ public class CSVFileParser {
 
                 String[] row = csvLine.split(",");
 
-                Question question = new Question(row[1], determineLevelQuestion(row[2]), row[3], row[4],
+                Question question = new Question(row[1], determineLevelQuestion(row[2].toUpperCase()), row[3], row[4],
                         row[5], row[6], row[7], Integer.parseInt(row[8]));
                 questionsList.add(question);
             }
